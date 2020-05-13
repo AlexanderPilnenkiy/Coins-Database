@@ -186,4 +186,15 @@ C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\CommonServiceLocato
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\GalaSoft.MvvmLight.Extras.dll
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\GalaSoft.MvvmLight.Extras.pdb
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\GalaSoft.MvvmLight.Extras.xml
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\ClosedXML.dll
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\ExcelNumberFormat.dll
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\System.IO.Packaging.dll
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\ClosedXML.pdb
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\ClosedXML.xml
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\DocumentFormat.OpenXml.xml
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\ExcelNumberFormat.xml
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\Npgsql.pdb
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\System.Text.Json.xml
+C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Coins Database.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Coins Database.csprojAssemblyReference.cache

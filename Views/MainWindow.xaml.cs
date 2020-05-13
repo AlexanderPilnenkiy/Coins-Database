@@ -342,6 +342,7 @@ namespace Coins_Database.Views
             FakePanel.Visibility = Visibility.Hidden;
             Lnight.Visibility = Visibility.Hidden;
             LPanel.Visibility = Visibility.Hidden;
+            LType.Items.Clear();
         }
 
         private void addCoin_Click_1(object sender, RoutedEventArgs e)
@@ -419,37 +420,44 @@ namespace Coins_Database.Views
 
         private void AddTeacherButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Portrait.Source != null)
+            try
             {
-                if (is_new_teacher == true)
+                if (Portrait.Source != null)
                 {
-                    IIVM.InsertImage(_login, _password, file_path);
-                    Operations.Operations.Execute(_login, _password, Queries.AddTeacher(FakeFIO.Text, FakeSpeciality.Text,
-                        FakeInfo.Text, LIIVM.LastImageID(_login, _password)));
-                    TCardPhoto.Source = null;
-                    TCardName.Text = "";
-                    TCardInfo.DataContext = null;
-                    TCardSpeciality.DataContext = null;
+                    if (is_new_teacher == true)
+                    {
+                        IIVM.InsertImage(_login, _password, file_path);
+                        Operations.Operations.Execute(_login, _password, Queries.AddTeacher(FakeFIO.Text, FakeSpeciality.Text,
+                            FakeInfo.Text, LIIVM.LastImageID(_login, _password)));
+                        TCardPhoto.Source = null;
+                        TCardName.Text = "";
+                        TCardInfo.DataContext = null;
+                        TCardSpeciality.DataContext = null;
+                    }
+                    else
+                    {
+                        IIVM.InsertImage(_login, _password, file_path);
+                        Operations.Operations.Execute(_login, _password, Queries.UpdateTeacher(FakeFIO.Text, FakeSpeciality.Text,
+                            FakeInfo.Text, LIIVM.LastImageID(_login, _password), id_teacher));
+                        TCardName.Text = FakeFIO.Text;
+                        TCardSpeciality.DataContext = TCVM.LoadTeacherCard(_login, _password, Queries.GetTeacherCard(FakeFIO.Text));
+                        TCardInfo.DataContext = TCVM.LoadTeacherCard(_login, _password, Queries.GetTeacherCard(FakeFIO.Text));
+                        TCardPhoto.Source = TPVM.LoadTeacherPhoto(_login, _password, Queries.GetTeacherPhoto(FakeFIO.Text));
+
+                    }
+                    teachersTable.ItemsSource = TLVM.LoadTeachersList(_login, _password, Queries.GetTeachersList);
+                    TeacherPageGrid.Visibility = Visibility.Hidden;
+                    TeacherPageBackground.Visibility = Visibility.Hidden;
+                    FakeTeacherPanel.Visibility = Visibility.Hidden;
                 }
                 else
                 {
-                    IIVM.InsertImage(_login, _password, file_path);
-                    Operations.Operations.Execute(_login, _password, Queries.UpdateTeacher(FakeFIO.Text, FakeSpeciality.Text,
-                        FakeInfo.Text, LIIVM.LastImageID(_login, _password), id_teacher));
-                    TCardName.Text = FakeFIO.Text;
-                    TCardSpeciality.DataContext = TCVM.LoadTeacherCard(_login, _password, Queries.GetTeacherCard(FakeFIO.Text));
-                    TCardInfo.DataContext = TCVM.LoadTeacherCard(_login, _password, Queries.GetTeacherCard(FakeFIO.Text));
-                    TCardPhoto.Source = TPVM.LoadTeacherPhoto(_login, _password, Queries.GetTeacherPhoto(FakeFIO.Text));
-
+                    MessageBox.Show("Нужно выбрать фото");
                 }
-                teachersTable.ItemsSource = TLVM.LoadTeachersList(_login, _password, Queries.GetTeachersList);
-                TeacherPageGrid.Visibility = Visibility.Hidden;
-                TeacherPageBackground.Visibility = Visibility.Hidden;
-                FakeTeacherPanel.Visibility = Visibility.Hidden;
             }
-            else
+            catch
             {
-                MessageBox.Show("Нужно выбрать фото");
+                MessageBox.Show("Нужно выбрать/обновить фото (при обновлении можно выбрать то же самое)");
             }
         }
 
@@ -972,6 +980,7 @@ namespace Coins_Database.Views
                 LPanel.Visibility = Visibility.Hidden;
                 Lnight.Visibility = Visibility.Hidden;
                 LPanel.Visibility = Visibility.Hidden;
+                LType.Items.Clear();
             }
         }
 
@@ -1012,7 +1021,10 @@ namespace Coins_Database.Views
             {
                 Excel.RatingReport(workbook, "Соц. активность", RWM.LoadRating(_login, _password, Queries.GetRatingSocActivity(year, semestr)));
             }
-            MessageBox.Show("Отчёт успешно сформирован");
+            if (Excel.SaveReport(workbook) == true)
+            {
+                ExportGrid.Visibility = Visibility.Hidden;
+            }
         }
 
         #region Учительский общий рейтинг
