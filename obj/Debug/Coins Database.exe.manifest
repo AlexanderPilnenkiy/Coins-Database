@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Coins Database.exe" size="1875424">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Coins Database.exe" size="1876448">
       <assemblyIdentity name="Coins Database" version="1.0.1.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>YsGn7NeQrTkV7m3zbrSD8XZkdnd/3gL9+cXTh1UCSi8=</dsig:DigestValue>
+        <dsig:DigestValue>B7tAvNFRj19phGeQfg6jbBSpgLDAJEmU96AB3zz8hyY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

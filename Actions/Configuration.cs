@@ -29,18 +29,18 @@ namespace Coins_Database.Actions
                 result = true;
                 Session.Login = login;
 
-                //if (!CheckSAAccess())
-                //{
-                //    if (!CheckTeacherAccess())
-                //    {
-                //        result = false;
-                //        MessageBox.Show("Вход недоступен");
-                //    }
-                //}
+                if (!CheckSAAccess())
+                {
+                    if (!CheckTeacherAccess())
+                    {
+                        result = false;
+                        MessageBox.Show("Вход недоступен");
+                    }
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show("Вход недоступен");
                 result = false;
             }
             return result;

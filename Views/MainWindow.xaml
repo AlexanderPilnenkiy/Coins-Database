@@ -144,19 +144,19 @@
             <Button x:Name="ChangeTeacher" Content="Редактировать"
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="43" Background="#FF5D11A0" Width="136"
-                    BorderBrush="#FF260940" Visibility="Visible" Margin="487,445,154,1.6" Click="ChangeTeacher_Click"/>
+                    BorderBrush="#FF260940" Visibility="Hidden" Margin="487,445,154,1.6" Click="ChangeTeacher_Click"/>
             <Button x:Name="DeleteTeacher" Content="Удалить" 
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="43" Background="#FF5D11A0" 
-                    BorderBrush="#FF260940" Visibility="Visible" Margin="631,445,10,1.6" Click="DeleteTeacher_Click"/>
+                    BorderBrush="#FF260940" Visibility="Hidden" Margin="631,445,10,1.6" Click="DeleteTeacher_Click"/>
             <Button x:Name="Loot" Content="Наградить"
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="43" Background="#FF5D11A0"
-                    BorderBrush="#FF260940" Visibility="Visible" Margin="487,397,10,49.6" Click="Loot_Click"/>
-            <materialDesign:ColorZone Height="599" x:Name="Lnight" Visibility="Hidden"
+                    BorderBrush="#FF260940" Visibility="Hidden" Margin="487,397,10,49.6" Click="Loot_Click"/>
+            <materialDesign:ColorZone Height="610" x:Name="Lnight" Visibility="Hidden"
             Mode="PrimaryMid" Opacity="0.85"
             Effect="{DynamicResource MaterialDesignShadowDepth5}" 
-                Background="#FF373737" Margin="-11,-120,-9,0" HorizontalAlignment="Right" Width="797"/>
+                Background="#FF373737" Margin="-20,-105,-17,-15.4" HorizontalAlignment="Right" Width="814"/>
             <StackPanel Orientation="Horizontal" Background="#FFFFFFFF"
                         x:Name="LPanel"
                         Margin="235,0,214,135" Visibility="Hidden">
@@ -305,7 +305,7 @@
             <StackPanel Orientation="Horizontal" Margin="5,4,0,439" Cursor="Hand" Width="780">
                 <RadioButton
                     Style="{StaticResource MaterialDesignTabRadioButton}"
-                    Margin="4,4,3.8,4"
+                    Margin="4,4,3.8,4" x:Name="AllMessages"
                     Checked="RadioButton_Checked_3"
                     Content="Все заявки" FontSize="20" Height="44" Width="185"/>
                 <RadioButton
@@ -922,7 +922,7 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid x:Name="teachers_mBox" Visibility="Hidden" Margin="0,59,-0.2,-0.2" Grid.Row="1">
+        <Grid x:Name="teachers_mBox" Visibility="Hidden" Margin="0,99,-0.2,-0.6" Grid.RowSpan="2">
             <Grid x:Name="MyRequests" Visibility="Visible" Margin="11,0,6,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="87*"/>
@@ -993,7 +993,7 @@
                         x:Name="Snackbar2" Margin="10,0,328,7.6" Width="442" Grid.ColumnSpan="2" Height="51">
                     <materialDesign:SnackbarMessage 
                             ActionContent="Скрыть" 
-                            Content = "Заявка отправлена" ActionClick="SnackbarMessage_ActionClick_1">
+                            Content = "Заявка отправлена" ActionClick="SnackbarMessage_ActionClick_1" Margin="1,0,-1.4,0">
                     </materialDesign:SnackbarMessage>
                 </materialDesign:Snackbar>
             </Grid>

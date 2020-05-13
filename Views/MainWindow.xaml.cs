@@ -46,20 +46,20 @@ namespace Coins_Database.Views
             _login = login;
             _password = password;
             CurrentUser.Text = _login;
-            //if (Session.Access == Session.ACCESS.Superadmin) 
-            //{
+            if (Session.Access == Session.ACCESS.Superadmin)
+            {
                 adminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingTotal(year, semestr));
                 cbTotal.IsSelected = true;
                 RatingGrid.Visibility = Visibility.Visible;
-            //}
-            //else
-            //{
-            //    Settings.Visibility = Visibility.Hidden;
-            //    TCoinsList.ItemsSource = CLVM.LoadCoinsList(_login, _password, Queries.GetTCoinsList(_login, year, semestr));
-            //    Tcoins_img.DataContext = CCVM.LoadCoinsCount(_login, _password, Queries.GetTCoinsCount(_login, year, semestr));
-            //    teacher_coins.Visibility = Visibility.Visible;
-            //}
-            
+            }
+            else
+            {
+                WindowHeader.Children.Remove(Settings);
+                WindowHeader.Children.Remove(Export);
+                TCoinsList.ItemsSource = CLVM.LoadCoinsList(_login, _password, Queries.GetTCoinsList(_login, year, semestr));
+                Tcoins_img.DataContext = CCVM.LoadCoinsCount(_login, _password, Queries.GetTCoinsCount(_login, year, semestr));
+                teacher_coins.Visibility = Visibility.Visible;
+            }
         }
 
         private int GetSemestr()
@@ -204,12 +204,17 @@ namespace Coins_Database.Views
 
         private void ApplicationsRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            TeachersGrid.Visibility = Visibility.Hidden;
-            RatingGrid.Visibility = Visibility.Hidden;
-            EventsGrid.Visibility = Visibility.Hidden;
-            MessagesGrid.Visibility = Visibility.Visible;
-            AllRatingHidden();
-            adminMessageTable.ItemsSource = AMLVM.LoadMAList(_login, _password, Queries.GetAdminMessageList);
+            try
+            {
+                TeachersGrid.Visibility = Visibility.Hidden;
+                RatingGrid.Visibility = Visibility.Hidden;
+                EventsGrid.Visibility = Visibility.Hidden;
+                MessagesGrid.Visibility = Visibility.Visible;
+                AllRatingHidden();
+                adminMessageTable.ItemsSource = AMLVM.LoadMAList(_login, _password, Queries.GetAdminMessageList);
+                AllMessages.IsChecked = true;
+            }
+            catch { }
         }
 
         public void RenewTeacherCard()
@@ -594,23 +599,37 @@ namespace Coins_Database.Views
 
         private void Decline_Click(object sender, RoutedEventArgs e)
         {
-            AdminMessageList AML = (AdminMessageList)adminMessageTable.SelectedItems[0];
-            Operations.Operations.Execute(_login, _password, Queries.UpdateMessageStatus("Отклонено", AML.id_message));
-            adminMessageTable.ItemsSource = AMLVM.LoadMAList(_login, _password, Queries.GetAdminMessageListSort(""));
+            try
+            {
+                AdminMessageList AML = (AdminMessageList)adminMessageTable.SelectedItems[0];
+                Operations.Operations.Execute(_login, _password, Queries.UpdateMessageStatus("Отклонено", AML.id_message));
+                adminMessageTable.ItemsSource = AMLVM.LoadMAList(_login, _password, Queries.GetAdminMessageListSort(""));
+            }
+            catch
+            {
+                MessageBox.Show("Нужно выбрать заявку");
+            }
         }
 
         private void Accept_Click(object sender, RoutedEventArgs e)
         {
-            AdminMessageList AML = (AdminMessageList)adminMessageTable.SelectedItems[0];
-            TeacherPageBackground.Visibility = Visibility.Visible;
-            ResponceBlock.Visibility = Visibility.Visible;
-            REvent.Text = AML._event;
-            teacher = AML.teacher;
-            RType.Items.Clear();
-            RType.Items.Add("Арткоин");
-            RType.Items.Add("Талант");
-            RType.Items.Add("Соц. активность");
-            RType.Items.Add("Интеллект");
+            try
+            {
+                AdminMessageList AML = (AdminMessageList)adminMessageTable.SelectedItems[0];
+                TeacherPageBackground.Visibility = Visibility.Visible;
+                ResponceBlock.Visibility = Visibility.Visible;
+                REvent.Text = AML._event;
+                teacher = AML.teacher;
+                RType.Items.Clear();
+                RType.Items.Add("Арткоин");
+                RType.Items.Add("Талант");
+                RType.Items.Add("Соц. активность");
+                RType.Items.Add("Интеллект");
+            }
+            catch
+            {
+                MessageBox.Show("Нужно выбрать заявку");
+            }
         }
 
         private void Button_Click_13(object sender, RoutedEventArgs e)
@@ -692,11 +711,15 @@ namespace Coins_Database.Views
                     Operations.Operations.Execute(_login, _password, Queries.NewAccount(ALogin.Text, APassword.Text, ACC.ac_id));
                     SnackbarOne.IsActive = true;
                     AccountList.ItemsSource = ALVM.LoadAccounts(_login, _password, Queries.GetAccounts);
+                    ALogin.IsEnabled = false;
+                    APassword.IsEnabled = false;
+                    AddAccount.IsEnabled = false;
+                    DeleteAccount.IsEnabled = true;
                 }
             }
-            catch
+            catch 
             {
-
+                MessageBox.Show("Нужно выбрать учителя");
             }
         }
 
@@ -749,29 +772,35 @@ namespace Coins_Database.Views
                         APassword.Text = "";
                         ALogin.IsEnabled = true;
                         APassword.IsEnabled = true;
-                        AddAccount.IsEnabled = false;
+                        AddAccount.IsEnabled = true;
                         DeleteAccount.IsEnabled = false;
                     }
                 }
             }
-            catch
-            {
-
-            }
+            catch { }
         }
 
         private void DeleteAccount_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                Operations.Operations.Execute(_login, _password, Queries.DeleteAccount(ALogin.Text, ALogin.Text));
-                SnackbarOne.IsActive = true;
-                AccountList.ItemsSource = ALVM.LoadAccounts(_login, _password, Queries.GetAccounts);
-            }
-            catch
-            {
+                MessageBoxResult result = MessageBox.Show("Удалить аккаунт?", "Удалить", MessageBoxButton.YesNo);
 
+                if (result == MessageBoxResult.Yes)
+                {
+                    Operations.Operations.Execute(_login, _password, Queries.DeleteAccount(ALogin.Text, ALogin.Text));
+                    SnackbarOne.IsActive = true;
+                    AccountList.ItemsSource = ALVM.LoadAccounts(_login, _password, Queries.GetAccounts);
+                    ALogin.Text = "";
+                    APassword.Text = "";
+                    ALogin.IsEnabled = true;
+                    APassword.IsEnabled = true;
+                    AddAccount.IsEnabled = true;
+                    DeleteAccount.IsEnabled = false;
+                }
+                else { }
             }
+            catch { }
         }
 
         private void TCoinsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1061,8 +1090,8 @@ namespace Coins_Database.Views
 
         public void CreateRadioButtons()
         {
-            //if (Session.Access == Session.ACCESS.Superadmin)
-            //{
+            if (Session.Access == Session.ACCESS.Superadmin)
+            {
                 RadioButton rate = new RadioButton
                 {
                     IsChecked = true,
@@ -1099,29 +1128,29 @@ namespace Coins_Database.Views
                 };
                 applicanions.Checked += ApplicationsRadioButton_Checked;
                 rButtons.Children.Add(applicanions);
-            //}
-            //else
-            //{
-            //    RadioButton teacher_coins = new RadioButton
-            //    {
-            //        IsChecked = true,
-            //        Content = "Мои награды",
-            //        Width = 400,
-            //        Cursor = Cursors.Hand,
-            //    };
-            //    teacher_coins.Checked += TCoinsRadioButton_Checked;
-            //    rButtons.Children.Add(teacher_coins);
-            //    RadioButton teacher_requests = new RadioButton
-            //    {
-            //        IsChecked = false,
-            //        Content = "Мои заявки",
-            //        Width = 400,
-            //        Cursor = Cursors.Hand,
-            //    };
-            //    teacher_requests.Checked += TRequestsRadioButton_Checked;
-            //    rButtons.Children.Add(teacher_requests);
-            //}
-        }
+            }
+            else
+            {
+                RadioButton teacher_coins = new RadioButton
+                {
+                    IsChecked = true,
+                    Content = "Мои награды",
+                    Width = 400,
+                    Cursor = Cursors.Hand,
+                };
+                teacher_coins.Checked += TCoinsRadioButton_Checked;
+                rButtons.Children.Add(teacher_coins);
+                RadioButton teacher_requests = new RadioButton
+                {
+                    IsChecked = false,
+                    Content = "Мои заявки",
+                    Width = 400,
+                    Cursor = Cursors.Hand,
+                };
+                teacher_requests.Checked += TRequestsRadioButton_Checked;
+                rButtons.Children.Add(teacher_requests);
+            }
+}
 
         private void TCoinsRadioButton_Checked(object sender, RoutedEventArgs e)
         {
