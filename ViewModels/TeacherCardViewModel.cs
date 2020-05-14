@@ -1,16 +1,8 @@
-﻿using Coins_Database.DataAccessLayer;
+﻿using Coins_Database.Actions;
+using Coins_Database.DataAccessLayer;
 using GalaSoft.MvvmLight;
 using Npgsql;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
 
 namespace Coins_Database.ViewModels
 {
@@ -19,8 +11,7 @@ namespace Coins_Database.ViewModels
         public ObservableCollection<TeacherCard> LoadTeacherCard(string login, string password, string query)
         {
             using (var connection =
-                new NpgsqlConnection($"Server = 127.0.0.1; User Id = {login}; Database = postgres; " +
-                $"Port = 5432; Password = {password}"))
+                new NpgsqlConnection(Configuration.LoadSettings(login, password)))
             {
                 connection.Open();
                 using (var command = new NpgsqlCommand(query, connection))

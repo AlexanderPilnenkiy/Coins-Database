@@ -4,7 +4,6 @@ using Coins_Database.DataAccessLayer;
 using Coins_Database.ViewModels;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -268,7 +267,7 @@ namespace Coins_Database.Views
         private void GetEventSortRules()
         {
             string type, place;
-            if (cbEType.Text == "Все")
+            if (cbEType.Text == "Все" || cbEType.Text == "")
             {
                 type = "";
             }
@@ -276,7 +275,7 @@ namespace Coins_Database.Views
             {
                 type = cbEType.SelectedItem.ToString();
             }
-            if (cbEPlace.Text == "Все")
+            if (cbEPlace.Text == "Все" || cbEPlace.Text == "")
             {
                 place = "";
             }

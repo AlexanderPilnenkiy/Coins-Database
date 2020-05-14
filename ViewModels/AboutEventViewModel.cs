@@ -1,4 +1,5 @@
-﻿using Coins_Database.DataAccessLayer;
+﻿using Coins_Database.Actions;
+using Coins_Database.DataAccessLayer;
 using GalaSoft.MvvmLight;
 using Npgsql;
 using System;
@@ -16,23 +17,18 @@ namespace Coins_Database.ViewModels
         {
             List<AboutEvent> items = new List<AboutEvent>();
             using (var connection =
-                new NpgsqlConnection($"Server = 127.0.0.1; User Id = {login}; Database = postgres; " +
-                $"Port = 5432; Password = {password}"))
+                new NpgsqlConnection(Configuration.LoadSettings(login, password)))
             {
                 connection.Open();
                 using (var command = new NpgsqlCommand(query, connection))
                 {
-                    command.Connection = connection;
-                    NpgsqlDataAdapter iAdapter = new NpgsqlDataAdapter(command);
-                    DataSet iDataSet = new DataSet();
-                    iAdapter.Fill(iDataSet, "LIST");
-                    int lstCount = iDataSet.Tables["LIST"].Rows.Count;
+                    int lstCount = Configuration.SDataSet(command, connection).Tables["LIST"].Rows.Count;
                     int i = 0;
                     while (lstCount > i)
                     {
                         items.Add(new AboutEvent()
                         {
-                            about_event = iDataSet.Tables["LIST"].Rows[i]["about_event"].ToString()
+                            about_event = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["about_event"].ToString()
                         });
                         i++;
                     }

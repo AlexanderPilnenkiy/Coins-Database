@@ -15,19 +15,14 @@ namespace Coins_Database.ViewModels
         {
             string items = "";
             using (var connection =
-                new NpgsqlConnection($"Server = 127.0.0.1; User Id = {login}; Database = postgres; " +
-                $"Port = 5432; Password = {password}"))
+                new NpgsqlConnection(Configuration.LoadSettings(login, password)))
             {
                 connection.Open();
                 using (var command = new NpgsqlCommand(Queries.GetCoinComment(id_coin), connection))
                 {
-                    command.Connection = connection;
-                    NpgsqlDataAdapter iAdapter = new NpgsqlDataAdapter(command);
-                    DataSet iDataSet = new DataSet();
-                    iAdapter.Fill(iDataSet, "LIST");
-                    int lstCount = iDataSet.Tables["LIST"].Rows.Count;
+                    int lstCount = Configuration.SDataSet(command, connection).Tables["LIST"].Rows.Count;
                     int i = 0;
-                        items = iDataSet.Tables["LIST"].Rows[i]["comment"].ToString();
+                    items = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["comment"].ToString();
                 }
                 connection.Close();
             }

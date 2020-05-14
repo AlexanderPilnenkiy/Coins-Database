@@ -20,25 +20,20 @@ namespace Coins_Database.ViewModels
         {
             List<Rating> items = new List<Rating>();
             using (var connection =
-                new NpgsqlConnection($"Server = 127.0.0.1; User Id = {login}; Database = postgres; " +
-                $"Port = 5432; Password = {password}"))
+                new NpgsqlConnection(Configuration.LoadSettings(login, password)))
             {
                 connection.Open();
                 using (var command = new NpgsqlCommand(query, connection))
                 {
-                    command.Connection = connection;
-                    NpgsqlDataAdapter iAdapter = new NpgsqlDataAdapter(command);
-                    DataSet iDataSet = new DataSet();
-                    iAdapter.Fill(iDataSet, "LIST");
-                    int lstCount = iDataSet.Tables["LIST"].Rows.Count;
+                    int lstCount = Configuration.SDataSet(command, connection).Tables["LIST"].Rows.Count;
                     int i = 0;
                     while (lstCount > i)
                     {
                         items.Add(new Rating()
                         {
-                            id_teacher = Convert.ToInt32(iDataSet.Tables["LIST"].Rows[i]["id_teacher"]),
-                            FIO = iDataSet.Tables["LIST"].Rows[i]["teacher_name"].ToString(),
-                            coin = Convert.ToInt32(iDataSet.Tables["LIST"].Rows[i]["count"])
+                            id_teacher = Convert.ToInt32(Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["id_teacher"]),
+                            FIO = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
+                            coin = Convert.ToInt32(Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["count"])
                         });
                         i++;
                     }

@@ -1,9 +1,5 @@
-﻿using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Coins_Database.Actions;
+using Npgsql;
 
 namespace Coins_Database.Operations
 {
@@ -12,8 +8,7 @@ namespace Coins_Database.Operations
         public static void Execute(string login, string password, string query)
         {
             using (var connection =
-                new NpgsqlConnection($"Server = 127.0.0.1; User Id = {login}; Database = postgres; " +
-                $"Port = 5432; Password = {password}"))
+                 new NpgsqlConnection(Configuration.LoadSettings(login, password)))
             {
                 connection.Open();
                 using (var command =

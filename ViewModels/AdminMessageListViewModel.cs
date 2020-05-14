@@ -1,4 +1,5 @@
-﻿using Coins_Database.DataAccessLayer;
+﻿using Coins_Database.Actions;
+using Coins_Database.DataAccessLayer;
 using GalaSoft.MvvmLight;
 using Npgsql;
 using System;
@@ -16,27 +17,22 @@ namespace Coins_Database.ViewModels
         {
             List<AdminMessageList> items = new List<AdminMessageList>();
             using (var connection =
-                new NpgsqlConnection($"Server = 127.0.0.1; User Id = {login}; Database = postgres; " +
-                $"Port = 5432; Password = {password}"))
+                new NpgsqlConnection(Configuration.LoadSettings(login, password)))
             {
                 connection.Open();
                 using (var command = new NpgsqlCommand(query, connection))
                 {
-                    command.Connection = connection;
-                    NpgsqlDataAdapter iAdapter = new NpgsqlDataAdapter(command);
-                    DataSet iDataSet = new DataSet();
-                    iAdapter.Fill(iDataSet, "LIST");
-                    int lstCount = iDataSet.Tables["LIST"].Rows.Count;
+                    int lstCount = Configuration.SDataSet(command, connection).Tables["LIST"].Rows.Count;
                     int i = 0;
                     while (lstCount > i)
                     {
                         items.Add(new AdminMessageList()
                         {
-                            id_message = Convert.ToInt32(iDataSet.Tables["LIST"].Rows[i]["id_message"]),
-                            teacher = iDataSet.Tables["LIST"].Rows[i]["teacher_name"].ToString(),
-                            _event = iDataSet.Tables["LIST"].Rows[i]["event_name"].ToString(),
-                            date = Convert.ToDateTime(iDataSet.Tables["LIST"].Rows[i]["date"]).ToShortDateString(),
-                            status = iDataSet.Tables["LIST"].Rows[i]["status"].ToString()
+                            id_message = Convert.ToInt32(Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["id_message"]),
+                            teacher = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
+                            _event = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["event_name"].ToString(),
+                            date = Convert.ToDateTime(Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["date"]).ToShortDateString(),
+                            status = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["status"].ToString()
                         });
                         i++;
                     }

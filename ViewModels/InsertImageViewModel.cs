@@ -1,4 +1,5 @@
-﻿using Npgsql;
+﻿using Coins_Database.Actions;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,8 +14,7 @@ namespace Coins_Database.ViewModels
         public void InsertImage(string login, string password, string filepath)
         {
             var connection =
-               new NpgsqlConnection($"Server = 127.0.0.1; User Id = {login}; Database = postgres; " +
-               $"Port = 5432; Password = {password}");
+               new NpgsqlConnection(Configuration.LoadSettings(login, password));
             FileStream pgFileStream = new FileStream(filepath, FileMode.Open, FileAccess.Read);
 
             BinaryReader pgReader = new BinaryReader(new BufferedStream(pgFileStream));

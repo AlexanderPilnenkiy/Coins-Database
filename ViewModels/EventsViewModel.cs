@@ -1,4 +1,5 @@
-﻿using Coins_Database.DataAccessLayer;
+﻿using Coins_Database.Actions;
+using Coins_Database.DataAccessLayer;
 using GalaSoft.MvvmLight;
 using Npgsql;
 using System;
@@ -16,26 +17,21 @@ namespace Coins_Database.ViewModels
         {
             List<Events> items = new List<Events>();
             using (var connection =
-                new NpgsqlConnection($"Server = 127.0.0.1; User Id = {login}; Database = postgres; " +
-                $"Port = 5432; Password = {password}"))
+                new NpgsqlConnection(Configuration.LoadSettings(login, password)))
             {
                 connection.Open();
                 using (var command = new NpgsqlCommand(query, connection))
                 {
-                    command.Connection = connection;
-                    NpgsqlDataAdapter iAdapter = new NpgsqlDataAdapter(command);
-                    DataSet iDataSet = new DataSet();
-                    iAdapter.Fill(iDataSet, "LIST");
-                    int lstCount = iDataSet.Tables["LIST"].Rows.Count;
+                    int lstCount = Configuration.SDataSet(command, connection).Tables["LIST"].Rows.Count;
                     int i = 0;
                     while (lstCount > i)
                     {
                         items.Add(new Events()
                         {
-                            caption = iDataSet.Tables["LIST"].Rows[i]["event_name"].ToString(),
-                            type = iDataSet.Tables["LIST"].Rows[i]["event_type"].ToString(),
-                            place = iDataSet.Tables["LIST"].Rows[i]["event_place"].ToString(),
-                            date = Convert.ToDateTime(iDataSet.Tables["LIST"].Rows[i]["date"]).ToShortDateString()
+                            caption = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["event_name"].ToString(),
+                            type = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["event_type"].ToString(),
+                            place = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["event_place"].ToString(),
+                            date = Convert.ToDateTime(Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["date"]).ToShortDateString()
                         }) ;
                         i++;
                     }

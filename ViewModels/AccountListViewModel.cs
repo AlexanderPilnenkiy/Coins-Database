@@ -1,4 +1,5 @@
-﻿using Coins_Database.DataAccessLayer;
+﻿using Coins_Database.Actions;
+using Coins_Database.DataAccessLayer;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -15,25 +16,20 @@ namespace Coins_Database.ViewModels
         {
             List<Account> items = new List<Account>();
             using (var connection =
-                new NpgsqlConnection($"Server = 127.0.0.1; User Id = {login}; Database = postgres; " +
-                $"Port = 5432; Password = {password}"))
+                 new NpgsqlConnection(Configuration.LoadSettings(login, password)))
             {
                 connection.Open();
                 using (var command = new NpgsqlCommand(query, connection))
                 {
-                    command.Connection = connection;
-                    NpgsqlDataAdapter iAdapter = new NpgsqlDataAdapter(command);
-                    DataSet iDataSet = new DataSet();
-                    iAdapter.Fill(iDataSet, "LIST");
-                    int lstCount = iDataSet.Tables["LIST"].Rows.Count;
+                    int lstCount = Configuration.SDataSet(command, connection).Tables["LIST"].Rows.Count;
                     int i = 0;
                     while (lstCount > i)
                     {
                         items.Add(new Account()
                         {
-                            ac_id = Convert.ToInt32(iDataSet.Tables["LIST"].Rows[i]["id_teacher"]),
-                            ac_name = iDataSet.Tables["LIST"].Rows[i]["teacher_name"].ToString(),
-                            ac_login = iDataSet.Tables["LIST"].Rows[i]["login"].ToString()
+                            ac_id = Convert.ToInt32(Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["id_teacher"]),
+                            ac_name = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
+                            ac_login = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["login"].ToString()
                         });
                         i++;
                     }

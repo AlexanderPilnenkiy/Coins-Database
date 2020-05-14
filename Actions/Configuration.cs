@@ -1,9 +1,6 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
 using System.Windows;
 
 namespace Coins_Database.Actions
@@ -15,12 +12,27 @@ namespace Coins_Database.Actions
         static NpgsqlCommand Command;
         public string conn_param;
 
+        public static string LoadSettings(string login, string password)
+        {
+            return $"Server = {XML.ReadXML(XML.CheckOrCreateXML())[0]}; User Id = {login}; " +
+                $"Database = {DATABASE_NAME}; Port = {XML.ReadXML(XML.CheckOrCreateXML())[1]}; " +
+                $"Password = {password}";
+        }
+
+        public static DataSet SDataSet(NpgsqlCommand command, NpgsqlConnection connection)
+        {
+            command.Connection = connection;
+            NpgsqlDataAdapter iAdapter = new NpgsqlDataAdapter(command);
+            DataSet iDataSet = new DataSet();
+            iAdapter.Fill(iDataSet, "LIST");
+            return iDataSet;
+        }
+
         public static bool Connect(string login, string password)
         {
             bool result;
             Configuration config = new Configuration();
-            config.conn_param = $"Server = 127.0.0.1; User Id = {login}; Database = {DATABASE_NAME}; " +
-                $"Port = 5432; Password = {password}";
+            config.conn_param = LoadSettings(login, password);
             try
             {
                 conn = new NpgsqlConnection(config.conn_param);
