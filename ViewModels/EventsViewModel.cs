@@ -32,7 +32,7 @@ namespace Coins_Database.ViewModels
                             type = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["event_type"].ToString(),
                             place = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["event_place"].ToString(),
                             date = Convert.ToDateTime(Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["date"]).ToShortDateString()
-                        }) ;
+                        });
                         i++;
                     }
                 }

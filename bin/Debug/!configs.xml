@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<settings>
-  <connection server = "127.0.0.1"
-              port = "5432"/>
-</settings>

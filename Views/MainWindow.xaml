@@ -8,7 +8,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         FontSize="16"
-        Height="600" Width="800" MinWidth="800" MinHeight="520" 
+        Height="600" Width="800" MinWidth="800" MinHeight="600" MaxWidth="800" MaxHeight="600"
         BorderThickness="2" BorderBrush="#FF5D11A0" WindowStyle="None" 
         ResizeMode="CanResizeWithGrip" 
         AllowsTransparency="True" WindowStartupLocation="CenterScreen">
@@ -41,13 +41,13 @@
         <materialDesign:ColorZone Background="#FF5D11A0" Mode="PrimaryMid" Height="54" Margin="0,40,-1.2,0" Grid.RowSpan="2">
             <StackPanel x:Name="rButtons" Orientation="Horizontal" Margin="2"/>
         </materialDesign:ColorZone>
-        <Grid x:Name="RatingGrid" Margin="0,30,-0.2,9.8" Grid.RowSpan="2" 
+        <Grid x:Name="RatingGrid" Margin="0,25,-0.2,9.4" 
               Visibility="Hidden">
             <Label Margin="22,78,634.8,437.8" Grid.Row="1" FontSize="20">Вид рейтинга:</Label>
             <ComboBox HorizontalContentAlignment="Center"
             materialDesign:ComboBoxAssist.ClassicMode="{Binding ElementName=ClassicModeCheckBox, Path=IsChecked}"
             Margin="181,68,0,443.8" x:Name="ratingCB"
-            HorizontalAlignment="Left" Grid.Row="1" Width="234">
+            HorizontalAlignment="Left" Width="234">
                 <ComboBoxItem x:Name="cbTotal" Selected="cbTotal_Selected">
                     Общий рейтинг
                 </ComboBoxItem>
@@ -65,7 +65,7 @@
                 </ComboBoxItem>
             </ComboBox>
             <ListView x:Name="adminTable"
-            Margin="10,129,367.8,9.8" Grid.Row="1" 
+            Margin="10,129,367.8,9.8"
                       SelectionChanged="adminTable_SelectionChanged">
                 <ListView.View>
                     <GridView>
@@ -90,16 +90,8 @@
                     FontSize="18" IsEnabled="true" Height="43" Background="#FF5D11A0" 
                     BorderBrush="#FF260940" Click="SignIn_Click" Visibility="Visible"/>
         </Grid>
-        <Image x:Name="photoTeacher" Margin="485,100,9.8,261.8" RenderTransformOrigin="0.5,0.5">
-            <Image.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleY="0.273"/>
-                    <RotateTransform/>
-                    <TranslateTransform Y="-0.795"/>
-                </TransformGroup>
-            </Image.RenderTransform>
-        </Image>
+        <Image x:Name="photoTeacher" Margin="485,100,9.8,261.8"
+                Stretch="Uniform" Width="302" Height="236"/>
         <TextBlock x:Name="cardTName" FontSize="17" Margin="491,348,9.8,200.8" 
                    TextWrapping="Wrap"/>
         <TextBlock Text="{Binding Path = speciality}" x:Name="cardTSpeciality"
@@ -221,7 +213,7 @@
                 </Grid>
             </StackPanel>
         </Grid>
-        <Grid x:Name="EventsGrid" Visibility="Hidden" Margin="0,94,-0.2,-0.2" Grid.RowSpan="2">
+        <Grid x:Name="EventsGrid" Visibility="Visible" Margin="0,94,-0.2,-0.2" Grid.RowSpan="2">
             <ListView x:Name="eventsTable"
             Margin="10,66,241,10" SelectionChanged="eventsTable_SelectionChanged">
                 <ListView.View>
@@ -276,7 +268,7 @@
             <Button x:Name="ChangeEvent" Content="Изменить"
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="43" Background="#FF5D11A0"
-                    BorderBrush="#FF260940" Visibility="Hidden" Margin="561,448,126,7" Width="110" Click="ChangeEvent_Click"/>
+                    BorderBrush="#FF260940" Visibility="Visible" Margin="561,448,126,7" Width="110" Click="ChangeEvent_Click"/>
             <Button x:Name="DeleteEvent" Content="Удалить" 
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="43" Background="#FF5D11A0" 
@@ -570,7 +562,8 @@
                 </Grid>
             </StackPanel>
         </Grid>
-        <Grid x:Name="FakeEventsGrig" Margin="0,0,-0.2,-0.2" Grid.RowSpan="2" Visibility="Hidden">
+        <Grid x:Name="FakeEventsGrig" Margin="0,0,-0.2,-0.2" Grid.RowSpan="2"
+              Visibility="Hidden">
             <materialDesign:ColorZone Height="600"
             Mode="PrimaryMid" Opacity="0.85"
             Effect="{DynamicResource MaterialDesignShadowDepth5}" 

@@ -30,7 +30,7 @@ namespace Coins_Database.Actions
                 $"select * from last_image";
         public static string GetAccounts =>
                 $"select * from account_list";
-        public static string GetTeacherCard(string _teacher_name)=>
+        public static string GetTeacherCard(string _teacher_name) =>
                 $"select * FROM get_teacher_card('{_teacher_name}')";
         public static string GetTeacherPhoto(string _teacher_name) =>
                 $"select * FROM get_teacher_photo('{_teacher_name}')";

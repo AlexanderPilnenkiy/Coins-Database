@@ -63,7 +63,7 @@ namespace Coins_Database.Views
 
         private int GetSemestr()
         {
-            if (DateTime.Now.Month >=9 && DateTime.Now.Month <= 12)
+            if (DateTime.Now.Month >= 9 && DateTime.Now.Month <= 12)
             {
                 return 1;
             }
@@ -417,7 +417,7 @@ namespace Coins_Database.Views
             if (openFileDialog.ShowDialog() == true)
             {
                 foreach (string filename in openFileDialog.FileNames)
-                Portrait.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+                    Portrait.Source = new BitmapImage(new Uri(openFileDialog.FileName));
                 file_path = openFileDialog.FileName;
             }
         }
@@ -544,6 +544,7 @@ namespace Coins_Database.Views
         private void ChangeEvent_Click(object sender, RoutedEventArgs e)
         {
             FakeTypeEvent.Items.Clear();
+            is_new_event = false;
             FakeTypeEvent.Items.Add("Все типы");
             foreach (string item in cESBTVM.LoadTypes(_login, _password, Queries.GetCB_EventTypes, "event_type"))
             {
@@ -716,7 +717,7 @@ namespace Coins_Database.Views
                     DeleteAccount.IsEnabled = true;
                 }
             }
-            catch 
+            catch
             {
                 MessageBox.Show("Нужно выбрать учителя");
             }
@@ -1025,7 +1026,7 @@ namespace Coins_Database.Views
         private void Button_Click_19(object sender, RoutedEventArgs e)
         {
             var workbook = new XLWorkbook();
-            if(ExpEvents.IsChecked == true)
+            if (ExpEvents.IsChecked == true)
             {
                 Excel.EventsReport(workbook, "Мероприятия", EVM.LoadEvents(_login, _password, Queries.GetEventsList(year, semestr)));
             }
@@ -1149,7 +1150,7 @@ namespace Coins_Database.Views
                 teacher_requests.Checked += TRequestsRadioButton_Checked;
                 rButtons.Children.Add(teacher_requests);
             }
-}
+        }
 
         private void TCoinsRadioButton_Checked(object sender, RoutedEventArgs e)
         {

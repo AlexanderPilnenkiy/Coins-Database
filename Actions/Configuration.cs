@@ -63,7 +63,7 @@ namespace Coins_Database.Actions
             bool result = false;
             try
             {
-                Command.CommandText = "SET ROLE teacher;";
+                Command.CommandText = "SET ROLE Teacher;";
                 Command.ExecuteNonQuery();
                 Session.Access = Session.ACCESS.Teacher;
                 result = true;
