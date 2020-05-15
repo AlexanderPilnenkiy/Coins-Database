@@ -12,31 +12,31 @@ namespace Coins_Database.ViewModels
 {
     class AccountListViewModel
     {
-        public List<Account> LoadAccounts(string login, string password, string query)
+        public List<Account> LoadAccounts(string Login, string Password, string Query)
         {
-            List<Account> items = new List<Account>();
-            using (var connection =
-                 new NpgsqlConnection(Configuration.LoadSettings(login, password)))
+            List<Account> Items = new List<Account>();
+            using (var Connection =
+                 new NpgsqlConnection(Configuration.LoadSettings(Login, Password)))
             {
-                connection.Open();
-                using (var command = new NpgsqlCommand(query, connection))
+                Connection.Open();
+                using (var Command = new NpgsqlCommand(Query, Connection))
                 {
-                    int lstCount = Configuration.SDataSet(command, connection).Tables["LIST"].Rows.Count;
+                    int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
                     int i = 0;
-                    while (lstCount > i)
+                    while (LstCount > i)
                     {
-                        items.Add(new Account()
+                        Items.Add(new Account()
                         {
-                            ac_id = Convert.ToInt32(Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["id_teacher"]),
-                            ac_name = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
-                            ac_login = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["login"].ToString()
+                            ID = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["id_teacher"]),
+                            Name = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
+                            Login = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["Login"].ToString()
                         });
                         i++;
                     }
                 }
-                connection.Close();
+                Connection.Close();
             }
-            return items;
+            return Items;
         }
     }
 }

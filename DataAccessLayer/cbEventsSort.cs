@@ -2,6 +2,6 @@
 {
     class cbEventsSort
     {
-        public string item { get; set; }
+        public string Item { get; set; }
     }
 }

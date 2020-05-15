@@ -13,29 +13,29 @@ namespace Coins_Database.ViewModels
 {
     class AboutEventViewModell : ViewModelBase
     {
-        public List<AboutEvent> LoadEvents(string login, string password, string query)
+        public List<AboutEvent> LoadEvents(string Login, string Password, string Query)
         {
-            List<AboutEvent> items = new List<AboutEvent>();
-            using (var connection =
-                new NpgsqlConnection(Configuration.LoadSettings(login, password)))
+            List<AboutEvent> Items = new List<AboutEvent>();
+            using (var Connection =
+                new NpgsqlConnection(Configuration.LoadSettings(Login, Password)))
             {
-                connection.Open();
-                using (var command = new NpgsqlCommand(query, connection))
+                Connection.Open();
+                using (var Command = new NpgsqlCommand(Query, Connection))
                 {
-                    int lstCount = Configuration.SDataSet(command, connection).Tables["LIST"].Rows.Count;
+                    int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
                     int i = 0;
-                    while (lstCount > i)
+                    while (LstCount > i)
                     {
-                        items.Add(new AboutEvent()
+                        Items.Add(new AboutEvent()
                         {
-                            about_event = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["about_event"].ToString()
+                            Description = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["about_event"].ToString()
                         });
                         i++;
                     }
                 }
-                connection.Close();
+                Connection.Close();
             }
-            return items;
+            return Items;
         }
     }
 }

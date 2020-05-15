@@ -12,32 +12,32 @@ namespace Coins_Database.ViewModels
 {
     class CoinsCountViewModel
     {
-        public List<CoinsCount> LoadCoinsCount(string login, string password, string query)
+        public List<CoinsCount> LoadCoinsCount(string Login, string Password, string Query)
         {
-            List<CoinsCount> items = new List<CoinsCount>();
-            using (var connection =
-                 new NpgsqlConnection(Configuration.LoadSettings(login, password)))
+            List<CoinsCount> Items = new List<CoinsCount>();
+            using (var Connection =
+                 new NpgsqlConnection(Configuration.LoadSettings(Login, Password)))
             {
-                connection.Open();
-                using (var command = new NpgsqlCommand(query, connection))
+                Connection.Open();
+                using (var Command = new NpgsqlCommand(Query, Connection))
                 {
-                    int lstCount = Configuration.SDataSet(command, connection).Tables["LIST"].Rows.Count;
+                    int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
                     int i = 0;
-                    while (lstCount > i)
+                    while (LstCount > i)
                     {
-                        items.Add(new CoinsCount()
+                        Items.Add(new CoinsCount()
                         {
-                            artcoins = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["artcoin"].ToString(),
-                            soc_active = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["soc_activity"].ToString(),
-                            talents = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["talent"].ToString(),
-                            intellect = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["intellect"].ToString()
+                            Artcoins = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["artcoin"].ToString(),
+                            SocActive = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["soc_activity"].ToString(),
+                            Talents = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["talent"].ToString(),
+                            Intellect = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["intellect"].ToString()
                         });
                         i++;
                     }
                 }
-                connection.Close();
+                Connection.Close();
             }
-            return items;
+            return Items;
         }
     }
 }

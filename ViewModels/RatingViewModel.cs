@@ -16,31 +16,31 @@ namespace Coins_Database.ViewModels
 {
     public class RatingViewModel : ViewModelBase
     {
-        public List<Rating> LoadRating(string login, string password, string query)
+        public List<Rating> LoadRating(string Login, string Password, string Query)
         {
-            List<Rating> items = new List<Rating>();
-            using (var connection =
-                new NpgsqlConnection(Configuration.LoadSettings(login, password)))
+            List<Rating> Items = new List<Rating>();
+            using (var Connection =
+                new NpgsqlConnection(Configuration.LoadSettings(Login, Password)))
             {
-                connection.Open();
-                using (var command = new NpgsqlCommand(query, connection))
+                Connection.Open();
+                using (var Command = new NpgsqlCommand(Query, Connection))
                 {
-                    int lstCount = Configuration.SDataSet(command, connection).Tables["LIST"].Rows.Count;
+                    int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
                     int i = 0;
-                    while (lstCount > i)
+                    while (LstCount > i)
                     {
-                        items.Add(new Rating()
+                        Items.Add(new Rating()
                         {
-                            id_teacher = Convert.ToInt32(Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["id_teacher"]),
-                            FIO = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
-                            coin = Convert.ToInt32(Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["count"])
+                            ID = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["id_teacher"]),
+                            FIO = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
+                            Coin = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["count"])
                         });
                         i++;
                     }
                 }
-                connection.Close();
+                Connection.Close();
             }
-            return items;
+            return Items;
         }
     }
 }

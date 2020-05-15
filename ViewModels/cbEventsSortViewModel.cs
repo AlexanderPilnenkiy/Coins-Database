@@ -13,26 +13,26 @@ namespace Coins_Database.ViewModels
 {
     class cbEventsSortViewModel : ViewModelBase
     {
-        public List<string> LoadTypes(string login, string password, string query, string col)
+        public List<string> LoadTypes(string Login, string Password, string Query, string Col)
         {
-            List<string> item = new List<string>();
-            using (var connection =
-                new NpgsqlConnection(Configuration.LoadSettings(login, password)))
+            List<string> Item = new List<string>();
+            using (var Connection =
+                new NpgsqlConnection(Configuration.LoadSettings(Login, Password)))
             {
-                connection.Open();
-                using (var command = new NpgsqlCommand(query, connection))
+                Connection.Open();
+                using (var Command = new NpgsqlCommand(Query, Connection))
                 {
-                    int lstCount = Configuration.SDataSet(command, connection).Tables["LIST"].Rows.Count;
+                    int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
                     int i = 0;
-                    while (lstCount > i)
+                    while (LstCount > i)
                     {
-                        item.Add(Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i][col].ToString());
+                        Item.Add(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i][Col].ToString());
                         i++;
                     }
                 }
-                connection.Close();
+                Connection.Close();
             }
-            return item;
+            return Item;
         }
     }
 }

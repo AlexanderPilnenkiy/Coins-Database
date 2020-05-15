@@ -8,38 +8,38 @@ namespace Coins_Database.Actions
     public class Configuration
     {
         const string DATABASE_NAME = "postgres";
-        public static NpgsqlConnection conn;
+        public static NpgsqlConnection Connection;
         static NpgsqlCommand Command;
-        public string conn_param;
+        public string ConnectionParameters;
 
-        public static string LoadSettings(string login, string password)
+        public static string LoadSettings(string Login, string Password)
         {
-            return $"Server = {XML.ReadXML(XML.CheckOrCreateXML())[0]}; User Id = {login}; " +
+            return $"Server = {XML.ReadXML(XML.CheckOrCreateXML())[0]}; User Id = {Login}; " +
                 $"Database = {DATABASE_NAME}; Port = {XML.ReadXML(XML.CheckOrCreateXML())[1]}; " +
-                $"Password = {password}";
+                $"Password = {Password}";
         }
 
-        public static DataSet SDataSet(NpgsqlCommand command, NpgsqlConnection connection)
+        public static DataSet SDataSet(NpgsqlCommand Command, NpgsqlConnection Connection)
         {
-            command.Connection = connection;
-            NpgsqlDataAdapter iAdapter = new NpgsqlDataAdapter(command);
-            DataSet iDataSet = new DataSet();
-            iAdapter.Fill(iDataSet, "LIST");
-            return iDataSet;
+            Command.Connection = Connection;
+            NpgsqlDataAdapter IAdapter = new NpgsqlDataAdapter(Command);
+            DataSet IDataSet = new DataSet();
+            IAdapter.Fill(IDataSet, "LIST");
+            return IDataSet;
         }
 
-        public static bool Connect(string login, string password)
+        public static bool Connect(string Login, string Password)
         {
             bool result;
-            Configuration config = new Configuration();
-            config.conn_param = LoadSettings(login, password);
+            Configuration Config = new Configuration();
+            Config.ConnectionParameters = LoadSettings(Login, Password);
             try
             {
-                conn = new NpgsqlConnection(config.conn_param);
-                Command = conn.CreateCommand();
-                conn.Open();
+                Connection = new NpgsqlConnection(Config.ConnectionParameters);
+                Command = Connection.CreateCommand();
+                Connection.Open();
                 result = true;
-                Session.Login = login;
+                Session.Login = Login;
 
                 if (!CheckSAAccess())
                 {
@@ -104,7 +104,7 @@ namespace Coins_Database.Actions
         {
             try
             {
-                conn.Close();
+                Connection.Close();
             }
             catch (Exception exeption)
             {

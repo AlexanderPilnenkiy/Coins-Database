@@ -8,27 +8,26 @@ namespace Coins_Database.ViewModels
 {
     public class TeacherCardViewModel : ViewModelBase
     {
-        public ObservableCollection<TeacherCard> LoadTeacherCard(string login, string password, string query)
+        public ObservableCollection<TeacherCard> LoadTeacherCard(string Login, string Password, string Query)
         {
-            using (var connection =
-                new NpgsqlConnection(Configuration.LoadSettings(login, password)))
+            using (var Connection =
+                new NpgsqlConnection(Configuration.LoadSettings(Login, Password)))
             {
-                connection.Open();
-                using (var command = new NpgsqlCommand(query, connection))
+                Connection.Open();
+                using (var Command = new NpgsqlCommand(Query, Connection))
                 {
-                    using (var reader = command.ExecuteReader())
+                    using (var Reader = Command.ExecuteReader())
                     {
-                        if (!reader.HasRows) return null;
-                        ObservableCollection<TeacherCard> collection =
+                        if (!Reader.HasRows) return null;
+                        ObservableCollection<TeacherCard> Collection =
                             new ObservableCollection<TeacherCard>();
-                        while (reader.Read())
+                        while (Reader.Read())
                         {
-                            string name = reader.GetString(0).TrimEnd();
-                            string spec = reader.GetString(1).TrimEnd();
-                            string about = reader.GetString(2).TrimEnd();
-                            collection.Add(new TeacherCard(name, spec, about));
+                            Collection.Add(new TeacherCard(Reader.GetString(0).TrimEnd(),
+                                Reader.GetString(1).TrimEnd(),
+                                Reader.GetString(2).TrimEnd()));
                         }
-                        return collection;
+                        return Collection;
                     }
                 }
             }

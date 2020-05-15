@@ -176,6 +176,7 @@ C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\System.Text.Json.xm
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\System.ValueTuple.xml
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\WpfAnimatedGif.xml
+C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Coins Database.csprojAssemblyReference.cache
 C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Coins Database.exe.config
 C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Views\LoadingWindow.g.cs
 C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Views\MainWindow.g.cs

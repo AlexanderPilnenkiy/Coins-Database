@@ -2,8 +2,8 @@
 {
     public class Rating
     {
-        public int id_teacher { get; set; }
+        public int ID { get; set; }
         public string FIO { get; set; }
-        public int coin { get; set; }
+        public int Coin { get; set; }
     }
 }

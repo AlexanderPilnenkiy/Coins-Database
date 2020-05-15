@@ -12,26 +12,26 @@ namespace Coins_Database.ViewModels
 {
     class GetIdViewModel
     {
-        public int LoadID(string login, string password, string query, string col)
+        public int LoadID(string Login, string Password, string Query, string Col)
         {
-            int items = new int();
-            using (var connection =
-                new NpgsqlConnection(Configuration.LoadSettings(login, password)))
+            int Items = new int();
+            using (var Connection =
+                new NpgsqlConnection(Configuration.LoadSettings(Login, Password)))
             {
-                connection.Open();
-                using (var command = new NpgsqlCommand(query, connection))
+                Connection.Open();
+                using (var Command = new NpgsqlCommand(Query, Connection))
                 {
-                    int lstCount = Configuration.SDataSet(command, connection).Tables["LIST"].Rows.Count;
+                    int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
                     int i = 0;
-                    while (lstCount > i)
+                    while (LstCount > i)
                     {
-                        items = Convert.ToInt32(Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i][col]);
+                        Items = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i][Col]);
                         i++;
                     }
                 }
-                connection.Close();
+                Connection.Close();
             }
-            return items;
+            return Items;
         }
     }
 }

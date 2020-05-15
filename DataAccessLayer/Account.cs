@@ -2,8 +2,8 @@
 {
     class Account
     {
-        public int ac_id { get; set; }
-        public string ac_name { get; set; }
-        public string ac_login { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Login { get; set; }
     }
 }

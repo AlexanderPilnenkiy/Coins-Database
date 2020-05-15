@@ -2,6 +2,6 @@
 {
     class AboutEvent
     {
-        public string about_event { get; set; }
+        public string Description { get; set; }
     }
 }

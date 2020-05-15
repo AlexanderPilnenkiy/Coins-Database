@@ -11,22 +11,22 @@ namespace Coins_Database.ViewModels
 {
     class GetCoinCommentViewModel
     {
-        public string GetCoinComment(string login, string password, int id_coin)
+        public string GetCoinComment(string Login, string Password, int IDCoin)
         {
-            string items = "";
-            using (var connection =
-                new NpgsqlConnection(Configuration.LoadSettings(login, password)))
+            string Items = "";
+            using (var Connection =
+                new NpgsqlConnection(Configuration.LoadSettings(Login, Password)))
             {
-                connection.Open();
-                using (var command = new NpgsqlCommand(Queries.GetCoinComment(id_coin), connection))
+                Connection.Open();
+                using (var Command = new NpgsqlCommand(Queries.GetCoinComment(IDCoin), Connection))
                 {
-                    int lstCount = Configuration.SDataSet(command, connection).Tables["LIST"].Rows.Count;
+                    int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
                     int i = 0;
-                    items = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["comment"].ToString();
+                    Items = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["comment"].ToString();
                 }
-                connection.Close();
+                Connection.Close();
             }
-            return items;
+            return Items;
         }
     }
 }

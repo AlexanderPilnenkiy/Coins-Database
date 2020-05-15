@@ -2,12 +2,12 @@
 {
     class CoinsList
     {
-        public int id_coin { get; set; }
-        public int id_event { get; set; }
-        public string type { get; set; }
-        public string party { get; set; }
-        public string description { get; set; }
-        public string place { get; set; }
-        public string date { get; set; }
+        public int IDCoin { get; set; }
+        public int IDEvent { get; set; }
+        public string Type { get; set; }
+        public string Party { get; set; }
+        public string Description { get; set; }
+        public string Place { get; set; }
+        public string Date { get; set; }
     }
 }

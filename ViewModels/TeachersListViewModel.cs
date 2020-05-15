@@ -4,40 +4,36 @@ using GalaSoft.MvvmLight;
 using Npgsql;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Coins_Database.ViewModels
 {
     class TeachersListViewModel : ViewModelBase
     {
-        public List<TeachersList> LoadTeachersList(string login, string password, string query)
+        public List<TeachersList> LoadTeachersList(string Login, string Password, string Query)
         {
-            List<TeachersList> items = new List<TeachersList>();
-            using (var connection =
-                new NpgsqlConnection(Configuration.LoadSettings(login, password)))
+            List<TeachersList> Items = new List<TeachersList>();
+            using (var Connection =
+                new NpgsqlConnection(Configuration.LoadSettings(Login, Password)))
             {
-                connection.Open();
-                using (var command = new NpgsqlCommand(query, connection))
+                Connection.Open();
+                using (var Command = new NpgsqlCommand(Query, Connection))
                 {
-                    int lstCount = Configuration.SDataSet(command, connection).Tables["LIST"].Rows.Count;
+                    int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
                     int i = 0;
-                    while (lstCount > i)
+                    while (LstCount > i)
                     {
-                        items.Add(new TeachersList()
+                        Items.Add(new TeachersList()
                         {
-                            id_teacher = Convert.ToInt32(Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["id_teacher"]),
-                            FIO = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
-                            speciality = Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["speciality"].ToString()
+                            ID = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["id_teacher"]),
+                            FIO = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
+                            Speciality = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["speciality"].ToString()
                         });
                         i++;
                     }
                 }
-                connection.Close();
+                Connection.Close();
             }
-            return items;
+            return Items;
         }
     }
 }

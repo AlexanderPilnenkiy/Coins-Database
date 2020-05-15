@@ -13,9 +13,9 @@ namespace Coins_Database.Views
 {
     public partial class MainWindow : Window
     {
-        public string _password, _login, teacher_name, file_path, teacher;
-        private int id_event, id_teacher, year, semestr;
-        private bool is_new_teacher, is_new_event;
+        public string sPassword, sLogin, sTeacherName, sFilePath, sTeacher;
+        private int _idEvent, _idTeacher, _iYear, _iSemestr;
+        private bool _bIsNewTeacher, _bIsNewEvent;
 
         #region ViewModels
         RatingViewModel RWM = new RatingViewModel();
@@ -40,24 +40,24 @@ namespace Coins_Database.Views
         {
             InitializeComponent();
             CreateRadioButtons();
-            year = DateTime.Now.Year;
-            semestr = GetSemestr();
-            _login = login;
-            _password = password;
-            CurrentUser.Text = _login;
+            _iYear = DateTime.Now.Year;
+            _iSemestr = GetSemestr();
+            sLogin = login;
+            sPassword = password;
+            CurrentUser.Text = sLogin;
             if (Session.Access == Session.ACCESS.Superadmin)
             {
-                adminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingTotal(year, semestr));
-                cbTotal.IsSelected = true;
-                RatingGrid.Visibility = Visibility.Visible;
+                listViewRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingTotal(_iYear, _iSemestr));
+                cbItemTotalRating.IsSelected = true;
+                gridRating.Visibility = Visibility.Visible;
             }
             else
             {
                 WindowHeader.Children.Remove(Settings);
                 WindowHeader.Children.Remove(Export);
-                TCoinsList.ItemsSource = CLVM.LoadCoinsList(_login, _password, Queries.GetTCoinsList(_login, year, semestr));
-                Tcoins_img.DataContext = CCVM.LoadCoinsCount(_login, _password, Queries.GetTCoinsCount(_login, year, semestr));
-                teacher_coins.Visibility = Visibility.Visible;
+                lViewCoinsList.ItemsSource = CLVM.LoadCoinsList(sLogin, sPassword, Queries.GetViewCoinsList(sLogin, _iYear, _iSemestr));
+                gridCoinsImages.DataContext = CCVM.LoadCoinsCount(sLogin, sPassword, Queries.GetTCoinsCount(sLogin, _iYear, _iSemestr));
+                gridTeachersCoins.Visibility = Visibility.Visible;
             }
         }
 
@@ -75,215 +75,215 @@ namespace Coins_Database.Views
 
         public void ChangeRate()
         {
-            adminTable.ItemsSource = null;
+            listViewRating.ItemsSource = null;
             AllRatingHidden();
         }
 
         #region Виды рейтинга
-        private void cbTotal_Selected(object sender, RoutedEventArgs e)
+        private void cbItemTotalRating_Selected(object sender, RoutedEventArgs e)
         {
             ChangeRate();
-            adminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingTotal(year, semestr));
+            listViewRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingTotal(_iYear, _iSemestr));
         }
 
-        private void cbArtcoins_Selected(object sender, RoutedEventArgs e)
+        private void cbartcoins_Selected(object sender, RoutedEventArgs e)
         {
             ChangeRate();
-            adminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingArtcoins(year, semestr));
+            listViewRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingArtcoins(_iYear, _iSemestr));
         }
 
         private void cbIntellect_Selected(object sender, RoutedEventArgs e)
         {
             ChangeRate();
-            adminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingIntellect(year, semestr));
+            listViewRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingIntellect(_iYear, _iSemestr));
         }
 
         private void cbTalents_Selected(object sender, RoutedEventArgs e)
         {
             ChangeRate();
-            adminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingTalents(year, semestr));
+            listViewRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingTalents(_iYear, _iSemestr));
         }
 
         private void cbSocialActivity_Selected(object sender, RoutedEventArgs e)
         {
             ChangeRate();
-            adminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingSocActivity(year, semestr));
+            listViewRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingSocActivity(_iYear, _iSemestr));
         }
         #endregion
 
         void AllRatingHidden()
         {
-            photoTeacher.Visibility = Visibility.Hidden;
-            cardTName.Visibility = Visibility.Hidden;
-            cardTInfo.Visibility = Visibility.Hidden;
-            cardTSpeciality.Visibility = Visibility.Hidden;
-            AchievementsButton.Visibility = Visibility.Hidden;
+            imageTeachersPhoto.Visibility = Visibility.Hidden;
+            textBlockTeachersName.Visibility = Visibility.Hidden;
+            textBlockTeachersInfo.Visibility = Visibility.Hidden;
+            textBlockTeachersSpeciality.Visibility = Visibility.Hidden;
+            buttonTeachersAchievements.Visibility = Visibility.Hidden;
         }
 
         void AllRatingVisible()
         {
-            photoTeacher.Visibility = Visibility.Visible;
-            cardTName.Visibility = Visibility.Visible;
-            cardTInfo.Visibility = Visibility.Visible;
-            cardTSpeciality.Visibility = Visibility.Visible;
-            AchievementsButton.Visibility = Visibility.Visible;
+            imageTeachersPhoto.Visibility = Visibility.Visible;
+            textBlockTeachersName.Visibility = Visibility.Visible;
+            textBlockTeachersInfo.Visibility = Visibility.Visible;
+            textBlockTeachersSpeciality.Visibility = Visibility.Visible;
+            buttonTeachersAchievements.Visibility = Visibility.Visible;
         }
 
-        private void adminTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void listViewRating_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (adminTable.SelectedItems.Count >= 1)
+            if (listViewRating.SelectedItems.Count >= 1)
             {
                 AllRatingVisible();
-                Rating RR = (Rating)adminTable.SelectedItems[0];
-                cardTName.Text = RR.FIO;
-                cardTSpeciality.DataContext = TCVM.LoadTeacherCard(_login, _password, Queries.GetTeacherCard(RR.FIO));
-                cardTInfo.DataContext = TCVM.LoadTeacherCard(_login, _password, Queries.GetTeacherCard(RR.FIO));
-                photoTeacher.Source = TPVM.LoadTeacherPhoto(_login, _password, Queries.GetTeacherPhoto(RR.FIO));
-                id_teacher = RR.id_teacher;
+                Rating RR = (Rating)listViewRating.SelectedItems[0];
+                textBlockTeachersName.Text = RR.FIO;
+                textBlockTeachersSpeciality.DataContext = TCVM.LoadTeacherCard(sLogin, sPassword, Queries.GetTeacherCard(RR.FIO));
+                textBlockTeachersInfo.DataContext = TCVM.LoadTeacherCard(sLogin, sPassword, Queries.GetTeacherCard(RR.FIO));
+                imageTeachersPhoto.Source = TPVM.LoadTeacherPhoto(sLogin, sPassword, Queries.GetTeacherPhoto(RR.FIO));
+                _idTeacher = RR.ID;
             }
         }
 
         private void SignIn_Click(object sender, RoutedEventArgs e)
         {
-            coinsList.ItemsSource = CLVM.LoadCoinsList(_login, _password, Queries.GetCoinsList(cardTName.Text, year, semestr));
-            BackgroundZone.Visibility = Visibility.Visible;
-            night.Visibility = Visibility.Visible;
-            Coins.Visibility = Visibility.Visible;
-            BackPanel.Visibility = Visibility.Visible;
-            coins_img.DataContext = CCVM.LoadCoinsCount(_login, _password, Queries.GetCoinsCount(cardTName.Text, year, semestr));
+            listViewCoinsList.ItemsSource = CLVM.LoadCoinsList(sLogin, sPassword, Queries.GetCoinsList(textBlockTeachersName.Text, _iYear, _iSemestr));
+            gridBackgroundZone.Visibility = Visibility.Visible;
+            colorZoneNight.Visibility = Visibility.Visible;
+            gridCoins.Visibility = Visibility.Visible;
+            gridBackPanel.Visibility = Visibility.Visible;
+            gridCoinsImg.DataContext = CCVM.LoadCoinsCount(sLogin, sPassword, Queries.GetCoinsCount(textBlockTeachersName.Text, _iYear, _iSemestr));
         }
 
         private void RatingRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            RatingGrid.Visibility = Visibility.Visible;
-            EventsGrid.Visibility = Visibility.Hidden;
-            MessagesGrid.Visibility = Visibility.Hidden;
-            if (adminTable.SelectedItems.Count >= 1)
+            gridRating.Visibility = Visibility.Visible;
+            gridEvents.Visibility = Visibility.Hidden;
+            gridMessages.Visibility = Visibility.Hidden;
+            if (listViewRating.SelectedItems.Count >= 1)
             {
                 AllRatingVisible();
             }
             else
             {
-                AchievementsButton.Visibility = Visibility.Hidden;
+                buttonTeachersAchievements.Visibility = Visibility.Hidden;
             }
-            TeachersGrid.Visibility = Visibility.Hidden;
+            gridTeachers.Visibility = Visibility.Hidden;
         }
 
         private void EventsRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            EventsGrid.Visibility = Visibility.Visible;
-            RatingGrid.Visibility = Visibility.Hidden;
-            MessagesGrid.Visibility = Visibility.Hidden;
+            gridEvents.Visibility = Visibility.Visible;
+            gridRating.Visibility = Visibility.Hidden;
+            gridMessages.Visibility = Visibility.Hidden;
             AllRatingHidden();
-            TeachersGrid.Visibility = Visibility.Hidden;
-            eventsTable.ItemsSource = EVM.LoadEvents(_login, _password, Queries.GetEventsList(year, semestr));
-            cbEType.Items.Clear();
-            cbEType.Items.Add("Все");
-            foreach (string item in cESBTVM.LoadTypes(_login, _password, Queries.GetCB_EventTypes, "event_type"))
+            gridTeachers.Visibility = Visibility.Hidden;
+            listViewEvents.ItemsSource = EVM.LoadEvents(sLogin, sPassword, Queries.GetEventsList(_iYear, _iSemestr));
+            cbEventsType.Items.Clear();
+            cbEventsType.Items.Add("Все");
+            foreach (string item in cESBTVM.LoadTypes(sLogin, sPassword, Queries.GetCB_EventTypes, "event_type"))
             {
-                cbEType.Items.Add(item);
+                cbEventsType.Items.Add(item);
             }
-            cbEPlace.Items.Clear();
-            cbEPlace.Items.Add("Все");
-            foreach (string item in cESBTVM.LoadTypes(_login, _password, Queries.GetCB_EventPlaces, "event_place"))
+            cbEventsPlaces.Items.Clear();
+            cbEventsPlaces.Items.Add("Все");
+            foreach (string item in cESBTVM.LoadTypes(sLogin, sPassword, Queries.GetCB_EventPlaces, "event_place"))
             {
-                cbEPlace.Items.Add(item);
+                cbEventsPlaces.Items.Add(item);
             }
         }
 
         private void TeachersRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            RatingGrid.Visibility = Visibility.Hidden;
-            EventsGrid.Visibility = Visibility.Hidden;
-            MessagesGrid.Visibility = Visibility.Hidden;
+            gridRating.Visibility = Visibility.Hidden;
+            gridEvents.Visibility = Visibility.Hidden;
+            gridMessages.Visibility = Visibility.Hidden;
             AllRatingHidden();
-            TeachersGrid.Visibility = Visibility.Visible;
-            teachersTable.ItemsSource = TLVM.LoadTeachersList(_login, _password, Queries.GetTeachersList);
+            gridTeachers.Visibility = Visibility.Visible;
+            listViewTeachers.ItemsSource = TLVM.LoadTeachersList(sLogin, sPassword, Queries.GetTeachersList);
         }
 
         private void ApplicationsRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             try
             {
-                TeachersGrid.Visibility = Visibility.Hidden;
-                RatingGrid.Visibility = Visibility.Hidden;
-                EventsGrid.Visibility = Visibility.Hidden;
-                MessagesGrid.Visibility = Visibility.Visible;
+                gridTeachers.Visibility = Visibility.Hidden;
+                gridRating.Visibility = Visibility.Hidden;
+                gridEvents.Visibility = Visibility.Hidden;
+                gridMessages.Visibility = Visibility.Visible;
                 AllRatingHidden();
-                adminMessageTable.ItemsSource = AMLVM.LoadMAList(_login, _password, Queries.GetAdminMessageList);
-                AllMessages.IsChecked = true;
+                listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(sLogin, sPassword, Queries.GetAdminMessageList);
+                rbAllMessages.IsChecked = true;
             }
             catch { }
         }
 
         public void RenewTeacherCard()
         {
-            DeleteTeacher.Visibility = Visibility.Visible;
-            ChangeTeacher.Visibility = Visibility.Visible;
-            Loot.Visibility = Visibility.Visible;
-            TeachersList TL = (TeachersList)teachersTable.SelectedItems[0];
-            TCardName.Text = TL.FIO;
-            TCardSpeciality.DataContext = TCVM.LoadTeacherCard(_login, _password, Queries.GetTeacherCard(TL.FIO));
-            TCardInfo.DataContext = TCVM.LoadTeacherCard(_login, _password, Queries.GetTeacherCard(TL.FIO));
-            TCardPhoto.Source = TPVM.LoadTeacherPhoto(_login, _password, Queries.GetTeacherPhoto(TL.FIO));
-            id_teacher = TL.id_teacher;
+            buttonDeleteTeacher.Visibility = Visibility.Visible;
+            buttonChangeTeacher.Visibility = Visibility.Visible;
+            buttonGrantCoin.Visibility = Visibility.Visible;
+            TeachersList TL = (TeachersList)listViewTeachers.SelectedItems[0];
+            textBlockTeachersCardName.Text = TL.FIO;
+            textBlockTeachersCardSpeciality.DataContext = TCVM.LoadTeacherCard(sLogin, sPassword, Queries.GetTeacherCard(TL.FIO));
+            textBlockTeachersCardInfo.DataContext = TCVM.LoadTeacherCard(sLogin, sPassword, Queries.GetTeacherCard(TL.FIO));
+            imageTeachersCardPhoto.Source = TPVM.LoadTeacherPhoto(sLogin, sPassword, Queries.GetTeacherPhoto(TL.FIO));
+            _idTeacher = TL.ID;
         }
 
-        private void teachersTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void listViewTeachers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (teachersTable.SelectedItems.Count >= 1)
+            if (listViewTeachers.SelectedItems.Count >= 1)
             {
                 RenewTeacherCard();
-                TeachersList TL = (TeachersList)teachersTable.SelectedItems[0];
-                id_teacher = TL.id_teacher;
+                TeachersList TL = (TeachersList)listViewTeachers.SelectedItems[0];
+                _idTeacher = TL.ID;
             }
         }
 
-        private void eventsTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void listViewEvents_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (eventsTable.SelectedItems.Count >= 1)
+            if (listViewEvents.SelectedItems.Count >= 1)
             {
-                DeleteEvent.Visibility = Visibility.Visible;
-                ChangeEvent.Visibility = Visibility.Visible;
-                Participants.Visibility = Visibility.Visible;
-                Events EVE = (Events)eventsTable.SelectedItems[0];
-                EventInfo.DataContext = AEVM.LoadEvents(_login, _password, Queries.GetEventInfo(EVE.caption));
+                buttonDeleteEvent.Visibility = Visibility.Visible;
+                buttonChangeEvent.Visibility = Visibility.Visible;
+                buttonParticipants.Visibility = Visibility.Visible;
+                Events EVE = (Events)listViewEvents.SelectedItems[0];
+                textBlockEventInfo.Text = AEVM.LoadEvents(sLogin, sPassword, Queries.GetEventInfo(EVE.Caption))[0].Description;
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundZone.Visibility = Visibility.Hidden;
-            night.Visibility = Visibility.Hidden;
-            Coins.Visibility = Visibility.Hidden;
-            BackPanel.Visibility = Visibility.Hidden;
-            achEvent.Text = "";
-            achDateEvent.Text = "";
-            achDescrEvent.Text = "";
-            achEventPlace.Text = "";
-            ratingCB.Text = "Общий рейтинг";
+            gridBackgroundZone.Visibility = Visibility.Hidden;
+            colorZoneNight.Visibility = Visibility.Hidden;
+            gridCoins.Visibility = Visibility.Hidden;
+            gridBackPanel.Visibility = Visibility.Hidden;
+            textBlockCoinsEvent.Text = "";
+            textBlockCoinsDate.Text = "";
+            textBlockCoinsDescription.Text = "";
+            textBlockCoinsPlace.Text = "";
+            cbRating.Text = "Общий рейтинг";
         }
 
         private void GetEventSortRules()
         {
-            string type, place;
-            if (cbEType.Text == "Все" || cbEType.Text == "")
+            string Type, Place;
+            if (cbEventsType.Text == "Все" || cbEventsType.Text == "")
             {
-                type = "";
+                Type = "";
             }
             else
             {
-                type = cbEType.SelectedItem.ToString();
+                Type = cbEventsType.SelectedItem.ToString();
             }
-            if (cbEPlace.Text == "Все" || cbEPlace.Text == "")
+            if (cbEventsPlaces.Text == "Все" || cbEventsPlaces.Text == "")
             {
-                place = "";
+                Place = "";
             }
             else
             {
-                place = cbEPlace.SelectedItem.ToString();
+                Place = cbEventsPlaces.SelectedItem.ToString();
             }
-            eventsTable.ItemsSource = SEVM.LoadSortedEvents(_login, _password, Queries.GetSortedEvent(type, place));
+            listViewEvents.ItemsSource = SEVM.LoadSortedEvents(sLogin, sPassword, Queries.GetSortedEvent(Type, Place));
         }
 
         private void SearchEvents_Click(object sender, RoutedEventArgs e)
@@ -293,12 +293,12 @@ namespace Coins_Database.Views
 
         private void RadioButton_Checked_3(object sender, RoutedEventArgs e)
         {
-            adminMessageTable.ItemsSource = AMLVM.LoadMAList(_login, _password, Queries.GetAdminMessageListSort(""));
+            listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(sLogin, sPassword, Queries.GetAdminMessageListSort(""));
         }
 
         private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
         {
-            adminMessageTable.ItemsSource = AMLVM.LoadMAList(_login, _password, Queries.GetAdminMessageListSort("Не прочитано"));
+            listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(sLogin, sPassword, Queries.GetAdminMessageListSort("Не прочитано"));
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -306,31 +306,31 @@ namespace Coins_Database.Views
             Application.Current.Shutdown();
         }
 
-        private void coinsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void listViewCoinsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (coinsList.SelectedItems.Count >= 1)
+            if (listViewCoinsList.SelectedItems.Count >= 1)
             {
-                CoinsList CoL = (CoinsList)coinsList.SelectedItems[0];
-                achEvent.Text = CoL.party;
-                achDescrEvent.Text = GCCVM.GetCoinComment(_login, _password, CoL.id_coin);
-                achDateEvent.Text = CoL.date;
-                achEventPlace.Text = CoL.place;
+                CoinsList CoL = (CoinsList)listViewCoinsList.SelectedItems[0];
+                textBlockCoinsEvent.Text = CoL.Party;
+                textBlockCoinsDescription.Text = GCCVM.GetCoinComment(sLogin, sPassword, CoL.IDCoin);
+                textBlockCoinsDate.Text = CoL.Date;
+                textBlockCoinsPlace.Text = CoL.Place;
             }
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            if (coinsList.SelectedItems.Count >= 1)
+            if (listViewCoinsList.SelectedItems.Count >= 1)
             {
-                CoinsList CoL = (CoinsList)coinsList.SelectedItems[0];
-                MessageBoxResult result = MessageBox.Show("Удалить коин?", "Удалить", MessageBoxButton.YesNo);
+                CoinsList CoL = (CoinsList)listViewCoinsList.SelectedItems[0];
+                MessageBoxResult Result = MessageBox.Show("Удалить коин?", "Удалить", MessageBoxButton.YesNo);
 
-                if (result == MessageBoxResult.Yes)
+                if (Result == MessageBoxResult.Yes)
                 {
-                    Operations.Operations.Execute(_login, _password, Queries.DeleteCoin(CoL.id_coin));
-                    coinsList.ItemsSource = CLVM.LoadCoinsList(_login, _password, Queries.GetCoinsList(cardTName.Text, year, semestr));
-                    adminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingTotal(year, semestr));
-                    coins_img.DataContext = CCVM.LoadCoinsCount(_login, _password, Queries.GetCoinsCount(cardTName.Text, year, semestr));
+                    Operations.Operations.Execute(sLogin, sPassword, Queries.DeleteCoin(CoL.IDCoin));
+                    listViewCoinsList.ItemsSource = CLVM.LoadCoinsList(sLogin, sPassword, Queries.GetCoinsList(textBlockTeachersName.Text, _iYear, _iSemestr));
+                    listViewRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingTotal(_iYear, _iSemestr));
+                    gridCoinsImg.DataContext = CCVM.LoadCoinsCount(sLogin, sPassword, Queries.GetCoinsCount(textBlockTeachersName.Text, _iYear, _iSemestr));
                 }
             }
             else
@@ -341,42 +341,42 @@ namespace Coins_Database.Views
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            FakeEvent.Items.Clear();
-            FakeComment.Text = "";
-            FakePanel.Visibility = Visibility.Hidden;
-            Lnight.Visibility = Visibility.Hidden;
-            LPanel.Visibility = Visibility.Hidden;
-            LType.Items.Clear();
+            cbEvents.Items.Clear();
+            textBoxComment.Text = "";
+            stackPanelNewCoin.Visibility = Visibility.Hidden;
+            colorZoneNewNight.Visibility = Visibility.Hidden;
+            stackPanelNewCoinPanel.Visibility = Visibility.Hidden;
+            cbAddCoinType.Items.Clear();
         }
 
         private void addCoin_Click_1(object sender, RoutedEventArgs e)
         {
-            FakePanel.Visibility = Visibility.Visible;
-            foreach (string item in cESBTVM.LoadTypes(_login, _password, Queries.GetCBCoinEvent(year, semestr), "event_name"))
+            stackPanelNewCoin.Visibility = Visibility.Visible;
+            foreach (string item in cESBTVM.LoadTypes(sLogin, sPassword, Queries.GetCBCoinEvent(_iYear, _iSemestr), "event_name"))
             {
-                FakeEvent.Items.Add(item);
+                cbEvents.Items.Add(item);
             }
-            FakeType.Items.Clear();
-            FakeType.Items.Add("Арткоин");
-            FakeType.Items.Add("Талант");
-            FakeType.Items.Add("Соц. активность");
-            FakeType.Items.Add("Интеллект");
+            cbTypeOfCoin.Items.Clear();
+            cbTypeOfCoin.Items.Add("Арткоин");
+            cbTypeOfCoin.Items.Add("Талант");
+            cbTypeOfCoin.Items.Add("Соц. активность");
+            cbTypeOfCoin.Items.Add("Интеллект");
         }
 
-        private void DeleteTeacher_Click(object sender, RoutedEventArgs e)
+        private void buttonDeleteTeacher_Click(object sender, RoutedEventArgs e)
         {
-            if (teachersTable.SelectedItems.Count >= 1)
+            if (listViewTeachers.SelectedItems.Count >= 1)
             {
                 MessageBoxResult result = MessageBox.Show("Удалить учителя?", "Удалить", MessageBoxButton.YesNo);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    Operations.Operations.Execute(_login, _password, Queries.DeleteTeacher(id_teacher));
-                    teachersTable.ItemsSource = TLVM.LoadTeachersList(_login, _password, Queries.GetTeachersList);
-                    TCardPhoto.Source = null;
-                    TCardName.Text = "";
-                    TCardInfo.DataContext = null;
-                    TCardSpeciality.DataContext = null;
+                    Operations.Operations.Execute(sLogin, sPassword, Queries.DeleteTeacher(_idTeacher));
+                    listViewTeachers.ItemsSource = TLVM.LoadTeachersList(sLogin, sPassword, Queries.GetTeachersList);
+                    imageTeachersCardPhoto.Source = null;
+                    textBlockTeachersCardName.Text = "";
+                    textBlockTeachersCardInfo.DataContext = null;
+                    textBlockTeachersCardSpeciality.DataContext = null;
                 }
             }
             else
@@ -387,38 +387,38 @@ namespace Coins_Database.Views
 
         public void ClearEditTeacher()
         {
-            FakeFIO.Text = "";
-            FakeSpeciality.Text = "";
-            FakeInfo.Text = "";
-            Portrait.Source = null;
+            textBoxTeachersFio.Text = "";
+            textBoxTeachersSpeciality.Text = "";
+            textBoxTeachersInfo.Text = "";
+            imageTeachersPortrait.Source = null;
         }
 
-        private void ChangeTeacher_Click(object sender, RoutedEventArgs e)
+        private void buttonChangeTeacher_Click(object sender, RoutedEventArgs e)
         {
-            FakeFIO.Text = TCardName.Text;
-            FakeSpeciality.Text = TCardSpeciality.Text;
-            FakeInfo.Text = TCardInfo.Text;
-            Portrait.Source = TCardPhoto.Source;
-            TeacherPageGrid.Visibility = Visibility.Visible;
-            TeacherPageBackground.Visibility = Visibility.Visible;
-            FakeTeacherPanel.Visibility = Visibility.Visible;
-            AddTeacherButton.Content = "Обновить";
-            is_new_teacher = false;
+            textBoxTeachersFio.Text = textBlockTeachersCardName.Text;
+            textBoxTeachersSpeciality.Text = textBlockTeachersCardSpeciality.Text;
+            textBoxTeachersInfo.Text = textBlockTeachersCardInfo.Text;
+            imageTeachersPortrait.Source = imageTeachersCardPhoto.Source;
+            gridTeacherPage.Visibility = Visibility.Visible;
+            colorZoneTeacherPage.Visibility = Visibility.Visible;
+            stackPanelTeacherPanel.Visibility = Visibility.Visible;
+            buttonNewTeacher.Content = "Обновить";
+            _bIsNewTeacher = false;
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Multiselect = false;
-            openFileDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+            OpenFileDialog OpenFileDialog = new OpenFileDialog();
+            OpenFileDialog.Multiselect = false;
+            OpenFileDialog.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
                 "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
                 "Portable Network Graphic (*.png)|*.png";
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            if (openFileDialog.ShowDialog() == true)
+            OpenFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            if (OpenFileDialog.ShowDialog() == true)
             {
-                foreach (string filename in openFileDialog.FileNames)
-                    Portrait.Source = new BitmapImage(new Uri(openFileDialog.FileName));
-                file_path = openFileDialog.FileName;
+                foreach (string Filename in OpenFileDialog.FileNames)
+                    imageTeachersPortrait.Source = new BitmapImage(new Uri(OpenFileDialog.FileName));
+                sFilePath = OpenFileDialog.FileName;
             }
         }
 
@@ -426,33 +426,33 @@ namespace Coins_Database.Views
         {
             try
             {
-                if (Portrait.Source != null)
+                if (imageTeachersPortrait.Source != null)
                 {
-                    if (is_new_teacher == true)
+                    if (_bIsNewTeacher == true)
                     {
-                        IIVM.InsertImage(_login, _password, file_path);
-                        Operations.Operations.Execute(_login, _password, Queries.AddTeacher(FakeFIO.Text, FakeSpeciality.Text,
-                            FakeInfo.Text, LIIVM.LastImageID(_login, _password)));
-                        TCardPhoto.Source = null;
-                        TCardName.Text = "";
-                        TCardInfo.DataContext = null;
-                        TCardSpeciality.DataContext = null;
+                        IIVM.InsertImage(sLogin, sPassword, sFilePath);
+                        Operations.Operations.Execute(sLogin, sPassword, Queries.AddTeacher(textBoxTeachersFio.Text, textBoxTeachersSpeciality.Text,
+                            textBoxTeachersInfo.Text, LIIVM.LastImageID(sLogin, sPassword)));
+                        imageTeachersCardPhoto.Source = null;
+                        textBlockTeachersCardName.Text = "";
+                        textBlockTeachersCardInfo.DataContext = null;
+                        textBlockTeachersCardSpeciality.DataContext = null;
                     }
                     else
                     {
-                        IIVM.InsertImage(_login, _password, file_path);
-                        Operations.Operations.Execute(_login, _password, Queries.UpdateTeacher(FakeFIO.Text, FakeSpeciality.Text,
-                            FakeInfo.Text, LIIVM.LastImageID(_login, _password), id_teacher));
-                        TCardName.Text = FakeFIO.Text;
-                        TCardSpeciality.DataContext = TCVM.LoadTeacherCard(_login, _password, Queries.GetTeacherCard(FakeFIO.Text));
-                        TCardInfo.DataContext = TCVM.LoadTeacherCard(_login, _password, Queries.GetTeacherCard(FakeFIO.Text));
-                        TCardPhoto.Source = TPVM.LoadTeacherPhoto(_login, _password, Queries.GetTeacherPhoto(FakeFIO.Text));
+                        IIVM.InsertImage(sLogin, sPassword, sFilePath);
+                        Operations.Operations.Execute(sLogin, sPassword, Queries.UpdateTeacher(textBoxTeachersFio.Text, textBoxTeachersSpeciality.Text,
+                            textBoxTeachersInfo.Text, LIIVM.LastImageID(sLogin, sPassword), _idTeacher));
+                        textBlockTeachersCardName.Text = textBoxTeachersFio.Text;
+                        textBlockTeachersCardSpeciality.DataContext = TCVM.LoadTeacherCard(sLogin, sPassword, Queries.GetTeacherCard(textBoxTeachersFio.Text));
+                        textBlockTeachersCardInfo.DataContext = TCVM.LoadTeacherCard(sLogin, sPassword, Queries.GetTeacherCard(textBoxTeachersFio.Text));
+                        imageTeachersCardPhoto.Source = TPVM.LoadTeacherPhoto(sLogin, sPassword, Queries.GetTeacherPhoto(textBoxTeachersFio.Text));
 
                     }
-                    teachersTable.ItemsSource = TLVM.LoadTeachersList(_login, _password, Queries.GetTeachersList);
-                    TeacherPageGrid.Visibility = Visibility.Hidden;
-                    TeacherPageBackground.Visibility = Visibility.Hidden;
-                    FakeTeacherPanel.Visibility = Visibility.Hidden;
+                    listViewTeachers.ItemsSource = TLVM.LoadTeachersList(sLogin, sPassword, Queries.GetTeachersList);
+                    gridTeacherPage.Visibility = Visibility.Hidden;
+                    colorZoneTeacherPage.Visibility = Visibility.Hidden;
+                    stackPanelTeacherPanel.Visibility = Visibility.Hidden;
                 }
                 else
                 {
@@ -467,143 +467,140 @@ namespace Coins_Database.Views
 
         private void Button_Click_6(object sender, RoutedEventArgs e)
         {
-            Portrait.Source = null;
+            imageTeachersPortrait.Source = null;
         }
 
         private void Button_Click_7(object sender, RoutedEventArgs e)
         {
-            TeacherPageGrid.Visibility = Visibility.Hidden;
-            FakeTeacherPanel.Visibility = Visibility.Hidden;
+            gridTeacherPage.Visibility = Visibility.Hidden;
+            stackPanelTeacherPanel.Visibility = Visibility.Hidden;
             ClearEditTeacher();
         }
 
         private void Button_Click_9(object sender, RoutedEventArgs e)
         {
-            TeacherPageGrid.Visibility = Visibility.Visible;
-            TeacherPageBackground.Visibility = Visibility.Visible;
-            FakeTeacherPanel.Visibility = Visibility.Visible;
-            AddTeacherButton.Content = "Добавить";
-            is_new_teacher = true;
+            gridTeacherPage.Visibility = Visibility.Visible;
+            colorZoneTeacherPage.Visibility = Visibility.Visible;
+            stackPanelTeacherPanel.Visibility = Visibility.Visible;
+            buttonNewTeacher.Content = "Добавить";
+            _bIsNewTeacher = true;
         }
 
         private void Button_Click_10(object sender, RoutedEventArgs e)
         {
-            is_new_event = true;
-            FakeEventsGrig.Visibility = Visibility.Visible;
-            EventParticipants.Visibility = Visibility.Hidden;
-            FakeEventPanel.Visibility = Visibility.Visible;
-            FakeTypeEvent.Items.Clear();
-            FakeTypeEvent.Items.Add("Все типы");
-            foreach (string item in cESBTVM.LoadTypes(_login, _password, Queries.GetCB_EventTypes, "event_type"))
+            _bIsNewEvent = true;
+            gridNewEvent.Visibility = Visibility.Visible;
+            gridEventParticipants.Visibility = Visibility.Hidden;
+            stackPanelEventPanel.Visibility = Visibility.Visible;
+            cbEventType.Items.Clear();
+            cbEventType.Items.Add("Все типы");
+            foreach (string Item in cESBTVM.LoadTypes(sLogin, sPassword, Queries.GetCB_EventTypes, "event_type"))
             {
-                FakeTypeEvent.Items.Add(item);
+                cbEventType.Items.Add(Item);
             }
-            AddEvent.Content = "Добавить";
+            buttonNewEvent.Content = "Добавить";
         }
 
         private void Button_Click_11(object sender, RoutedEventArgs e)
         {
-            FakeEventsGrig.Visibility = Visibility.Hidden;
-            EventParticipants.Visibility = Visibility.Hidden;
+            gridNewEvent.Visibility = Visibility.Hidden;
+            gridEventParticipants.Visibility = Visibility.Hidden;
         }
 
         private void Participants_Click(object sender, RoutedEventArgs e)
         {
-            FakeEventsGrig.Visibility = Visibility.Visible;
-            FakeEventPanel.Visibility = Visibility.Hidden;
-            EventParticipants.Visibility = Visibility.Visible;
-            Events EvE = (Events)eventsTable.SelectedItems[0];
-            PartTeachers.ItemsSource = TLVM.LoadTeachersList(_login, _password,
-                Queries.GetParticipants(GIVM.LoadID(_login, _password, Queries.GetEventID(EvE.caption), "id_event")));
+            gridNewEvent.Visibility = Visibility.Visible;
+            stackPanelEventPanel.Visibility = Visibility.Hidden;
+            gridEventParticipants.Visibility = Visibility.Visible;
+            Events EvE = (Events)listViewEvents.SelectedItems[0];
+            listViewParticipants.ItemsSource = TLVM.LoadTeachersList(sLogin, sPassword,
+                Queries.GetParticipants(GIVM.LoadID(sLogin, sPassword, Queries.GetEventID(EvE.Caption), "id_event")));
         }
 
         private void DeleteEvent_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Удалить мероприятие? Все коины, связанные с ним, исчезнут", "Удалить", MessageBoxButton.YesNo);
-
-            if (result == MessageBoxResult.Yes)
+            MessageBoxResult Result = MessageBox.Show("Удалить мероприятие? Все коины, связанные с ним, исчезнут", "Удалить", 
+                MessageBoxButton.YesNo);
+            if (Result == MessageBoxResult.Yes)
             {
-                Events EvE = (Events)eventsTable.SelectedItems[0];
+                Events EvE = (Events)listViewEvents.SelectedItems[0];
                 Operations.Operations.Execute(
-                    _login, _password, Queries.DeleteEvent(GIVM.LoadID(_login, _password, Queries.GetEventID(EvE.caption), "id_event")));
-                eventsTable.ItemsSource = EVM.LoadEvents(_login, _password, Queries.GetEventsList(year, semestr));
-                EventInfo.DataContext = null;
+                    sLogin, sPassword, Queries.DeleteEvent(GIVM.LoadID(sLogin, sPassword, Queries.GetEventID(EvE.Caption), "id_event")));
+                listViewEvents.ItemsSource = EVM.LoadEvents(sLogin, sPassword, Queries.GetEventsList(_iYear, _iSemestr));
+                textBlockEventInfo.DataContext = null;
             }
             else
             {
 
             }
-            cbEPlace.Items.Clear();
-            cbEPlace.Items.Add("Все");
-            foreach (string item in cESBTVM.LoadTypes(_login, _password, Queries.GetCB_EventPlaces, "event_place"))
+            cbEventsPlaces.Items.Clear();
+            cbEventsPlaces.Items.Add("Все");
+            foreach (string Item in cESBTVM.LoadTypes(sLogin, sPassword, Queries.GetCB_EventPlaces, "event_place"))
             {
-                cbEPlace.Items.Add(item);
+                cbEventsPlaces.Items.Add(Item);
             }
         }
 
         private void ChangeEvent_Click(object sender, RoutedEventArgs e)
         {
-            FakeTypeEvent.Items.Clear();
-            is_new_event = false;
-            FakeTypeEvent.Items.Add("Все типы");
-            foreach (string item in cESBTVM.LoadTypes(_login, _password, Queries.GetCB_EventTypes, "event_type"))
+            cbEventType.Items.Clear();
+            _bIsNewEvent = false;
+            cbEventType.Items.Add("Все типы");
+            foreach (string Item in cESBTVM.LoadTypes(sLogin, sPassword, Queries.GetCB_EventTypes, "event_type"))
             {
-                FakeTypeEvent.Items.Add(item);
+                cbEventType.Items.Add(Item);
             }
-            FakeEventsGrig.Visibility = Visibility.Visible;
-            FakeEventPanel.Visibility = Visibility.Visible;
-            EventParticipants.Visibility = Visibility.Hidden;
-            Events EvE = (Events)eventsTable.SelectedItems[0];
-            FakeCalendar.SelectedDate = Convert.ToDateTime(EvE.date);
-            FakeCaption.Text = EvE.caption;
-            FakePlace.Text = EvE.place;
-            FakeDescription.Text = EventInfo.Text;
-            FakeTypeEvent.SelectedItem = EvE.type;
-            AddEvent.Content = "Изменить";
+            gridNewEvent.Visibility = Visibility.Visible;
+            stackPanelEventPanel.Visibility = Visibility.Visible;
+            gridEventParticipants.Visibility = Visibility.Hidden;
+            Events EvE = (Events)listViewEvents.SelectedItems[0];
+            datePickerCalendar.SelectedDate = Convert.ToDateTime(EvE.Date);
+            textBoxEventCaption.Text = EvE.Caption;
+            textBoxEventPlace.Text = EvE.Place;
+            textBoxEventDescription.Text = textBlockEventInfo.Text;
+            cbEventType.SelectedItem = EvE.Type;
+            buttonNewEvent.Content = "Изменить";
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            adminMessageTable.ItemsSource = AMLVM.LoadMAList(_login, _password, Queries.GetAdminMessageListSort("Принято"));
+            listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(sLogin, sPassword, Queries.GetAdminMessageListSort("Принято"));
         }
 
-        private void adminMessageTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void listViewAdminMessageBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
-                AdminMessageList AML = (AdminMessageList)adminMessageTable.SelectedItems[0];
-                if (adminMessageTable.SelectedItems.Count >= 1)
+                AdminMessageList AML = (AdminMessageList)listViewAdminMessageBox.SelectedItems[0];
+                if (listViewAdminMessageBox.SelectedItems.Count >= 1)
                 {
-                    if (AML.status == "Не прочитано")
+                    if (AML.Status == "Не прочитано")
                     {
-                        Accept.Visibility = Visibility.Visible;
-                        Decline.Visibility = Visibility.Visible;
+                        buttonAcceptRequest.Visibility = Visibility.Visible;
+                        buttonDeclineRequest.Visibility = Visibility.Visible;
                     }
                     else
                     {
-                        Accept.Visibility = Visibility.Hidden;
-                        Decline.Visibility = Visibility.Hidden;
+                        buttonAcceptRequest.Visibility = Visibility.Hidden;
+                        buttonDeclineRequest.Visibility = Visibility.Hidden;
                     }
                 }
                 else
                 {
-                    Accept.Visibility = Visibility.Hidden;
-                    Decline.Visibility = Visibility.Hidden;
+                    buttonAcceptRequest.Visibility = Visibility.Hidden;
+                    buttonDeclineRequest.Visibility = Visibility.Hidden;
                 }
             }
-            catch
-            {
-
-            }
+            catch { }
         }
 
         private void Decline_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                AdminMessageList AML = (AdminMessageList)adminMessageTable.SelectedItems[0];
-                Operations.Operations.Execute(_login, _password, Queries.UpdateMessageStatus("Отклонено", AML.id_message));
-                adminMessageTable.ItemsSource = AMLVM.LoadMAList(_login, _password, Queries.GetAdminMessageListSort(""));
+                AdminMessageList AML = (AdminMessageList)listViewAdminMessageBox.SelectedItems[0];
+                Operations.Operations.Execute(sLogin, sPassword, Queries.UpdateMessageStatus("Отклонено", AML.ID));
+                listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(sLogin, sPassword, Queries.GetAdminMessageListSort(""));
             }
             catch
             {
@@ -615,16 +612,16 @@ namespace Coins_Database.Views
         {
             try
             {
-                AdminMessageList AML = (AdminMessageList)adminMessageTable.SelectedItems[0];
-                TeacherPageBackground.Visibility = Visibility.Visible;
-                ResponceBlock.Visibility = Visibility.Visible;
-                REvent.Text = AML._event;
-                teacher = AML.teacher;
-                RType.Items.Clear();
-                RType.Items.Add("Арткоин");
-                RType.Items.Add("Талант");
-                RType.Items.Add("Соц. активность");
-                RType.Items.Add("Интеллект");
+                AdminMessageList AML = (AdminMessageList)listViewAdminMessageBox.SelectedItems[0];
+                colorZoneTeacherPage.Visibility = Visibility.Visible;
+                gridResponce.Visibility = Visibility.Visible;
+                textBlockAcceptRequestEvent.Text = AML.Event;
+                sTeacher = AML.Teacher;
+                cbAcceptRequestCoinType.Items.Clear();
+                cbAcceptRequestCoinType.Items.Add("Арткоин");
+                cbAcceptRequestCoinType.Items.Add("Талант");
+                cbAcceptRequestCoinType.Items.Add("Соц. активность");
+                cbAcceptRequestCoinType.Items.Add("Интеллект");
             }
             catch
             {
@@ -634,66 +631,66 @@ namespace Coins_Database.Views
 
         private void Button_Click_13(object sender, RoutedEventArgs e)
         {
-            if (RType.Text == "")
+            if (cbAcceptRequestCoinType.Text == "")
             {
                 MessageBox.Show("Нужно заполнить все поля");
             }
             else
             {
-                int id_coin_type = 0;
-                if (RType.Text == "Арткоин")
+                int IDCoinType = 0;
+                if (cbAcceptRequestCoinType.Text == "Арткоин")
                 {
-                    id_coin_type = 0;
+                    IDCoinType = 0;
                 }
                 else
                 {
-                    if (RType.Text == "Талант")
+                    if (cbAcceptRequestCoinType.Text == "Талант")
                     {
-                        id_coin_type = 1;
+                        IDCoinType = 1;
                     }
                     else
                     {
-                        if (RType.Text == "Соц. активность")
+                        if (cbAcceptRequestCoinType.Text == "Соц. активность")
                         {
-                            id_coin_type = 2;
+                            IDCoinType = 2;
                         }
                         else
                         {
-                            if (RType.Text == "Интеллект")
+                            if (cbAcceptRequestCoinType.Text == "Интеллект")
                             {
-                                id_coin_type = 3;
+                                IDCoinType = 3;
                             }
                         }
                     }
                 }
-                AdminMessageList AML = (AdminMessageList)adminMessageTable.SelectedItems[0];
-                id_event = GIVM.LoadID(_login, _password, Queries.GetEventID(REvent.Text), "id_event");
-                id_teacher = GIVM.LoadID(_login, _password, Queries.GetTeacherID(1, teacher), "id_teacher");
-                Operations.Operations.Execute(_login, _password, Queries.AddCoin(id_event, id_teacher, id_coin_type, RComment.Text));
-                RComment.Text = "";
-                Operations.Operations.Execute(_login, _password, Queries.UpdateMessageStatus("Принято", AML.id_message));
-                adminMessageTable.ItemsSource = AMLVM.LoadMAList(_login, _password, Queries.GetAdminMessageListSort(""));
-                TeacherPageBackground.Visibility = Visibility.Hidden;
-                ResponceBlock.Visibility = Visibility.Hidden;
-                adminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingTotal(year, semestr));
+                AdminMessageList AML = (AdminMessageList)listViewAdminMessageBox.SelectedItems[0];
+                _idEvent = GIVM.LoadID(sLogin, sPassword, Queries.GetEventID(textBlockAcceptRequestEvent.Text), "id_event");
+                _idTeacher = GIVM.LoadID(sLogin, sPassword, Queries.GetTeacherID(1, sTeacher), "id_teacher");
+                Operations.Operations.Execute(sLogin, sPassword, Queries.AddCoin(_idEvent, _idTeacher, IDCoinType, textBoxAcceptRequestComment.Text));
+                textBoxAcceptRequestComment.Text = "";
+                Operations.Operations.Execute(sLogin, sPassword, Queries.UpdateMessageStatus("Принято", AML.ID));
+                listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(sLogin, sPassword, Queries.GetAdminMessageListSort(""));
+                colorZoneTeacherPage.Visibility = Visibility.Hidden;
+                gridResponce.Visibility = Visibility.Hidden;
+                listViewRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingTotal(_iYear, _iSemestr));
             }
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            AccountList.ItemsSource = ALVM.LoadAccounts(_login, _password, Queries.GetAccounts);
-            SettingsGrid.Visibility = Visibility.Visible;
-            SettingsPanel.Visibility = Visibility.Visible;
-            currentYear.Text = year.ToString();
-            if (semestr == 1)
+            listViewAccounts.ItemsSource = ALVM.LoadAccounts(sLogin, sPassword, Queries.GetAccounts);
+            gridSettings.Visibility = Visibility.Visible;
+            stackPanelSettings.Visibility = Visibility.Visible;
+            textBoxCurrentYear.Text = _iYear.ToString();
+            if (_iSemestr == 1)
             {
-                CS1.IsChecked = true;
-                CS2.IsChecked = false;
+                rbFirstSemestr.IsChecked = true;
+                rbSecondSemestr.IsChecked = false;
             }
             else
             {
-                CS1.IsChecked = false;
-                CS2.IsChecked = true;
+                rbFirstSemestr.IsChecked = false;
+                rbSecondSemestr.IsChecked = true;
             }
         }
 
@@ -701,20 +698,20 @@ namespace Coins_Database.Views
         {
             try
             {
-                Account ACC = (Account)AccountList.SelectedItems[0];
-                if (ALogin.Text == "" || APassword.Text == "" || (ALogin.Text == "" && APassword.Text == ""))
+                Account ACC = (Account)listViewAccounts.SelectedItems[0];
+                if (textBoxAccountLogin.Text == "" || textBoxAccountPassword.Text == "" || (textBoxAccountLogin.Text == "" && textBoxAccountPassword.Text == ""))
                 {
                     MessageBox.Show("Нужно заполнить все поля");
                 }
                 else
                 {
-                    Operations.Operations.Execute(_login, _password, Queries.NewAccount(ALogin.Text, APassword.Text, ACC.ac_id));
+                    Operations.Operations.Execute(sLogin, sPassword, Queries.NewAccount(textBoxAccountLogin.Text, textBoxAccountPassword.Text, ACC.ID));
                     SnackbarOne.IsActive = true;
-                    AccountList.ItemsSource = ALVM.LoadAccounts(_login, _password, Queries.GetAccounts);
-                    ALogin.IsEnabled = false;
-                    APassword.IsEnabled = false;
-                    AddAccount.IsEnabled = false;
-                    DeleteAccount.IsEnabled = true;
+                    listViewAccounts.ItemsSource = ALVM.LoadAccounts(sLogin, sPassword, Queries.GetAccounts);
+                    textBoxAccountLogin.IsEnabled = false;
+                    textBoxAccountPassword.IsEnabled = false;
+                    buttonCreateAccount.IsEnabled = false;
+                    buttonDeleteAccount.IsEnabled = true;
                 }
             }
             catch
@@ -730,50 +727,50 @@ namespace Coins_Database.Views
 
         private void Button_Click_15(object sender, RoutedEventArgs e)
         {
-            SettingsGrid.Visibility = Visibility.Hidden;
-            SettingsPanel.Visibility = Visibility.Hidden;
-            year = Convert.ToInt32(currentYear.Text);
-            if (CS1.IsChecked == true)
+            gridSettings.Visibility = Visibility.Hidden;
+            stackPanelSettings.Visibility = Visibility.Hidden;
+            _iYear = Convert.ToInt32(textBoxCurrentYear.Text);
+            if (rbFirstSemestr.IsChecked == true)
             {
-                semestr = 1;
+                _iSemestr = 1;
             }
             else
             {
-                semestr = 2;
+                _iSemestr = 2;
             }
-            cbTotal.IsSelected = true;
-            adminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingTotal(year, semestr));
-            eventsTable.ItemsSource = EVM.LoadEvents(_login, _password, Queries.GetEventsList(year, semestr));
+            cbItemTotalRating.IsSelected = true;
+            listViewRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingTotal(_iYear, _iSemestr));
+            listViewEvents.ItemsSource = EVM.LoadEvents(sLogin, sPassword, Queries.GetEventsList(_iYear, _iSemestr));
         }
 
         private void AccountList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
-                Account ACC = (Account)AccountList.SelectedItems[0];
-                if (AccountList.SelectedItems.Count >= 1)
+                Account ACC = (Account)listViewAccounts.SelectedItems[0];
+                if (listViewAccounts.SelectedItems.Count >= 1)
                 {
-                    DeleteAccount.Visibility = Visibility.Visible;
-                    AddAccount.Visibility = Visibility.Visible;
-                    ALogin.Visibility = Visibility.Visible;
-                    APassword.Visibility = Visibility.Visible;
-                    if (ACC.ac_login.Length >= 1)
+                    buttonDeleteAccount.Visibility = Visibility.Visible;
+                    buttonCreateAccount.Visibility = Visibility.Visible;
+                    textBoxAccountLogin.Visibility = Visibility.Visible;
+                    textBoxAccountPassword.Visibility = Visibility.Visible;
+                    if (ACC.Login.Length >= 1)
                     {
-                        ALogin.Text = ACC.ac_login;
-                        ALogin.IsEnabled = false;
-                        APassword.Text = "********";
-                        APassword.IsEnabled = false;
-                        AddAccount.IsEnabled = false;
-                        DeleteAccount.IsEnabled = true;
+                        textBoxAccountLogin.Text = ACC.Login;
+                        textBoxAccountLogin.IsEnabled = false;
+                        textBoxAccountPassword.Text = "********";
+                        textBoxAccountPassword.IsEnabled = false;
+                        buttonCreateAccount.IsEnabled = false;
+                        buttonDeleteAccount.IsEnabled = true;
                     }
                     else
                     {
-                        ALogin.Text = "";
-                        APassword.Text = "";
-                        ALogin.IsEnabled = true;
-                        APassword.IsEnabled = true;
-                        AddAccount.IsEnabled = true;
-                        DeleteAccount.IsEnabled = false;
+                        textBoxAccountLogin.Text = "";
+                        textBoxAccountPassword.Text = "";
+                        textBoxAccountLogin.IsEnabled = true;
+                        textBoxAccountPassword.IsEnabled = true;
+                        buttonCreateAccount.IsEnabled = true;
+                        buttonDeleteAccount.IsEnabled = false;
                     }
                 }
             }
@@ -788,40 +785,40 @@ namespace Coins_Database.Views
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    Operations.Operations.Execute(_login, _password, Queries.DeleteAccount(ALogin.Text, ALogin.Text));
+                    Operations.Operations.Execute(sLogin, sPassword, Queries.DeleteAccount(textBoxAccountLogin.Text, textBoxAccountLogin.Text));
                     SnackbarOne.IsActive = true;
-                    AccountList.ItemsSource = ALVM.LoadAccounts(_login, _password, Queries.GetAccounts);
-                    ALogin.Text = "";
-                    APassword.Text = "";
-                    ALogin.IsEnabled = true;
-                    APassword.IsEnabled = true;
-                    AddAccount.IsEnabled = true;
-                    DeleteAccount.IsEnabled = false;
+                    listViewAccounts.ItemsSource = ALVM.LoadAccounts(sLogin, sPassword, Queries.GetAccounts);
+                    textBoxAccountLogin.Text = "";
+                    textBoxAccountPassword.Text = "";
+                    textBoxAccountLogin.IsEnabled = true;
+                    textBoxAccountPassword.IsEnabled = true;
+                    buttonCreateAccount.IsEnabled = true;
+                    buttonDeleteAccount.IsEnabled = false;
                 }
                 else { }
             }
             catch { }
         }
 
-        private void TCoinsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void lViewCoinsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (TCoinsList.SelectedItems.Count >= 1)
+            if (lViewCoinsList.SelectedItems.Count >= 1)
             {
-                CoinsList CoL = (CoinsList)TCoinsList.SelectedItems[0];
-                TachEvent.Text = CoL.party;
-                TachDescrEvent.Text = GCCVM.GetCoinComment(_login, _password, CoL.id_coin);
-                TachDateEvent.Text = CoL.date;
-                TachEventPlace.Text = CoL.place;
+                CoinsList CoL = (CoinsList)lViewCoinsList.SelectedItems[0];
+                textBlockCoinEvent.Text = CoL.Party;
+                textBlockCoinEventDescription.Text = GCCVM.GetCoinComment(sLogin, sPassword, CoL.IDCoin);
+                textBlockCoinEventDate.Text = CoL.Date;
+                textBlockCoinEventPlace.Text = CoL.Place;
             }
         }
 
         private void SendRequest_Click(object sender, RoutedEventArgs e)
         {
-            if (RequestEvent.SelectedItem != null)
+            if (cbRequestEvent.SelectedItem != null)
             {
-                Operations.Operations.Execute(_login, _password, Queries.AddMessage(GIVM.LoadID(_login, _password, Queries.GetTeacherID(2, _login), "id_teacher"),
-                    GIVM.LoadID(_login, _password, Queries.GetEventID(RequestEvent.SelectedItem.ToString()), "id_event"), DateTime.Now));
-                teacherMessageTable.ItemsSource = AMLVM.LoadMAList(_login, _password, Queries.GetTeacherMessageList(_login, year, semestr));
+                Operations.Operations.Execute(sLogin, sPassword, Queries.AddMessage(GIVM.LoadID(sLogin, sPassword, Queries.GetTeacherID(2, sLogin), "id_teacher"),
+                    GIVM.LoadID(sLogin, sPassword, Queries.GetEventID(cbRequestEvent.SelectedItem.ToString()), "id_event"), DateTime.Now));
+                listViewTeacherMessageBox.ItemsSource = AMLVM.LoadMAList(sLogin, sPassword, Queries.GetTeacherMessageList(sLogin, _iYear, _iSemestr));
                 Snackbar2.IsActive = true;
             }
             else
@@ -837,54 +834,54 @@ namespace Coins_Database.Views
 
         private void TotalRating_Click(object sender, RoutedEventArgs e)
         {
-            TBackgroundZone.Visibility = Visibility.Visible;
-            TadminTable.ItemsSource = null;
-            TratingCB.Text = "Общий рейтинг";
-            TadminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingTotal(year, semestr));
+            gridTotalRatingBackgroung.Visibility = Visibility.Visible;
+            listViewTotalRating.ItemsSource = null;
+            cbRatingTypes.Text = "Общий рейтинг";
+            listViewTotalRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingTotal(_iYear, _iSemestr));
         }
 
         private void Button_Click_14(object sender, RoutedEventArgs e)
         {
-            TeacherPageBackground.Visibility = Visibility.Hidden;
-            ResponceBlock.Visibility = Visibility.Hidden;
+            colorZoneTeacherPage.Visibility = Visibility.Hidden;
+            gridResponce.Visibility = Visibility.Hidden;
         }
 
         private void Button_Click_12(object sender, RoutedEventArgs e)
         {
-            FakeEventsGrig.Visibility = Visibility.Hidden;
+            gridNewEvent.Visibility = Visibility.Hidden;
         }
 
         private void Button_Click_8(object sender, RoutedEventArgs e)
         {
-            if (FakeCalendar.SelectedDate != null)
+            if (datePickerCalendar.SelectedDate != null)
             {
-                if (FakeTypeEvent.SelectedItem != null)
+                if (cbEventType.SelectedItem != null)
                 {
-                    if (FakeCaption.Text == "" || FakePlace.Text == "" || (FakeCaption.Text == "" && FakePlace.Text == ""))
+                    if (textBoxEventCaption.Text == "" || textBoxEventPlace.Text == "" || (textBoxEventCaption.Text == "" && textBoxEventPlace.Text == ""))
                     {
                         MessageBox.Show("Нужно указать данные о мероприятии");
                     }
                     else
                     {
-                        if (is_new_event == true)
+                        if (_bIsNewEvent == true)
                         {
-                            Operations.Operations.Execute(_login, _password, Queries.AddEvent(FakeCaption.Text, FakePlace.Text, FakeDescription.Text,
-                                GIVM.LoadID(_login, _password, Queries.GetEventTypeID(FakeTypeEvent.SelectedItem.ToString()), "id"), FakeCalendar.SelectedDate.Value));
+                            Operations.Operations.Execute(sLogin, sPassword, Queries.AddEvent(textBoxEventCaption.Text, textBoxEventPlace.Text, textBoxEventDescription.Text,
+                                GIVM.LoadID(sLogin, sPassword, Queries.GetEventTypeID(cbEventType.SelectedItem.ToString()), "id"), datePickerCalendar.SelectedDate.Value));
                         }
                         else
                         {
-                            Events EvE = (Events)eventsTable.SelectedItems[0];
-                            Operations.Operations.Execute(_login, _password, Queries.UpdateEvent(FakeCaption.Text, FakePlace.Text, FakeDescription.Text,
-                                GIVM.LoadID(_login, _password, Queries.GetEventTypeID(FakeTypeEvent.SelectedItem.ToString()), "id"), FakeCalendar.SelectedDate.Value,
-                                GIVM.LoadID(_login, _password, Queries.GetEventID(EvE.caption), "id_event")));
+                            Events EvE = (Events)listViewEvents.SelectedItems[0];
+                            Operations.Operations.Execute(sLogin, sPassword, Queries.UpdateEvent(textBoxEventCaption.Text, textBoxEventPlace.Text, textBoxEventDescription.Text,
+                                GIVM.LoadID(sLogin, sPassword, Queries.GetEventTypeID(cbEventType.SelectedItem.ToString()), "id"), datePickerCalendar.SelectedDate.Value,
+                                GIVM.LoadID(sLogin, sPassword, Queries.GetEventID(EvE.Caption), "id_event")));
                         }
-                        FakeEventsGrig.Visibility = Visibility.Hidden;
-                        FakeCaption.Text = "";
-                        FakePlace.Text = "";
-                        FakeTypeEvent.SelectedItem = null;
-                        eventsTable.ItemsSource = EVM.LoadEvents(_login, _password, Queries.GetEventsList(year, semestr));
-                        EventInfo.Text = FakeDescription.Text;
-                        FakeDescription.Text = "";
+                        gridNewEvent.Visibility = Visibility.Hidden;
+                        textBoxEventCaption.Text = "";
+                        textBoxEventPlace.Text = "";
+                        cbEventType.SelectedItem = null;
+                        listViewEvents.ItemsSource = EVM.LoadEvents(sLogin, sPassword, Queries.GetEventsList(_iYear, _iSemestr));
+                        textBlockEventInfo.Text = textBoxEventDescription.Text;
+                        textBoxEventDescription.Text = "";
                     }
                 }
                 else
@@ -900,191 +897,191 @@ namespace Coins_Database.Views
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            if (FakeEvent.Text == "" || FakeType.Text == "" || (FakeEvent.Text == "" && FakeType.Text == ""))
+            if (cbEvents.Text == "" || cbTypeOfCoin.Text == "" || (cbEvents.Text == "" && cbTypeOfCoin.Text == ""))
             {
                 MessageBox.Show("Нужно заполнить все поля");
             }
             else
             {
-                int id_coin_type = 0;
-                if (FakeType.Text == "Арткоин")
+                int IDCoinType = 0;
+                if (cbTypeOfCoin.Text == "Арткоин")
                 {
-                    id_coin_type = 0;
+                    IDCoinType = 0;
                 }
                 else
                 {
-                    if (FakeType.Text == "Талант")
+                    if (cbTypeOfCoin.Text == "Талант")
                     {
-                        id_coin_type = 1;
+                        IDCoinType = 1;
                     }
                     else
                     {
-                        if (FakeType.Text == "Соц. активность")
+                        if (cbTypeOfCoin.Text == "Соц. активность")
                         {
-                            id_coin_type = 2;
+                            IDCoinType = 2;
                         }
                         else
                         {
-                            if (FakeType.Text == "Интеллект")
+                            if (cbTypeOfCoin.Text == "Интеллект")
                             {
-                                id_coin_type = 3;
+                                IDCoinType = 3;
                             }
                         }
                     }
                 }
-                id_event = GIVM.LoadID(_login, _password, Queries.GetEventID(FakeEvent.Text), "id_event");
-                Operations.Operations.Execute(_login, _password, Queries.AddCoin(id_event, id_teacher, id_coin_type, FakeComment.Text));
-                coinsList.ItemsSource = CLVM.LoadCoinsList(_login, _password, Queries.GetCoinsList(cardTName.Text, year, semestr));
-                adminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingTotal(year, semestr));
-                coins_img.DataContext = CCVM.LoadCoinsCount(_login, _password, Queries.GetCoinsCount(cardTName.Text, year, semestr));
-                FakeEvent.Items.Clear();
-                FakeComment.Text = "";
-                FakePanel.Visibility = Visibility.Hidden;
+                _idEvent = GIVM.LoadID(sLogin, sPassword, Queries.GetEventID(cbEvents.Text), "id_event");
+                Operations.Operations.Execute(sLogin, sPassword, Queries.AddCoin(_idEvent, _idTeacher, IDCoinType, textBoxComment.Text));
+                listViewCoinsList.ItemsSource = CLVM.LoadCoinsList(sLogin, sPassword, Queries.GetCoinsList(textBlockTeachersName.Text, _iYear, _iSemestr));
+                listViewRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingTotal(_iYear, _iSemestr));
+                gridCoinsImg.DataContext = CCVM.LoadCoinsCount(sLogin, sPassword, Queries.GetCoinsCount(textBlockTeachersName.Text, _iYear, _iSemestr));
+                cbEvents.Items.Clear();
+                textBoxComment.Text = "";
+                stackPanelNewCoin.Visibility = Visibility.Hidden;
             }
         }
 
         private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
         {
-            adminMessageTable.ItemsSource = AMLVM.LoadMAList(_login, _password, Queries.GetAdminMessageListSort("Отклонено"));
+            listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(sLogin, sPassword, Queries.GetAdminMessageListSort("Отклонено"));
         }
 
         private void Button_Click_16(object sender, RoutedEventArgs e)
         {
-            TBackgroundZone.Visibility = Visibility.Hidden;
+            gridTotalRatingBackgroung.Visibility = Visibility.Hidden;
         }
 
-        private void Loot_Click(object sender, RoutedEventArgs e)
+        private void buttonGrantCoin_Click(object sender, RoutedEventArgs e)
         {
-            Lnight.Visibility = Visibility.Visible;
-            LPanel.Visibility = Visibility.Visible;
-            LEvent.Items.Clear();
-            foreach (string item in cESBTVM.LoadTypes(_login, _password, Queries.GetCBCoinEvent(year, semestr), "event_name"))
+            colorZoneNewNight.Visibility = Visibility.Visible;
+            stackPanelNewCoinPanel.Visibility = Visibility.Visible;
+            cbGrantCoinEvents.Items.Clear();
+            foreach (string item in cESBTVM.LoadTypes(sLogin, sPassword, Queries.GetCBCoinEvent(_iYear, _iSemestr), "event_name"))
             {
-                LEvent.Items.Add(item);
+                cbGrantCoinEvents.Items.Add(item);
             }
-            LType.Items.Add("Арткоин");
-            LType.Items.Add("Талант");
-            LType.Items.Add("Соц. активность");
-            LType.Items.Add("Интеллект");
+            cbAddCoinType.Items.Add("Арткоин");
+            cbAddCoinType.Items.Add("Талант");
+            cbAddCoinType.Items.Add("Соц. активность");
+            cbAddCoinType.Items.Add("Интеллект");
         }
 
         private void Button_Click_17(object sender, RoutedEventArgs e)
         {
-            if (LEvent.Text == "" || LType.Text == "" || (LEvent.Text == "" && LType.Text == ""))
+            if (cbGrantCoinEvents.Text == "" || cbAddCoinType.Text == "" || (cbGrantCoinEvents.Text == "" && cbAddCoinType.Text == ""))
             {
                 MessageBox.Show("Нужно заполнить все поля");
             }
             else
             {
-                int id_coin_type = 0;
-                if (LType.Text == "Арткоин")
+                int IDCoinType = 0;
+                if (cbAddCoinType.Text == "Арткоин")
                 {
-                    id_coin_type = 0;
+                    IDCoinType = 0;
                 }
                 else
                 {
-                    if (LType.Text == "Талант")
+                    if (cbAddCoinType.Text == "Талант")
                     {
-                        id_coin_type = 1;
+                        IDCoinType = 1;
                     }
                     else
                     {
-                        if (LType.Text == "Соц. активность")
+                        if (cbAddCoinType.Text == "Соц. активность")
                         {
-                            id_coin_type = 2;
+                            IDCoinType = 2;
                         }
                         else
                         {
-                            if (LType.Text == "Интеллект")
+                            if (cbAddCoinType.Text == "Интеллект")
                             {
-                                id_coin_type = 3;
+                                IDCoinType = 3;
                             }
                         }
                     }
                 }
-                id_event = GIVM.LoadID(_login, _password, Queries.GetEventID(LEvent.Text), "id_event");
-                Operations.Operations.Execute(_login, _password, Queries.AddCoin(id_event, id_teacher, id_coin_type, LComment.Text));
-                LEvent.Items.Clear();
-                LComment.Text = "";
-                LPanel.Visibility = Visibility.Hidden;
-                Lnight.Visibility = Visibility.Hidden;
-                LPanel.Visibility = Visibility.Hidden;
-                LType.Items.Clear();
+                _idEvent = GIVM.LoadID(sLogin, sPassword, Queries.GetEventID(cbGrantCoinEvents.Text), "id_event");
+                Operations.Operations.Execute(sLogin, sPassword, Queries.AddCoin(_idEvent, _idTeacher, IDCoinType, textBoxCommentCoin.Text));
+                cbGrantCoinEvents.Items.Clear();
+                textBoxCommentCoin.Text = "";
+                stackPanelNewCoinPanel.Visibility = Visibility.Hidden;
+                colorZoneNewNight.Visibility = Visibility.Hidden;
+                stackPanelNewCoinPanel.Visibility = Visibility.Hidden;
+                cbAddCoinType.Items.Clear();
             }
         }
 
         private void Export_Click(object sender, RoutedEventArgs e)
         {
-            ExportGrid.Visibility = Visibility.Visible;
+            gridExportToExcel.Visibility = Visibility.Visible;
         }
 
         private void Button_Click_18(object sender, RoutedEventArgs e)
         {
-            ExportGrid.Visibility = Visibility.Hidden;
+            gridExportToExcel.Visibility = Visibility.Hidden;
         }
 
         private void Button_Click_19(object sender, RoutedEventArgs e)
         {
-            var workbook = new XLWorkbook();
-            if (ExpEvents.IsChecked == true)
+            var Workbook = new XLWorkbook();
+            if (cbElementExportEvents.IsChecked == true)
             {
-                Excel.EventsReport(workbook, "Мероприятия", EVM.LoadEvents(_login, _password, Queries.GetEventsList(year, semestr)));
+                Excel.EventsReport(Workbook, "Мероприятия", EVM.LoadEvents(sLogin, sPassword, Queries.GetEventsList(_iYear, _iSemestr)));
             }
-            if (ExpTotal.IsChecked == true)
+            if (cbElementExportTotal.IsChecked == true)
             {
-                Excel.RatingReport(workbook, "Общий рейтинг", RWM.LoadRating(_login, _password, Queries.GetRatingTotal(year, semestr)));
+                Excel.RatingReport(Workbook, "Общий рейтинг", RWM.LoadRating(sLogin, sPassword, Queries.GetRatingTotal(_iYear, _iSemestr)));
             }
-            if (ExpTalents.IsChecked == true)
+            if (cbElementExportTalents.IsChecked == true)
             {
-                Excel.RatingReport(workbook, "Таланты", RWM.LoadRating(_login, _password, Queries.GetRatingTalents(year, semestr)));
+                Excel.RatingReport(Workbook, "Таланты", RWM.LoadRating(sLogin, sPassword, Queries.GetRatingTalents(_iYear, _iSemestr)));
             }
-            if (ExpIntellect.IsChecked == true)
+            if (cbElementExportIntellect.IsChecked == true)
             {
-                Excel.RatingReport(workbook, "Интеллект", RWM.LoadRating(_login, _password, Queries.GetRatingIntellect(year, semestr)));
+                Excel.RatingReport(Workbook, "Интеллект", RWM.LoadRating(sLogin, sPassword, Queries.GetRatingIntellect(_iYear, _iSemestr)));
             }
-            if (ExpArtcoins.IsChecked == true)
+            if (cbElementExportArtcoins.IsChecked == true)
             {
-                Excel.RatingReport(workbook, "Арткоины", RWM.LoadRating(_login, _password, Queries.GetRatingArtcoins(year, semestr)));
+                Excel.RatingReport(Workbook, "Арткоины", RWM.LoadRating(sLogin, sPassword, Queries.GetRatingArtcoins(_iYear, _iSemestr)));
             }
-            if (ExpSocActivity.IsChecked == true)
+            if (cbElementExportSocialActivity.IsChecked == true)
             {
-                Excel.RatingReport(workbook, "Соц. активность", RWM.LoadRating(_login, _password, Queries.GetRatingSocActivity(year, semestr)));
+                Excel.RatingReport(Workbook, "Соц. активность", RWM.LoadRating(sLogin, sPassword, Queries.GetRatingSocActivity(_iYear, _iSemestr)));
             }
-            if (Excel.SaveReport(workbook) == true)
+            if (Excel.SaveReport(Workbook) == true)
             {
-                ExportGrid.Visibility = Visibility.Hidden;
+                gridExportToExcel.Visibility = Visibility.Hidden;
             }
         }
 
         #region Учительский общий рейтинг
-        private void TcbTotal_Selected(object sender, RoutedEventArgs e)
+        private void TcbItemTotalRating_Selected(object sender, RoutedEventArgs e)
         {
-            TadminTable.ItemsSource = null;
-            TadminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingTotal(year, semestr));
+            listViewTotalRating.ItemsSource = null;
+            listViewTotalRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingTotal(_iYear, _iSemestr));
         }
 
-        private void TcbArtcoins_Selected(object sender, RoutedEventArgs e)
+        private void Tcbartcoins_Selected(object sender, RoutedEventArgs e)
         {
-            TadminTable.ItemsSource = null;
-            TadminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingArtcoins(year, semestr));
+            listViewTotalRating.ItemsSource = null;
+            listViewTotalRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingArtcoins(_iYear, _iSemestr));
         }
 
         private void TcbIntellect_Selected(object sender, RoutedEventArgs e)
         {
-            TadminTable.ItemsSource = null;
-            TadminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingIntellect(year, semestr));
+            listViewTotalRating.ItemsSource = null;
+            listViewTotalRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingIntellect(_iYear, _iSemestr));
         }
 
         private void TcbTalents_Selected(object sender, RoutedEventArgs e)
         {
-            TadminTable.ItemsSource = null;
-            TadminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingTalents(year, semestr));
+            listViewTotalRating.ItemsSource = null;
+            listViewTotalRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingTalents(_iYear, _iSemestr));
         }
 
         private void TcbSocialActivity_Selected(object sender, RoutedEventArgs e)
         {
-            TadminTable.ItemsSource = null;
-            TadminTable.ItemsSource = RWM.LoadRating(_login, _password, Queries.GetRatingSocActivity(year, semestr));
+            listViewTotalRating.ItemsSource = null;
+            listViewTotalRating.ItemsSource = RWM.LoadRating(sLogin, sPassword, Queries.GetRatingSocActivity(_iYear, _iSemestr));
         }
         #endregion
 
@@ -1092,82 +1089,83 @@ namespace Coins_Database.Views
         {
             if (Session.Access == Session.ACCESS.Superadmin)
             {
-                RadioButton rate = new RadioButton
+                RadioButton Rate = new RadioButton
                 {
                     IsChecked = true,
                     Content = "Рейтинг",
                     Width = 200,
                     Cursor = Cursors.Hand,
                 };
-                rate.Checked += RatingRadioButton_Checked;
-                rButtons.Children.Add(rate);
-                RadioButton teachers = new RadioButton
+                Rate.Checked += RatingRadioButton_Checked;
+                stackPanelMainMenu.Children.Add(Rate);
+                RadioButton Teachers = new RadioButton
                 {
                     IsChecked = false,
                     Content = "Учителя",
                     Width = 200,
                     Cursor = Cursors.Hand
                 };
-                teachers.Checked += TeachersRadioButton_Checked;
-                rButtons.Children.Add(teachers);
-                RadioButton events = new RadioButton
+                Teachers.Checked += TeachersRadioButton_Checked;
+                stackPanelMainMenu.Children.Add(Teachers);
+                RadioButton Events = new RadioButton
                 {
                     IsChecked = false,
                     Content = "Мероприятия",
                     Width = 200,
                     Cursor = Cursors.Hand
                 };
-                events.Checked += EventsRadioButton_Checked;
-                rButtons.Children.Add(events);
-                RadioButton applicanions = new RadioButton
+                Events.Checked += EventsRadioButton_Checked;
+                stackPanelMainMenu.Children.Add(Events);
+                RadioButton Applicanions = new RadioButton
                 {
                     IsChecked = false,
                     Content = "Заявки",
                     Width = 200,
                     Cursor = Cursors.Hand
                 };
-                applicanions.Checked += ApplicationsRadioButton_Checked;
-                rButtons.Children.Add(applicanions);
+                Applicanions.Checked += ApplicationsRadioButton_Checked;
+                stackPanelMainMenu.Children.Add(Applicanions);
             }
             else
             {
-                RadioButton teacher_coins = new RadioButton
+                RadioButton TeachersAchievements = new RadioButton
                 {
                     IsChecked = true,
                     Content = "Мои награды",
                     Width = 400,
                     Cursor = Cursors.Hand,
                 };
-                teacher_coins.Checked += TCoinsRadioButton_Checked;
-                rButtons.Children.Add(teacher_coins);
-                RadioButton teacher_requests = new RadioButton
+                TeachersAchievements.Checked += TCoinsRadioButton_Checked;
+                stackPanelMainMenu.Children.Add(TeachersAchievements);
+                RadioButton TeachersRequest = new RadioButton
                 {
                     IsChecked = false,
                     Content = "Мои заявки",
                     Width = 400,
                     Cursor = Cursors.Hand,
                 };
-                teacher_requests.Checked += TRequestsRadioButton_Checked;
-                rButtons.Children.Add(teacher_requests);
+                TeachersRequest.Checked += TRequestsRadioButton_Checked;
+                stackPanelMainMenu.Children.Add(TeachersRequest);
             }
         }
 
         private void TCoinsRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            teacher_coins.Visibility = Visibility.Visible;
-            teachers_mBox.Visibility = Visibility.Hidden;
+            gridTeachersCoins.Visibility = Visibility.Visible;
+            gridTeachersMessageBox.Visibility = Visibility.Hidden;
+            listViewCoinsList.ItemsSource = CLVM.LoadCoinsList(sLogin, sPassword, Queries.GetViewCoinsList(sLogin, _iYear, _iSemestr));
         }
 
         private void TRequestsRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            teacher_coins.Visibility = Visibility.Hidden;
-            teachers_mBox.Visibility = Visibility.Visible;
-            teacherMessageTable.ItemsSource = AMLVM.LoadMAList(_login, _password, Queries.GetTeacherMessageList(_login, year, semestr));
-            RequestFIO.DataContext = AMLVM.LoadMAList(_login, _password, Queries.GetTeacherMessageList(_login, year, semestr));
-            RequestEvent.Items.Clear();
-            foreach (string item in cESBTVM.LoadTypes(_login, _password, Queries.GetCBCoinEvent(year, semestr), "event_name"))
+            gridTeachersCoins.Visibility = Visibility.Hidden;
+            gridTeachersMessageBox.Visibility = Visibility.Visible;
+            listViewTeacherMessageBox.ItemsSource = AMLVM.LoadMAList(sLogin, sPassword, Queries.GetTeacherMessageList(sLogin, _iYear, _iSemestr));
+            labelTeachersFio.DataContext = AMLVM.LoadMAList(sLogin, sPassword, Queries.GetTeacherMessageList(sLogin, _iYear, _iSemestr));
+            cbRequestEvent.Items.Clear();
+            foreach (string Item in cESBTVM.LoadTypes(sLogin, sPassword, Queries.GetCBCoinEvent(_iYear, _iSemestr), "event_name"))
             {
-                RequestEvent.Items.Add(item);
+                cbRequestEvent.Items.Add(Item);
             }
         }
     }

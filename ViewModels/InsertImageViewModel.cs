@@ -11,27 +11,27 @@ namespace Coins_Database.ViewModels
 {
     class InsertImageViewModel
     {
-        public void InsertImage(string login, string password, string filepath)
+        public void InsertImage(string Login, string Password, string Filepath)
         {
-            var connection =
-               new NpgsqlConnection(Configuration.LoadSettings(login, password));
-            FileStream pgFileStream = new FileStream(filepath, FileMode.Open, FileAccess.Read);
+            var Connection =
+               new NpgsqlConnection(Configuration.LoadSettings(Login, Password));
+            FileStream PGFileStream = new FileStream(Filepath, FileMode.Open, FileAccess.Read);
 
-            BinaryReader pgReader = new BinaryReader(new BufferedStream(pgFileStream));
+            BinaryReader PGReader = new BinaryReader(new BufferedStream(PGFileStream));
 
-            var ImgByteA = pgReader.ReadBytes(Convert.ToInt32(pgFileStream.Length));
+            var ImgByteA = PGReader.ReadBytes(Convert.ToInt32(PGFileStream.Length));
 
-            string sQL = "insert into images (image) VALUES(@Image)";
-            using (var command = new NpgsqlCommand(sQL, connection))
+            string Sql = "insert into images (image) VALUES(@Image)";
+            using (var Command = new NpgsqlCommand(Sql, Connection))
             {
-                NpgsqlParameter param = command.CreateParameter();
-                param.ParameterName = "@Image";
-                param.NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Bytea;
-                param.Value = ImgByteA;
-                command.Parameters.Add(param);
-                connection.Close();
-                connection.Open();
-                command.ExecuteNonQuery();
+                NpgsqlParameter Parameter = Command.CreateParameter();
+                Parameter.ParameterName = "@Image";
+                Parameter.NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Bytea;
+                Parameter.Value = ImgByteA;
+                Command.Parameters.Add(Parameter);
+                Connection.Close();
+                Connection.Open();
+                Command.ExecuteNonQuery();
             }
         }
     }

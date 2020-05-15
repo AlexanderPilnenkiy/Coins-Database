@@ -2,9 +2,9 @@
 {
     class Events
     {
-        public string caption { get; set; }
-        public string type { get; set; }
-        public string place { get; set; }
-        public string date { get; set; }
+        public string Caption { get; set; }
+        public string Type { get; set; }
+        public string Place { get; set; }
+        public string Date { get; set; }
     }
 }

@@ -21,33 +21,33 @@ namespace Coins_Database
 
         private void SignIn_Click(object sender, RoutedEventArgs e)
         {
-            string login = Login.Text;
-            string password = Password.Password;
+            string Login = textBoxLogin.Text;
+            string Password = passwordUserPassword.Password;
             IsEnabled = false;
-            LoadingWindow loadingWindow = new LoadingWindow
+            LoadingWindow LoadingWindow = new LoadingWindow
             {
                 Owner = this,
                 Width = Width - 40,
                 Height = Height - 40
             };
-            loadingWindow.Show();
+            LoadingWindow.Show();
 
-            Thread connectThread = new Thread(() =>
+            Thread ConnectThread = new Thread(() =>
             {
-                if (Configuration.Connect(login, password))
+                if (Configuration.Connect(Login, Password))
                 {
                     Dispatcher.BeginInvoke(new Action(delegate ()
                     {
                         this.Hide();
-                        MainWindow mWindow = new MainWindow(login, password);
-                        mWindow.Show();
+                        MainWindow MWindow = new MainWindow(Login, Password);
+                        MWindow.Show();
                     }));
                    
                 }
                 Configuration.Disconnect();
             });
-            connectThread.Start();
-            loadingWindow.Hide();
+            ConnectThread.Start();
+            LoadingWindow.Hide();
             IsEnabled = true;
         }
 

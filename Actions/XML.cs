@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Coins_Database.Actions
@@ -12,28 +8,28 @@ namespace Coins_Database.Actions
     {
         public static string CheckOrCreateXML()
         {
-            var config_file = "configs.xml";
-            if (!File.Exists(config_file))
+            var ConfigFile = "configs.xml";
+            if (!File.Exists(ConfigFile))
             {
-                XDocument xDoc = new XDocument();
+                XDocument XDoc = new XDocument();
                 XElement EConnection = new XElement("connection");
                 XAttribute AServer = new XAttribute("server", "127.0.0.1");
                 XAttribute APort = new XAttribute("port", "5432");
                 EConnection.Add(AServer);
                 EConnection.Add(APort);
-                xDoc.Add(EConnection);
-                xDoc.Save(config_file);
+                XDoc.Add(EConnection);
+                XDoc.Save(ConfigFile);
             }
-            return config_file;
+            return ConfigFile;
         }
 
-        public static List<string> ReadXML(string filename)
+        public static List<string> ReadXML(string Filename)
         {
-            XDocument xDocument = XDocument.Load(filename);
+            XDocument XDocument = XDocument.Load(Filename);
             List<string> Parameters = new List<string>
             {
-                xDocument.Element("connection").Attribute("server").Value.ToString(),
-                xDocument.Element("connection").Attribute("port").Value.ToString()
+                XDocument.Element("connection").Attribute("server").Value.ToString(),
+                XDocument.Element("connection").Attribute("port").Value.ToString()
             };
             return Parameters;
         }

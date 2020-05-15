@@ -2,15 +2,15 @@
 {
     public class TeacherCard
     {
-        public string fio { get; set; }
-        public string speciality { get; set; }
-        public string about_teacher { get; set; }
+        public string FIO { get; set; }
+        public string Speciality { get; set; }
+        public string AboutTeacher { get; set; }
 
-        public TeacherCard(string name, string spec, string about)
+        public TeacherCard(string Name, string Spec, string About)
         {
-            fio = name;
-            speciality = spec;
-            about_teacher = about;
+            FIO = Name;
+            Speciality = Spec;
+            AboutTeacher = About;
         }
     }
 }

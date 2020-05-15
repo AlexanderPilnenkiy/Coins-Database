@@ -4,87 +4,87 @@ namespace Coins_Database.Actions
 {
     class Queries
     {
-        public static string GetRatingArtcoins(int year, int semestr) =>
-                $"select * from get_rate_artcoins('{year}', '{semestr}')";
-        public static string GetRatingIntellect(int year, int semestr) =>
-                $"select * from get_rate_intellect('{year}', '{semestr}')";
-        public static string GetRatingSocActivity(int year, int semestr) =>
-                $"select * from get_rate_soc_activity('{year}', '{semestr}')";
-        public static string GetRatingTalents(int year, int semestr) =>
-                $"select * from get_rate_talents('{year}', '{semestr}')";
-        public static string GetRatingTotal(int year, int semestr) =>
-                $"select * from get_rate_total('{year}', '{semestr}')";
+        public static string GetRatingArtcoins(int Year, int Semestr) =>
+                $"select * from get_rate_artcoins('{Year}', '{Semestr}')";
+        public static string GetRatingIntellect(int Year, int Semestr) =>
+                $"select * from get_rate_intellect('{Year}', '{Semestr}')";
+        public static string GetRatingSocActivity(int Year, int Semestr) =>
+                $"select * from get_rate_soc_activity('{Year}', '{Semestr}')";
+        public static string GetRatingTalents(int Year, int Semestr) =>
+                $"select * from get_rate_talents('{Year}', '{Semestr}')";
+        public static string GetRatingTotal(int Year, int Semestr) =>
+                $"select * from get_rate_total('{Year}', '{Semestr}')";
         public static string GetTeachersList =>
                 $"select * from teachers_list";
-        public static string GetEventsList(int year, int semestr) =>
-                $"select * from get_events_table('{year}', '{semestr}')";
+        public static string GetEventsList(int Year, int Semestr) =>
+                $"select * from get_events_table('{Year}', '{Semestr}')";
         public static string GetCB_EventTypes =>
                 $"select * from cb_sort_by_types";
         public static string GetCB_EventPlaces =>
                 $"select * from cb_sort_by_places";
         public static string GetAdminMessageList =>
                 $"select * from messages_admin_list";
-        public static string GetCBCoinEvent(int year, int semestr) =>
-                $"select * from get_cb_add_coin_event('{year}', '{semestr}')";
+        public static string GetCBCoinEvent(int Year, int Semestr) =>
+                $"select * from get_cb_add_coin_event('{Year}', '{Semestr}')";
         public static string GetLastImage =>
                 $"select * from last_image";
         public static string GetAccounts =>
                 $"select * from account_list";
-        public static string GetTeacherCard(string _teacher_name) =>
-                $"select * FROM get_teacher_card('{_teacher_name}')";
-        public static string GetTeacherPhoto(string _teacher_name) =>
-                $"select * FROM get_teacher_photo('{_teacher_name}')";
-        public static string GetEventInfo(string event_name) =>
-                $"select * FROM get_event_info('{event_name}')";
-        public static string GetEventID(string event_name) =>
-                $"select * FROM get_event_id('{event_name}')";
-        public static string GetTeacherID(int type, string teacher_name) =>
-                $"select * FROM get_teacher_id('{type}', '{teacher_name}')";
-        public static string GetEventTypeID(string event_name) =>
-                $"select * FROM get_event_type_id('{event_name}')";
-        public static string GetAdminMessageListSort(string type_sort) =>
-                $"select * FROM get_admin_messages_list_sort('{type_sort}')";
-        public static string GetTeacherMessageList(string login, int year, int semestr) =>
-                $"select * FROM get_teacher_messages_list('{login}', '{year}', '{semestr}')";
-        public static string GetCoinsList(string _teacher_name, int year, int semestr) =>
-                $"select * FROM get_coins('{_teacher_name}', '{year}', '{semestr}')";
-        public static string GetTCoinsList(string login, int year, int semestr) =>
-                $"select * FROM get_tcoins('{login}', '{year}', '{semestr}')";
-        public static string GetCoinsCount(string login, int year, int semestr) =>
-                $"select * FROM get_coins_count('{login}', '{year}', '{semestr}')";
-        public static string GetTCoinsCount(string login, int year, int semestr) =>
-                $"select * FROM get_tcoins_count('{login}', '{year}', '{semestr}')";
-        public static string GetCoinComment(int id_coin) =>
-               $"select * FROM get_coin_comment('{id_coin}')";
-        public static string GetSortedEvent(string event_type, string event_place) =>
-               $"select * FROM get_sorted_events('{event_type}', '{event_place}')";
-        public static string DeleteCoin(int coin_id) =>
-                $"select * FROM delete_coin('{coin_id}')";
-        public static string DeleteTeacher(int teacher_id) =>
-                $"select * FROM delete_teacher('{teacher_id}')";
-        public static string DeleteEvent(int event_id) =>
-                $"select * FROM delete_event('{event_id}')";
-        public static string UpdateMessageStatus(string newstatus, int message_id) =>
-                $"select * FROM update_message_status('{newstatus}', '{message_id}')";
-        public static string AddCoin(int id_event, int id_teacher, int id_coin_type, string comment) =>
-            $"select * FROM add_coin('{id_event}', '{id_teacher}', '{id_coin_type}', '{comment}')";
-        public static string AddTeacher(string teacher_name, string speciality, string about, int id_image) =>
-               $"select * FROM add_teacher('{teacher_name}', '{speciality}', '{about}', '{id_image}')";
-        public static string UpdateTeacher(string teacher_name, string speciality, string about, int id_image, int teacher_id) =>
-               $"select * FROM update_teacher('{teacher_name}', '{speciality}', '{about}', '{id_image}', '{teacher_id}')";
-        public static string GetParticipants(int event_id) =>
-               $"select * FROM get_participants('{event_id}')";
-        public static string AddEvent(string event_name, string event_place, string event_description, int id_type, DateTime date) =>
-              $"select * FROM add_event('{event_name}', '{event_place}', '{event_description}', '{id_type}', '{date}')";
-        public static string AddMessage(int id_teacher, int id_event, DateTime curr) =>
-              $"select * FROM add_message('{id_teacher}', '{id_event}', '{curr}')";
-        public static string UpdateEvent(string event_name, string event_place, string event_description, int id_type, DateTime date, int id_event) =>
-               $"select * FROM update_event('{event_name}', '{event_place}', '{event_description}', '{id_type}', '{date}', '{id_event}')";
-        public static string NewAccount(string login, string password, int id_teacher) =>
-               $"create user \"{login}\" with password '{password}'; grant teacher to \"{login}\";" +
-               $"update teacher set login = '{login}' where teacher.id_teacher = '{id_teacher}'";
-        public static string DeleteAccount(string login, string account) =>
-              $"drop user \"{login}\"; update teacher set login = '' where teacher.login = '{account}'";
+        public static string GetTeacherCard(string TeacherName) =>
+                $"select * FROM get_teacher_card('{TeacherName}')";
+        public static string GetTeacherPhoto(string TeacherName) =>
+                $"select * FROM get_teacher_photo('{TeacherName}')";
+        public static string GetEventInfo(string EventName) =>
+                $"select * FROM get_event_info('{EventName}')";
+        public static string GetEventID(string EventName) =>
+                $"select * FROM get_event_id('{EventName}')";
+        public static string GetTeacherID(int Type, string TeacherName) =>
+                $"select * FROM get_teacher_id('{Type}', '{TeacherName}')";
+        public static string GetEventTypeID(string EventName) =>
+                $"select * FROM get_event_type_id('{EventName}')";
+        public static string GetAdminMessageListSort(string TypeSort) =>
+                $"select * FROM get_admin_messages_list_sort('{TypeSort}')";
+        public static string GetTeacherMessageList(string Login, int Year, int Semestr) =>
+                $"select * FROM get_teacher_messages_list('{Login}', '{Year}', '{Semestr}')";
+        public static string GetCoinsList(string TeacherName, int Year, int Semestr) =>
+                $"select * FROM get_coins('{TeacherName}', '{Year}', '{Semestr}')";
+        public static string GetViewCoinsList(string Login, int Year, int Semestr) =>
+                $"select * FROM get_tcoins('{Login}', '{Year}', '{Semestr}')";
+        public static string GetCoinsCount(string Login, int Year, int Semestr) =>
+                $"select * FROM get_coins_count('{Login}', '{Year}', '{Semestr}')";
+        public static string GetTCoinsCount(string Login, int Year, int Semestr) =>
+                $"select * FROM get_tcoins_count('{Login}', '{Year}', '{Semestr}')";
+        public static string GetCoinComment(int IDCoin) =>
+               $"select * FROM get_coin_comment('{IDCoin}')";
+        public static string GetSortedEvent(string EventType, string EventPlace) =>
+               $"select * FROM get_sorted_events('{EventType}', '{EventPlace}')";
+        public static string DeleteCoin(int CoinID) =>
+                $"select * FROM delete_coin('{CoinID}')";
+        public static string DeleteTeacher(int TeacherID) =>
+                $"select * FROM delete_teacher('{TeacherID}')";
+        public static string DeleteEvent(int EventID) =>
+                $"select * FROM delete_event('{EventID}')";
+        public static string UpdateMessageStatus(string NewStatus, int MessageID) =>
+                $"select * FROM update_message_status('{NewStatus}', '{MessageID}')";
+        public static string AddCoin(int IDEvent, int IDTeacher, int IDCoin_Type, string Comment) =>
+            $"select * FROM add_coin('{IDEvent}', '{IDTeacher}', '{IDCoin_Type}', '{Comment}')";
+        public static string AddTeacher(string TeacherName, string Speciality, string About, int IDImage) =>
+               $"select * FROM add_teacher('{TeacherName}', '{Speciality}', '{About}', '{IDImage}')";
+        public static string UpdateTeacher(string TeacherName, string Speciality, string About, int IDImage, int TeacherID) =>
+               $"select * FROM update_teacher('{TeacherName}', '{Speciality}', '{About}', '{IDImage}', '{TeacherID}')";
+        public static string GetParticipants(int EventID) =>
+               $"select * FROM get_participants('{EventID}')";
+        public static string AddEvent(string EventName, string EventPlace, string EventDescription, int IDType, DateTime Date) =>
+              $"select * FROM add_event('{EventName}', '{EventPlace}', '{EventDescription}', '{IDType}', '{Date}')";
+        public static string AddMessage(int IDTeacher, int IDEvent, DateTime Curr) =>
+              $"select * FROM add_message('{IDTeacher}', '{IDEvent}', '{Curr}')";
+        public static string UpdateEvent(string EventName, string EventPlace, string EventDescription, int IDType, DateTime Date, int IDEvent) =>
+               $"select * FROM update_event('{EventName}', '{EventPlace}', '{EventDescription}', '{IDType}', '{Date}', '{IDEvent}')";
+        public static string NewAccount(string Login, string Password, int IDTeacher) =>
+               $"create user \"{Login}\" with password '{Password}'; grant teacher to \"{Login}\";" +
+               $"update teacher set login = '{Login}' where teacher.id_teacher = '{IDTeacher}'";
+        public static string DeleteAccount(string Login, string Account) =>
+              $"drop user \"{Login}\"; update teacher set login = '' where teacher.login = '{Account}'";
 
     }
 }

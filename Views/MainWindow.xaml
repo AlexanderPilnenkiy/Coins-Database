@@ -39,19 +39,19 @@
             </StackPanel>
         </materialDesign:ColorZone>
         <materialDesign:ColorZone Background="#FF5D11A0" Mode="PrimaryMid" Height="54" Margin="0,40,-1.2,0" Grid.RowSpan="2">
-            <StackPanel x:Name="rButtons" Orientation="Horizontal" Margin="2"/>
+            <StackPanel x:Name="stackPanelMainMenu" Orientation="Horizontal" Margin="2"/>
         </materialDesign:ColorZone>
-        <Grid x:Name="RatingGrid" Margin="0,25,-0.2,9.4" 
+        <Grid x:Name="gridRating" Margin="0,25,-0.2,9.4" 
               Visibility="Hidden">
             <Label Margin="22,78,634.8,437.8" Grid.Row="1" FontSize="20">Вид рейтинга:</Label>
             <ComboBox HorizontalContentAlignment="Center"
             materialDesign:ComboBoxAssist.ClassicMode="{Binding ElementName=ClassicModeCheckBox, Path=IsChecked}"
-            Margin="181,68,0,443.8" x:Name="ratingCB"
+            Margin="181,68,0,443.8" x:Name="cbRating"
             HorizontalAlignment="Left" Width="234">
-                <ComboBoxItem x:Name="cbTotal" Selected="cbTotal_Selected">
+                <ComboBoxItem x:Name="cbItemTotalRating" Selected="cbItemTotalRating_Selected">
                     Общий рейтинг
                 </ComboBoxItem>
-                <ComboBoxItem x:Name="cbArtcoins" Selected="cbArtcoins_Selected">
+                <ComboBoxItem x:Name="cbartcoins" Selected="cbartcoins_Selected">
                     Арткоины
                 </ComboBoxItem>
                 <ComboBoxItem x:Name="cbIntellect" Selected="cbIntellect_Selected">
@@ -64,9 +64,9 @@
                     Очки за соц. активность
                 </ComboBoxItem>
             </ComboBox>
-            <ListView x:Name="adminTable"
+            <ListView x:Name="listViewRating"
             Margin="10,129,367.8,9.8"
-                      SelectionChanged="adminTable_SelectionChanged">
+                      SelectionChanged="listViewRating_SelectionChanged">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn x:Name="FIO_teacher"
@@ -78,29 +78,29 @@
                         Width="125">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding coin}" TextAlignment="Center" Width="87"/>
+                                    <TextBlock Text="{Binding Coin}" TextAlignment="Center" Width="87"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button x:Name="AchievementsButton" Margin="453,514,10,0" Content="Просмотр достижений"
+            <Button x:Name="buttonTeachersAchievements" Margin="453,514,10,0" Content="Просмотр достижений"
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="18" IsEnabled="true" Height="43" Background="#FF5D11A0" 
                     BorderBrush="#FF260940" Click="SignIn_Click" Visibility="Visible"/>
         </Grid>
-        <Image x:Name="photoTeacher" Margin="485,100,9.8,261.8"
+        <Image x:Name="imageTeachersPhoto" Margin="485,100,9.8,261.8"
                 Stretch="Uniform" Width="302" Height="236"/>
-        <TextBlock x:Name="cardTName" FontSize="17" Margin="491,348,9.8,200.8" 
+        <TextBlock x:Name="textBlockTeachersName" FontSize="17" Margin="491,348,9.8,200.8" 
                    TextWrapping="Wrap"/>
-        <TextBlock Text="{Binding Path = speciality}" x:Name="cardTSpeciality"
+        <TextBlock Text="{Binding Path = Speciality}" x:Name="textBlockTeachersSpeciality"
                    TextWrapping="Wrap" FontSize="15" Margin="491,396,9.8,152.8"/>
-        <TextBlock Text="{Binding Path = about_teacher}" x:Name="cardTInfo" 
+        <TextBlock Text="{Binding Path = AboutTeacher}" x:Name="textBlockTeachersInfo" 
                    TextWrapping="Wrap" FontSize="17" Margin="491,444,9.8,73.8" ScrollViewer.VerticalScrollBarVisibility="Visible"/>
-        <Grid x:Name="TeachersGrid" Visibility="Hidden" Margin="10,99,9.8,9.8">
-            <ListView x:Name="teachersTable"
-            Margin="10,0,312,10" SelectionChanged="teachersTable_SelectionChanged">
+        <Grid x:Name="gridTeachers" Visibility="Hidden" Margin="10,99,9.8,9.8">
+            <ListView x:Name="listViewTeachers"
+            Margin="10,0,312,10" SelectionChanged="listViewTeachers_SelectionChanged">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn
@@ -112,7 +112,7 @@
                         Width="236">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding speciality}" 
+                                    <TextBlock Text="{Binding Speciality}" 
                                         TextAlignment="Left" Width="230"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -128,29 +128,29 @@
                     Height="35"
                     Width="35"/>
             </Button>
-            <Image x:Name="TCardPhoto" Margin="506,10,29,295.6" Width="242" Height="184"/>
-            <TextBlock x:Name="TCardName" FontSize="17" Margin="487,199,10,237"/>
-            <TextBlock Text="{Binding Path = speciality}" x:Name="TCardSpeciality" FontSize="15" Margin="487,241,0,197"/>
-            <TextBlock Text="{Binding Path = about_teacher}" ScrollViewer.VerticalScrollBarVisibility="Visible"
-                       x:Name="TCardInfo" TextWrapping="Wrap" FontSize="17" Margin="487,293,10,106.6"/>
-            <Button x:Name="ChangeTeacher" Content="Редактировать"
+            <Image x:Name="imageTeachersCardPhoto" Margin="506,10,29,295.6" Width="242" Height="184"/>
+            <TextBlock x:Name="textBlockTeachersCardName" FontSize="17" Margin="487,199,10,237"/>
+            <TextBlock Text="{Binding Path = Speciality}" x:Name="textBlockTeachersCardSpeciality" FontSize="15" Margin="487,241,0,197"/>
+            <TextBlock Text="{Binding Path = AboutTeacher}" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                       x:Name="textBlockTeachersCardInfo" TextWrapping="Wrap" FontSize="17" Margin="487,293,10,106.6"/>
+            <Button x:Name="buttonChangeTeacher" Content="Редактировать"
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="43" Background="#FF5D11A0" Width="136"
-                    BorderBrush="#FF260940" Visibility="Hidden" Margin="487,445,154,1.6" Click="ChangeTeacher_Click"/>
-            <Button x:Name="DeleteTeacher" Content="Удалить" 
+                    BorderBrush="#FF260940" Visibility="Hidden" Margin="487,445,154,1.6" Click="buttonChangeTeacher_Click"/>
+            <Button x:Name="buttonDeleteTeacher" Content="Удалить" 
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="43" Background="#FF5D11A0" 
-                    BorderBrush="#FF260940" Visibility="Hidden" Margin="631,445,10,1.6" Click="DeleteTeacher_Click"/>
-            <Button x:Name="Loot" Content="Наградить"
+                    BorderBrush="#FF260940" Visibility="Hidden" Margin="631,445,10,1.6" Click="buttonDeleteTeacher_Click"/>
+            <Button x:Name="buttonGrantCoin" Content="Наградить"
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="43" Background="#FF5D11A0"
-                    BorderBrush="#FF260940" Visibility="Hidden" Margin="487,397,10,49.6" Click="Loot_Click"/>
-            <materialDesign:ColorZone Height="610" x:Name="Lnight" Visibility="Hidden"
+                    BorderBrush="#FF260940" Visibility="Hidden" Margin="487,397,10,49.6" Click="buttonGrantCoin_Click"/>
+            <materialDesign:ColorZone Height="610" x:Name="colorZoneNewNight" Visibility="Hidden"
             Mode="PrimaryMid" Opacity="0.85"
             Effect="{DynamicResource MaterialDesignShadowDepth5}" 
                 Background="#FF373737" Margin="-20,-105,-17,-15.4" HorizontalAlignment="Right" Width="814"/>
             <StackPanel Orientation="Horizontal" Background="#FFFFFFFF"
-                        x:Name="LPanel"
+                        x:Name="stackPanelNewCoinPanel"
                         Margin="235,0,214,135" Visibility="Hidden">
                 <Grid Width="300" Margin="8,8,8,8">
                     <Grid.Resources>
@@ -188,19 +188,19 @@
                     <TextBlock Grid.Column="0"  Grid.Row="0"
                             Margin="11,1,8,37.4"> Добавить коин
                     </TextBlock>
-                    <ComboBox x:Name="LType"
+                    <ComboBox x:Name="cbAddCoinType"
                             Grid.Column="0"
                             materialDesign:HintAssist.Hint="Тип коина"
                             materialDesign:HintAssist.IsFloating="True"
                             MaxDropDownHeight="200"
                             Margin="10,91,1,7.2" Height="45" Grid.RowSpan="3"/>
-                    <ComboBox x:Name="LEvent"
+                    <ComboBox x:Name="cbGrantCoinEvents"
                             Grid.Column="0"
                             materialDesign:HintAssist.Hint="Мероприятие"
                             materialDesign:HintAssist.IsFloating="True"
                             MaxDropDownHeight="200"
                             Margin="10,41,1,10" Height="45"/>
-                    <TextBox x:Name="LComment" Margin="10,19,1,43.2" 
+                    <TextBox x:Name="textBoxCommentCoin" Margin="10,19,1,43.2" 
                             Grid.Row="2" materialDesign:HintAssist.Hint="Комментарий"
                             materialDesign:HintAssist.IsFloating="True" Grid.RowSpan="3"/>
                     <Button Background="#FF5D11A0"
@@ -213,13 +213,13 @@
                 </Grid>
             </StackPanel>
         </Grid>
-        <Grid x:Name="EventsGrid" Visibility="Visible" Margin="0,94,-0.2,-0.2" Grid.RowSpan="2">
-            <ListView x:Name="eventsTable"
-            Margin="10,66,241,10" SelectionChanged="eventsTable_SelectionChanged">
+        <Grid x:Name="gridEvents" Visibility="Hidden" Margin="0,94,-0.2,-0.2" Grid.RowSpan="2">
+            <ListView x:Name="listViewEvents"
+            Margin="10,66,241,10" SelectionChanged="listViewEvents_SelectionChanged">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn
-                        DisplayMemberBinding="{Binding caption}"
+                        DisplayMemberBinding="{Binding Caption}"
                         Header="Название" 
                         Width="250"/>
                         <GridViewColumn
@@ -227,7 +227,7 @@
                         Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding type}" 
+                                    <TextBlock Text="{Binding Type}" 
                                         TextAlignment="Left" Width="100"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -237,7 +237,7 @@
                         Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding place}" 
+                                    <TextBlock Text="{Binding Place}" 
                                         TextAlignment="Left" Width="100"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -247,7 +247,7 @@
                         Width="77">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding date}" 
+                                    <TextBlock Text="{Binding Date}" 
                                         TextAlignment="Left" Width="77"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -263,26 +263,26 @@
                     Height="35"
                     Width="35"/>
             </Button>
-            <TextBlock Text="{Binding Path = about_event}" ScrollViewer.VerticalScrollBarVisibility="Visible"
-                x:Name="EventInfo" TextWrapping="Wrap" FontSize="17" Margin="561,66,10,105"/>
-            <Button x:Name="ChangeEvent" Content="Изменить"
+            <TextBlock ScrollViewer.VerticalScrollBarVisibility="Visible"
+                x:Name="textBlockEventInfo" TextWrapping="Wrap" FontSize="17" Margin="561,66,10,105"/>
+            <Button x:Name="buttonChangeEvent" Content="Изменить"
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="43" Background="#FF5D11A0"
                     BorderBrush="#FF260940" Visibility="Visible" Margin="561,448,126,7" Width="110" Click="ChangeEvent_Click"/>
-            <Button x:Name="DeleteEvent" Content="Удалить" 
+            <Button x:Name="buttonDeleteEvent" Content="Удалить" 
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="43" Background="#FF5D11A0" 
                     BorderBrush="#FF260940" Visibility="Hidden" Margin="675,448,10,7" Width="110" Click="DeleteEvent_Click"/>
-            <Button x:Name="Participants" Content="Участники" 
+            <Button x:Name="buttonParticipants" Content="Участники" 
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="43" Background="#FF5D11A0" 
                     BorderBrush="#FF260940" Visibility="Hidden" Margin="561,400,10,55" Click="Participants_Click"/>
             <Label FontSize="16" Margin="15,17,740,444">Тип:</Label>
-            <ComboBox HorizontalContentAlignment="Center" x:Name="cbEType" Text="Все"
+            <ComboBox HorizontalContentAlignment="Center" x:Name="cbEventsType" Text="Все"
                 materialDesign:ComboBoxAssist.ClassicMode="{Binding ElementName=ClassicModeCheckBox, Path=IsChecked}"
                 HorizontalAlignment="Left" Width="177" Margin="67,4,0,449"/>
             <Label FontSize="16" Margin="257,17,465,444" RenderTransformOrigin="0.16,0.585">Место:</Label>
-            <ComboBox HorizontalContentAlignment="Center" x:Name="cbEPlace" Text="Все"
+            <ComboBox HorizontalContentAlignment="Center" x:Name="cbEventsPlaces" Text="Все"
                 materialDesign:ComboBoxAssist.ClassicMode="{Binding ElementName=ClassicModeCheckBox, Path=IsChecked}"
                 HorizontalAlignment="Left" Width="177" Margin="327,4,0,449"/>
             <Button Cursor="Hand" x:Name="SearchEvents"
@@ -293,11 +293,11 @@
                     Width="20"/>
             </Button>
         </Grid>
-        <Grid x:Name="MessagesGrid" Visibility="Hidden"  Margin="0,94,-0.2,-0.2" Grid.RowSpan="2">
+        <Grid x:Name="gridMessages" Visibility="Hidden"  Margin="0,94,-0.2,-0.2" Grid.RowSpan="2">
             <StackPanel Orientation="Horizontal" Margin="5,4,0,439" Cursor="Hand" Width="780">
                 <RadioButton
                     Style="{StaticResource MaterialDesignTabRadioButton}"
-                    Margin="4,4,3.8,4" x:Name="AllMessages"
+                    Margin="4,4,3.8,4" x:Name="rbAllMessages"
                     Checked="RadioButton_Checked_3"
                     Content="Все заявки" FontSize="20" Height="44" Width="185"/>
                 <RadioButton
@@ -316,12 +316,12 @@
                     IsChecked="False" Checked="RadioButton_Checked_2"
                     Content="Отклонённые" FontSize="20" Height="44" Width="185"/>
             </StackPanel>
-            <ListView x:Name="adminMessageTable"
-            Margin="10,64,10,68" SelectionChanged="adminMessageTable_SelectionChanged">
+            <ListView x:Name="listViewAdminMessageBox"
+            Margin="10,64,10,68" SelectionChanged="listViewAdminMessageBox_SelectionChanged">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn
-                        DisplayMemberBinding="{Binding teacher}"
+                        DisplayMemberBinding="{Binding Teacher}"
                         Header="ФИО" 
                         Width="250"/>
                         <GridViewColumn
@@ -329,7 +329,7 @@
                         Width="250">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding _event}" 
+                                    <TextBlock Text="{Binding Event}" 
                                         TextAlignment="Left" Width="250"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -339,7 +339,7 @@
                         Width="77">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding date}" 
+                                    <TextBlock Text="{Binding Date}" 
                                         TextAlignment="Left" Width="77"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -349,7 +349,7 @@
                         Width="100">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding status}" 
+                                    <TextBlock Text="{Binding Status}" 
                                         TextAlignment="Left" Width="100"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -357,35 +357,35 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Button x:Name="Accept" Content="Принять заявку"
+            <Button x:Name="buttonAcceptRequest" Content="Принять заявку"
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="43" Background="#FF5D11A0"
                     BorderBrush="#FF260940" Visibility="Hidden" Margin="616,450,10,10" Width="172" Click="Accept_Click"/>
-            <Button x:Name="Decline" Content="Отклонить заявку"
+            <Button x:Name="buttonDeclineRequest" Content="Отклонить заявку"
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="43" Background="#FF5D11A0"
                     BorderBrush="#FF260940" Visibility="Hidden" Margin="429,450,195,10" Width="172" Click="Decline_Click"/>
         </Grid>
-        <Grid x:Name="BackgroundZone" Visibility="Hidden" Margin="0,0,-0.2,-0.2" Grid.RowSpan="2">
-            <materialDesign:ColorZone Height="600" x:Name="night" Visibility="Visible"
+        <Grid x:Name="gridBackgroundZone" Visibility="Hidden" Margin="0,0,-0.2,-0.2" Grid.RowSpan="2">
+            <materialDesign:ColorZone Height="600" x:Name="colorZoneNight" Visibility="Visible"
             Mode="PrimaryMid" Opacity="0.85"
             Effect="{DynamicResource MaterialDesignShadowDepth5}" 
                 Background="#FF373737" Margin="0,0,0,-3" HorizontalAlignment="Right" Width="797"/>
             <Grid Background="#FFE4E4E4" Margin="70,70,70,70" 
-                  x:Name="BackPanel" Visibility="Visible">
+                  x:Name="gridBackPanel" Visibility="Visible">
                 <Button Cursor="Hand" Margin="623,8,8,425.8" Width="27" Height="27" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click" >
                     <materialDesign:PackIcon Kind="CloseCircleOutline" Width="22" Height="22" Foreground="#FF5D11A0"/>
                 </Button>
             </Grid>
         </Grid>
-        <Grid x:Name="Coins" Visibility="Hidden" Margin="0,0,-0.2,-0.2" Grid.RowSpan="2" >
-            <ListView x:Name="coinsList" ScrollViewer.VerticalScrollBarVisibility="Visible"
+        <Grid x:Name="gridCoins" Visibility="Hidden" Margin="0,0,-0.2,-0.6" Grid.RowSpan="2" >
+            <ListView x:Name="listViewCoinsList" ScrollViewer.VerticalScrollBarVisibility="Visible"
           ScrollViewer.CanContentScroll="True" 
-             SelectionChanged="coinsList_SelectionChanged" Margin="82,82,355,79">
+             SelectionChanged="listViewCoinsList_SelectionChanged" Margin="82,82,355,79">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn
-                        DisplayMemberBinding="{Binding type}"
+                        DisplayMemberBinding="{Binding Type}"
                         Header="Тип награды" 
                         Width="170"/>
                         <GridViewColumn
@@ -393,7 +393,7 @@
                         Width="150">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding party}" 
+                                    <TextBlock Text="{Binding Party}" 
                                         TextAlignment="Left" Width="150"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -401,27 +401,27 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Grid x:Name="coins_img" Margin="0,0,0,488">
-                <Label Margin="454,176,280.8,-97.2" Content="{Binding artcoins}"
+            <Grid x:Name="gridCoinsImg" Margin="0,0,0,488">
+                <Label Margin="454,176,280.8,-97.2" Content="{Binding Artcoins}"
                        HorizontalContentAlignment="Center"/>
                 <Image Margin="454,113,280.8,-79" Height="62" Width="62" Source="/Assets/Coins/artcoin.png" RenderTransformOrigin="0.702,0.478"></Image>
-                <Label Margin="588,176,146.8,-97.2" Content="{Binding soc_active}"
+                <Label Margin="588,176,146.8,-97.2" Content="{Binding SocActive}"
                        HorizontalContentAlignment="Center" Width="62"/>
                 <Image Margin="588,113,146.8,-79" Height="62" Width="62" Source="/Assets/Coins/social_activity.png"/>
-                <Label Margin="654,176,80.8,-97.2" Content="{Binding talents}"
+                <Label Margin="654,176,80.8,-97.2" Content="{Binding Talents}"
                        HorizontalContentAlignment="Center"/>
                 <Image Margin="521,113,213.8,-79" Height="62" Width="62" Source="/Assets/Coins/intellect.png"/>
-                <Label Margin="521,176,213.8,-97.2" Content="{Binding intellect}"
+                <Label Margin="521,176,213.8,-97.2" Content="{Binding Intellect}"
                        HorizontalContentAlignment="Center" Width="62"/>
                 <Image Margin="654,113,80.8,-79" Height="62" Width="62" Source="/Assets/Coins/talent.png"></Image>
             </Grid>
             <Grid x:Name="EventBlocks" Margin="0,0,0,488">
-                <TextBlock x:Name="achEvent" FontSize="20" Margin="454,232,80.8,-186.2"
+                <TextBlock x:Name="textBlockCoinsEvent" FontSize="20" Margin="454,232,80.8,-186.2"
                          TextWrapping="Wrap" />
-                <TextBlock x:Name="achDescrEvent" FontSize="16" Margin="454,300,80.8,-320.2"
+                <TextBlock x:Name="textBlockCoinsDescription" FontSize="16" Margin="454,300,80.8,-320.2"
                           TextWrapping="Wrap"/>
-                <TextBlock x:Name="achEventPlace" Height="35" FontSize="20" Margin="564,431,80.8,-357.2"></TextBlock>
-                <TextBlock x:Name="achDateEvent" Height="35" FontSize="20" Margin="454,431,237.8,-357.2"></TextBlock>
+                <TextBlock x:Name="textBlockCoinsPlace" Height="35" FontSize="20" Margin="564,431,80.8,-357.2"></TextBlock>
+                <TextBlock x:Name="textBlockCoinsDate" Height="35" FontSize="20" Margin="454,431,237.8,-357.2"></TextBlock>
 
                 <Button x:Name="addCoin" Content="Наградить"
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
@@ -438,7 +438,7 @@
                 </Button>
             </Grid>
             <StackPanel Orientation="Horizontal" Background="#FFFFFFFF"
-                        x:Name="FakePanel"
+                        x:Name="stackPanelNewCoin"
                         Margin="235,127,235,135" Visibility="Hidden">
                 <Grid Width="300" Margin="8,8,8,8">
                     <Grid.Resources>
@@ -476,19 +476,19 @@
                     <TextBlock Grid.Column="0"  Grid.Row="0"
                             Margin="11,1,8,37.4"> Добавить коин
                     </TextBlock>
-                    <ComboBox x:Name="FakeType"
+                    <ComboBox x:Name="cbTypeOfCoin"
                             Grid.Column="0"
                             materialDesign:HintAssist.Hint="Тип коина"
                             materialDesign:HintAssist.IsFloating="True"
                             MaxDropDownHeight="200"
                             Margin="10,91,1,7.2" Height="45" Grid.RowSpan="3"/>
-                    <ComboBox x:Name="FakeEvent"
+                    <ComboBox x:Name="cbEvents"
                             Grid.Column="0"
                             materialDesign:HintAssist.Hint="Мероприятие"
                             materialDesign:HintAssist.IsFloating="True"
                             MaxDropDownHeight="200"
                             Margin="10,41,1,10" Height="45"/>
-                    <TextBox x:Name="FakeComment" Margin="11,10.356,0,28.044" 
+                    <TextBox x:Name="textBoxComment" Margin="11,10.356,0,28.044" 
                             Grid.Row="4" materialDesign:HintAssist.Hint="Комментарий"
                             materialDesign:HintAssist.IsFloating="True"/>
                     <Button Background="#FF5D11A0"
@@ -501,12 +501,12 @@
                 </Grid>
             </StackPanel>
         </Grid>
-        <Grid x:Name="TeacherPageGrid" Margin="0,0,-0.2,-0.2" Grid.RowSpan="2">
-            <materialDesign:ColorZone Height="600" x:Name="TeacherPageBackground"
+        <Grid x:Name="gridTeacherPage" Margin="0,0,-0.2,-0.2" Grid.RowSpan="2">
+            <materialDesign:ColorZone Height="600" x:Name="colorZoneTeacherPage"
             Mode="PrimaryMid" Opacity="0.85" Visibility="Hidden"
             Effect="{DynamicResource MaterialDesignShadowDepth5}" 
                 Background="#FF373737" Margin="0,0,0,-3" HorizontalAlignment="Right" Width="797"/>
-            <StackPanel Orientation="Horizontal" Background="#FFFFFFFF" x:Name="FakeTeacherPanel"
+            <StackPanel Orientation="Horizontal" Background="#FFFFFFFF" x:Name="stackPanelTeacherPanel"
                         Margin="134,100,134,100" Visibility="Hidden">
                 <Grid Width="300" Margin="8,8,8,8">
                     <Grid.Resources>
@@ -524,26 +524,26 @@
                     <TextBlock Grid.Column="0"  Grid.Row="0"
                             Margin="11,9,8,338.8"> Добавить учителя
                     </TextBlock>
-                    <TextBox x:Name="FakeFIO"
+                    <TextBox x:Name="textBoxTeachersFio"
                             Grid.Column="0"
                             materialDesign:HintAssist.Hint="ФИО"
                             materialDesign:HintAssist.IsFloating="True"
                             Margin="247,46,-212,289.8" Height="45"/>
-                    <TextBox x:Name="FakeSpeciality"
+                    <TextBox x:Name="textBoxTeachersSpeciality"
                             Grid.Column="0"
                             materialDesign:HintAssist.Hint="Специальность"
                             materialDesign:HintAssist.IsFloating="True"
                             Margin="247,96,-212,239.8" Height="45"/>
-                    <TextBox x:Name="FakeInfo"
+                    <TextBox x:Name="textBoxTeachersInfo"
                             Grid.Column="0" VerticalAlignment="Stretch"
                             AcceptsReturn="True"
                             VerticalScrollBarVisibility="Auto"
                             materialDesign:HintAssist.Hint="Заметки или доп. информация"
                             materialDesign:HintAssist.IsFloating="True"
                             Margin="247,146,-212,68.4" TextWrapping="Wrap"/>
-                    <Image Margin="0,46,67,78.8" x:Name="Portrait" Source="/Assets/noimage.jpg"></Image>
+                    <Image Margin="0,46,67,78.8" x:Name="imageTeachersPortrait" Source="/Assets/noimage.jpg"></Image>
                     <Button Background="#FF5D11A0"
-                            Content="Добавить" x:Name="AddTeacherButton"
+                            Content="Добавить" x:Name="buttonNewTeacher"
                             Margin="382,329,-212,-0.2" Height="Auto" Click="AddTeacherButton_Click" 
                             />
                     <Button Background="#FF5D11A0"
@@ -562,14 +562,14 @@
                 </Grid>
             </StackPanel>
         </Grid>
-        <Grid x:Name="FakeEventsGrig" Margin="0,0,-0.2,-0.2" Grid.RowSpan="2"
+        <Grid x:Name="gridNewEvent" Margin="0,0,-0.2,-0.2" Grid.RowSpan="2"
               Visibility="Hidden">
             <materialDesign:ColorZone Height="600"
             Mode="PrimaryMid" Opacity="0.85"
             Effect="{DynamicResource MaterialDesignShadowDepth5}" 
                 Background="#FF373737" Margin="0,0,0,-3" HorizontalAlignment="Right" Width="797"/>
             <Grid Background="#FFE4E4E4" Margin="165,70,165,70" 
-                   Visibility="Hidden" x:Name="EventParticipants">
+                   Visibility="Hidden" x:Name="gridEventParticipants">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="33*"/>
                     <ColumnDefinition Width="28*"/>
@@ -578,8 +578,8 @@
                         Background="{x:Null}" BorderBrush="{x:Null}" Margin="162.1,7,6.8,422.8" Grid.Column="1" Click="Button_Click_11" >
                     <materialDesign:PackIcon Kind="CloseCircleOutline" Width="22" Height="22" Foreground="#FF5D11A0"/>
                 </Button>
-                <ListView x:Name="PartTeachers"
-            Margin="10,39,9.8,9.8" SelectionChanged="teachersTable_SelectionChanged" Grid.ColumnSpan="2">
+                <ListView x:Name="listViewParticipants"
+            Margin="10,39,9.8,9.8" SelectionChanged="listViewTeachers_SelectionChanged" Grid.ColumnSpan="2">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn
@@ -591,7 +591,7 @@
                         Width="236">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding speciality}" 
+                                        <TextBlock Text="{Binding Speciality}" 
                                         TextAlignment="Left" Width="230"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -601,7 +601,7 @@
                 </ListView>
             </Grid>
             <Grid x:Name="EventOperations">
-                <StackPanel Orientation="Horizontal" Background="#FFFFFFFF" x:Name="FakeEventPanel"
+                <StackPanel Orientation="Horizontal" Background="#FFFFFFFF" x:Name="stackPanelEventPanel"
                         Margin="134,100,134,100" Visibility="Visible" Cursor="Hand">
                     <Grid Width="300" Margin="8,8,8,8">
                         <Grid.Resources>
@@ -619,39 +619,39 @@
                         <TextBlock Grid.Column="0"  Grid.Row="0"
                             Margin="11,9,8,338.8"> Добавить мероприятие
                         </TextBlock>
-                        <TextBox x:Name="FakeCaption"
+                        <TextBox x:Name="textBoxEventCaption"
                             Grid.Column="0"
                             materialDesign:HintAssist.Hint="Название"
                             materialDesign:HintAssist.IsFloating="True"
                             Margin="246,50,-211,276.8" Height="54"/>
-                        <TextBox x:Name="FakePlace"
+                        <TextBox x:Name="textBoxEventPlace"
                             Grid.Column="0"
                             materialDesign:HintAssist.Hint="Место проведения"
                             materialDesign:HintAssist.IsFloating="True"
                             Margin="247,109,-212,217.8"/>
-                        <TextBox x:Name="FakeDescription"
+                        <TextBox x:Name="textBoxEventDescription"
                             Grid.Column="0" VerticalAlignment="Stretch"
                             AcceptsReturn="True"
                             VerticalScrollBarVisibility="Auto"
                             materialDesign:HintAssist.Hint="Описание мероприятия"
                             materialDesign:HintAssist.IsFloating="True"
                             Margin="246,168,-212,56.8" TextWrapping="Wrap"/>
-                        <DatePicker Margin="20,50,0,276.8" Height="54" x:Name="FakeCalendar"
+                        <DatePicker Margin="20,50,0,276.8" Height="54" x:Name="datePickerCalendar"
                                     HorizontalContentAlignment="Center" HorizontalAlignment="Left" Width="178"></DatePicker>
                         <Button Background="#FF5D11A0"
-                        Content="Добавить" x:Name="AddEvent"
+                        Content="Добавить" x:Name="buttonNewEvent"
                         Margin="382,329,-212,-0.2" Height="Auto" Click="Button_Click_8"/>
                         <Button Background="#FF5D11A0"
                         Content="Отмена"
                         Margin="247,329,-77,-0.2" Height="Auto" Click="Button_Click_12"/>
-                        <ComboBox HorizontalContentAlignment="Center" x:Name="FakeTypeEvent"
+                        <ComboBox HorizontalContentAlignment="Center" x:Name="cbEventType"
                             materialDesign:ComboBoxAssist.ClassicMode="{Binding ElementName=ClassicModeCheckBox, Path=IsChecked}"
                             HorizontalAlignment="Left" Width="178" Margin="20,146,0,185.8" Height="49"/>
                     </Grid>
                 </StackPanel>
             </Grid>
         </Grid>
-        <Grid x:Name="ResponceBlock" Margin="0,0,-0.2,-0.2" Grid.RowSpan="2" Visibility="Hidden">
+        <Grid x:Name="gridResponce" Margin="0,0,-0.2,-0.2" Grid.RowSpan="2" Visibility="Hidden">
             <StackPanel Orientation="Horizontal" Background="#FFFFFFFF"
                         x:Name="Responce"
                         Margin="235,127,234.8,96.2">
@@ -691,18 +691,18 @@
                     <TextBlock Grid.Column="0"  Grid.Row="0"
                             Margin="11,1,8,37.4"> Добавить коин
                     </TextBlock>
-                    <ComboBox x:Name="RType"
+                    <ComboBox x:Name="cbAcceptRequestCoinType"
                             Grid.Column="0"
                             materialDesign:HintAssist.Hint="Тип коина"
                             materialDesign:HintAssist.IsFloating="True"
                             MaxDropDownHeight="200"
                             Margin="10,91,1,7.2" Height="45" Grid.RowSpan="3"/>
-                    <TextBlock x:Name="REvent"
+                    <TextBlock x:Name="textBlockAcceptRequestEvent"
                             Grid.Column="0" IsEnabled="False"
                             materialDesign:HintAssist.Hint="Мероприятие"
                             materialDesign:HintAssist.IsFloating="True"
                             Margin="10,41,1,10" Height="45"/>
-                    <TextBox x:Name="RComment" Margin="11,10.356,0,28.044" 
+                    <TextBox x:Name="textBoxAcceptRequestComment" Margin="11,10.356,0,28.044" 
                             Grid.Row="4" materialDesign:HintAssist.Hint="Комментарий"
                             materialDesign:HintAssist.IsFloating="True"/>
                     <Button Background="#FF5D11A0"
@@ -715,12 +715,12 @@
                 </Grid>
             </StackPanel>
         </Grid>
-        <Grid x:Name="SettingsGrid" Visibility="Hidden" Margin="0,0,-1.2,10.2" Grid.RowSpan="2" >
+        <Grid x:Name="gridSettings" Visibility="Hidden" Margin="0,0,-1.2,10.2" Grid.RowSpan="2" >
             <materialDesign:ColorZone Height="600"
             Mode="PrimaryMid" Opacity="0.85"
             Effect="{DynamicResource MaterialDesignShadowDepth5}" 
                 Background="#FF373737" Margin="0,0,0,-9.4" HorizontalAlignment="Right" Width="797"/>
-            <StackPanel Orientation="Horizontal" Background="#FFFFFFFF" x:Name="SettingsPanel"
+            <StackPanel Orientation="Horizontal" Background="#FFFFFFFF" x:Name="stackPanelSettings"
                         Margin="134,90,134,90" Visibility="Hidden" Cursor="Hand">
                 <Grid Width="300" Margin="8,8,8,8">
                     <Grid.Resources>
@@ -738,32 +738,32 @@
                     <TextBlock
                         Margin="2,-2,0,348.4" HorizontalAlignment="Left" Width="81"> Настройки
                     </TextBlock>
-                    <TextBox x:Name="ALogin" Visibility="Hidden"
+                    <TextBox x:Name="textBoxAccountLogin" Visibility="Hidden"
                         materialDesign:HintAssist.Hint="Логин"
                         materialDesign:HintAssist.IsFloating="True"
                         Margin="317,23,-208,315.4" Height="52"/>
-                    <TextBox x:Name="APassword" Visibility="Hidden"
+                    <TextBox x:Name="textBoxAccountPassword" Visibility="Hidden"
                         materialDesign:HintAssist.Hint="Пароль"
                         materialDesign:HintAssist.IsFloating="True"
                         Margin="317,84,-208,254.4" Height="52"/>
                     <Button Background="#FF5D11A0"
-                        Content="Создать аккаунт" x:Name="AddAccount"
+                        Content="Создать аккаунт" x:Name="buttonCreateAccount"
                         Margin="316,132,-208,190.4" Height="48" Visibility="Hidden" Click="AddfdEvent_Click"/>
-                    <Button Background="#FF5D11A0" x:Name="DeleteAccount"
+                    <Button Background="#FF5D11A0" x:Name="buttonDeleteAccount"
                         Content="Удалить аккаунт" Visibility="Hidden"
                         Margin="316,195,-208,147.4" Height="48" HorizontalAlignment="Left" Width="192" Click="DeleteAccount_Click"/>
                     <Label Margin="312,255,-153,97.4" HorizontalAlignment="Left" Width="141">Дата системы:</Label>
-                    <TextBox x:Name="currentYear"
+                    <TextBox x:Name="textBoxCurrentYear"
                         materialDesign:HintAssist.Hint="Год"
                         materialDesign:HintAssist.IsFloating="True"
                         Margin="317,293,-209,45.4" Height="52"/>
                     <StackPanel Orientation="Horizontal" Margin="309,350,-221,-1.6">
-                        <RadioButton x:Name="CS1"
+                        <RadioButton x:Name="rbFirstSemestr"
                             Style="{StaticResource MaterialDesignTabRadioButton}"
                             Margin="4"
                             IsChecked="False"
                             Content="I семестр" Width="95" />
-                        <RadioButton x:Name="CS2"
+                        <RadioButton x:Name="rbSecondSemestr"
                             Style="{StaticResource MaterialDesignTabRadioButton}"
                             Margin="4"
                             IsChecked="False"
@@ -779,13 +779,13 @@
                     </materialDesign:Snackbar>
                 </Grid>
             </StackPanel>
-            <ListView x:Name="AccountList" ScrollViewer.VerticalScrollBarVisibility="Visible"
+            <ListView x:Name="listViewAccounts" ScrollViewer.VerticalScrollBarVisibility="Visible"
             ScrollViewer.CanContentScroll="True" 
             Margin="143,123,350,145.6" SelectionChanged="AccountList_SelectionChanged">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn
-                        DisplayMemberBinding="{Binding ac_name}"
+                        DisplayMemberBinding="{Binding Name}"
                         Header="ФИО учителя" 
                         Width="180"/>
                         <GridViewColumn
@@ -793,7 +793,7 @@
                         Width="80">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding ac_login}" 
+                                    <TextBlock Text="{Binding Login}" 
                                         TextAlignment="Left" Width="80"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -807,15 +807,15 @@
             </Button>
 
         </Grid>
-        <Grid x:Name="teacher_coins" Margin="0,59,-0.2,-0.2" Grid.Row="1"
-              Visibility="Hidden">
-            <ListView x:Name="TCoinsList" ScrollViewer.VerticalScrollBarVisibility="Visible"
+        <Grid x:Name="gridTeachersCoins" Margin="0,94,-0.2,-0.6"
+              Visibility="Visible" Grid.RowSpan="2">
+            <ListView x:Name="lViewCoinsList" ScrollViewer.VerticalScrollBarVisibility="Visible"
           ScrollViewer.CanContentScroll="True" 
-             SelectionChanged="TCoinsList_SelectionChanged" Margin="10,10,355,10">
+             SelectionChanged="lViewCoinsList_SelectionChanged" Margin="10,10,355,10">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn
-                        DisplayMemberBinding="{Binding type}"
+                        DisplayMemberBinding="{Binding Type}"
                         Header="Тип награды" 
                         Width="170"/>
                         <GridViewColumn
@@ -823,7 +823,7 @@
                         Width="150">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding party}" 
+                                    <TextBlock Text="{Binding Party}" 
                                         TextAlignment="Left" Width="150"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -831,25 +831,25 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <Grid x:Name="Tcoins_img" Margin="0,0,0,488">
-                <Label Margin="452,95,264.8,-119.4" Content="{Binding artcoins}"
+            <Grid x:Name="gridCoinsImages" Margin="0,0,0,488">
+                <Label Margin="452,95,264.8,-119.4" Content="{Binding Artcoins}"
                        HorizontalContentAlignment="Center"/>
                 <Image Margin="452,10,264.8,-80.4" Height="80" Width="80" Source="/Assets/Coins/artcoin.png" RenderTransformOrigin="0.702,0.478"></Image>
-                <Label Margin="622,95,94.8,-119.4" Content="{Binding soc_active}"
+                <Label Margin="622,95,94.8,-119.4" Content="{Binding SocActive}"
                        HorizontalContentAlignment="Center"/>
                 <Image Margin="622,10,94.8,-80.4" Height="80" Width="80" Source="/Assets/Coins/social_activity.png"/>
-                <Label Margin="707,95,9.8,-119.4" Content="{Binding talents}"
+                <Label Margin="707,95,9.8,-119.4" Content="{Binding Talents}"
                        HorizontalContentAlignment="Center"/>
                 <Image Margin="537,10,179.8,-80.4" Height="80" Width="80" Source="/Assets/Coins/intellect.png"/>
-                <Label Margin="537,95,179.8,-119.4" Content="{Binding intellect}"
+                <Label Margin="537,95,179.8,-119.4" Content="{Binding Intellect}"
                        HorizontalContentAlignment="Center"/>
                 <Image Margin="707,10,9.8,-80.4" Height="80" Width="80" Source="/Assets/Coins/talent.png"></Image>
-                <TextBlock x:Name="TachEvent" FontSize="20" Margin="454,145,7.8,-175.4"
+                <TextBlock x:Name="textBlockCoinEvent" FontSize="20" Margin="454,145,7.8,-175.4"
                          TextWrapping="Wrap" />
-                <TextBlock x:Name="TachDescrEvent" FontSize="16" Margin="476,237,9.8,-364.4"
+                <TextBlock x:Name="textBlockCoinEventDescription" FontSize="16" Margin="476,237,9.8,-364.4"
                           TextWrapping="Wrap"/>
-                <TextBlock x:Name="TachEventPlace" FontSize="20" Margin="577,379,9.8,-410.4"/>
-                <TextBlock x:Name="TachDateEvent" FontSize="20" Margin="452,379,224.8,-410.4"/>
+                <TextBlock x:Name="textBlockCoinEventPlace" FontSize="20" Margin="577,379,9.8,-410.4"/>
+                <TextBlock x:Name="textBlockCoinEventDate" FontSize="20" Margin="452,379,224.8,-410.4"/>
                 <Button x:Name="TotalRating" Content="Общий рейтинг"
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="Auto" Background="#FF5D11A0"
@@ -859,25 +859,25 @@
 
                 </Grid>
             </Grid>
-            <Grid x:Name="TBackgroundZone" Visibility="Hidden" Margin="0,-5,0,2">
-                <materialDesign:ColorZone Height="600" x:Name="Tnight" Visibility="Visible"
+            <Grid x:Name="gridTotalRatingBackgroung" Visibility="Hidden" Margin="0,-5,0,2">
+                <materialDesign:ColorZone Height="600" x:Name="TcolorZoneNight" Visibility="Visible"
             Mode="PrimaryMid" Opacity="0.85"
             Effect="{DynamicResource MaterialDesignShadowDepth5}" 
                 Background="#FF373737" Margin="0,0,0,-3" HorizontalAlignment="Right" Width="797"/>
                 <Grid Background="#FFE4E4E4" Margin="170,50,170,50" 
-                  x:Name="TBackPanel" Visibility="Visible">
+                  x:Name="TgridBackPanel" Visibility="Visible">
                     <Button Cursor="Hand" Margin="423,4,4,367.8" Width="27" Height="27" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click_16" >
                         <materialDesign:PackIcon Kind="CloseCircleOutline" Width="22" Height="22" Foreground="#FF5D11A0"/>
                     </Button>
                     <Label Margin="10,17,301.8,348.8" FontSize="20">Вид рейтинга:</Label>
                     <ComboBox HorizontalContentAlignment="Center"
             materialDesign:ComboBoxAssist.ClassicMode="{Binding ElementName=ClassicModeCheckBox, Path=IsChecked}"
-            Margin="160,11,0,342.8" x:Name="TratingCB" FontSize="16"
+            Margin="160,11,0,342.8" x:Name="cbRatingTypes" FontSize="16"
             HorizontalAlignment="Left" Width="245">
-                        <ComboBoxItem x:Name="TcbTotal" Selected="TcbTotal_Selected">
+                        <ComboBoxItem x:Name="TcbItemTotalRating" Selected="TcbItemTotalRating_Selected">
                             Общий рейтинг
                         </ComboBoxItem>
-                        <ComboBoxItem x:Name="TcbArtcoins" Selected="TcbArtcoins_Selected">
+                        <ComboBoxItem x:Name="Tcbartcoins" Selected="Tcbartcoins_Selected">
                             Арткоины
                         </ComboBoxItem>
                         <ComboBoxItem x:Name="TcbIntellect" Selected="TcbIntellect_Selected">
@@ -890,10 +890,10 @@
                             Очки за соц. активность
                         </ComboBoxItem>
                     </ComboBox>
-                    <ListView x:Name="TadminTable"
+                    <ListView x:Name="listViewTotalRating"
                         Margin="10,63,9.8,9.8" ScrollViewer.VerticalScrollBarVisibility="Visible"
                         ScrollViewer.CanContentScroll="True" 
-                        SelectionChanged="adminTable_SelectionChanged">
+                        SelectionChanged="listViewRating_SelectionChanged">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn x:Name="TFIO_teacher"
@@ -905,7 +905,7 @@
                         Width="125">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding coin}" TextAlignment="Center" Width="87"/>
+                                            <TextBlock Text="{Binding Coin}" TextAlignment="Center" Width="87"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -915,14 +915,14 @@
                 </Grid>
             </Grid>
         </Grid>
-        <Grid x:Name="teachers_mBox" Visibility="Hidden" Margin="0,99,-0.2,-0.6" Grid.RowSpan="2">
+        <Grid x:Name="gridTeachersMessageBox" Visibility="Hidden" Margin="0,99,-0.2,-0.6" Grid.RowSpan="2">
             <Grid x:Name="MyRequests" Visibility="Visible" Margin="11,0,6,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="87*"/>
                     <ColumnDefinition Width="173*"/>
                 </Grid.ColumnDefinitions>
-                <ListView x:Name="teacherMessageTable"
-            Margin="10,0,314,9.6" SelectionChanged="adminMessageTable_SelectionChanged" Grid.ColumnSpan="2">
+                <ListView x:Name="listViewTeacherMessageBox"
+            Margin="10,0,314,9.6" SelectionChanged="listViewAdminMessageBox_SelectionChanged" Grid.ColumnSpan="2">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn
@@ -930,7 +930,7 @@
                         Width="230">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding _event}" 
+                                        <TextBlock Text="{Binding Event}" 
                                         TextAlignment="Left" Width="230"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -940,7 +940,7 @@
                         Width="90">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding date}" 
+                                        <TextBlock Text="{Binding Date}" 
                                         TextAlignment="Left" Width="90"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -950,7 +950,7 @@
                         Width="97">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding status}" 
+                                        <TextBlock Text="{Binding Status}" 
                                         TextAlignment="Left" Width="97"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -968,10 +968,10 @@
                     участие в мероприятии
                 </Label>
                 <Label Margin="205.2,270,0,191.6" Grid.Column="1" FontSize="15"
-                       HorizontalContentAlignment="Right" x:Name="RequestFIO"
-                       Content="{Binding teacher}">
+                       HorizontalContentAlignment="Right" x:Name="labelTeachersFio"
+                       Content="{Binding Teacher}">
                 </Label>
-                <ComboBox x:Name="RequestEvent"
+                <ComboBox x:Name="cbRequestEvent"
                     Grid.Column="1" HorizontalContentAlignment="Center"
                     materialDesign:HintAssist.Hint="Выбор мероприятия . . ."
                     materialDesign:HintAssist.IsFloating="True"
@@ -991,7 +991,7 @@
                 </materialDesign:Snackbar>
             </Grid>
         </Grid>
-        <Grid x:Name="ExportGrid" Visibility="Hidden">
+        <Grid x:Name="gridExportToExcel" Visibility="Hidden">
             <materialDesign:ColorZone Height="600"
             Mode="PrimaryMid" Opacity="0.85"
             Effect="{DynamicResource MaterialDesignShadowDepth5}" 
@@ -1001,17 +1001,17 @@
                         Margin="235,127,279.8,99.8">
                 <Grid>
                     <TextBlock Margin="11,10,-22,320.6" FontSize="18"><Run Text="Таблицы для экспорта:"/></TextBlock>
-                    <CheckBox Style="{StaticResource MaterialDesignCheckBox}" x:Name="ExpTotal" 
+                    <CheckBox Style="{StaticResource MaterialDesignCheckBox}" x:Name="cbElementExportTotal" 
                               Margin="10,40,27.6,289.6" Content="Общий рейтинг" Height="40"/>
-                    <CheckBox Style="{StaticResource MaterialDesignCheckBox}" x:Name="ExpArtcoins" 
+                    <CheckBox Style="{StaticResource MaterialDesignCheckBox}" x:Name="cbElementExportArtcoins" 
                               Content="Рейтинг по арткоинам" Margin="10,85,10.6,244.6" Height="40"/>
-                    <CheckBox Style="{StaticResource MaterialDesignCheckBox}" x:Name="ExpTalents" 
+                    <CheckBox Style="{StaticResource MaterialDesignCheckBox}" x:Name="cbElementExportTalents" 
                               Content="Рейтинг по &quot;талантам&quot;" Margin="10,130,10.6,199.6" Height="40"/>
-                    <CheckBox Style="{StaticResource MaterialDesignCheckBox}" x:Name="ExpIntellect" 
+                    <CheckBox Style="{StaticResource MaterialDesignCheckBox}" x:Name="cbElementExportIntellect" 
                               Content="Рейтинг по &quot;интелекту&quot;" Margin="11,220,9.6,109.6" Height="40"/>
-                    <CheckBox Style="{StaticResource MaterialDesignCheckBox}" x:Name="ExpSocActivity" 
+                    <CheckBox Style="{StaticResource MaterialDesignCheckBox}" x:Name="cbElementExportSocialActivity" 
                               Content="Рейтинг по &quot;соц. активности&quot;" Margin="11,175,9.6,154.6" Height="40"/>
-                    <CheckBox Style="{StaticResource MaterialDesignCheckBox}" x:Name="ExpEvents" 
+                    <CheckBox Style="{StaticResource MaterialDesignCheckBox}" x:Name="cbElementExportEvents" 
                               Content="Мероприятия" Margin="11,265,9.6,64.6" Height="40"/>
                     <Button Background="#FF5D11A0" Width="125"
                             Content="Добавить" Margin="149,319,7.6,2.6" Height="Auto" Click="Button_Click_19"

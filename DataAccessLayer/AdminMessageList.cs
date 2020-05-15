@@ -2,10 +2,10 @@
 {
     class AdminMessageList
     {
-        public int id_message { get; set; }
-        public string teacher { get; set; }
-        public string _event { get; set; }
-        public string date { get; set; }
-        public string status { get; set; }
+        public int ID { get; set; }
+        public string Teacher { get; set; }
+        public string Event { get; set; }
+        public string Date { get; set; }
+        public string Status { get; set; }
     }
 }

@@ -2,9 +2,9 @@
 {
     class CoinsCount
     {
-        public string artcoins { get; set; }
-        public string soc_active { get; set; }
-        public string talents { get; set; }
-        public string intellect { get; set; }
+        public string Artcoins { get; set; }
+        public string SocActive { get; set; }
+        public string Talents { get; set; }
+        public string Intellect { get; set; }
     }
 }

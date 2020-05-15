@@ -9,24 +9,24 @@ namespace Coins_Database.Actions
 {
     class Excel
     {
-        public static bool SaveReport(XLWorkbook workbook)
+        public static bool SaveReport(XLWorkbook Workbook)
         {
-            if (workbook.Worksheets.Count > 0)
+            if (Workbook.Worksheets.Count > 0)
             {
-                Stream myStream;
-                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                Stream MyStream;
+                SaveFileDialog SaveFileDialog1 = new SaveFileDialog();
 
-                saveFileDialog1.Filter = "excel files (*.xlsx)|*.xlsx";
-                saveFileDialog1.FilterIndex = 2;
-                saveFileDialog1.RestoreDirectory = true;
+                SaveFileDialog1.Filter = "excel files (*.xlsx)|*.xlsx";
+                SaveFileDialog1.FilterIndex = 2;
+                SaveFileDialog1.RestoreDirectory = true;
 
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                if (SaveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    if ((myStream = saveFileDialog1.OpenFile()) != null)
+                    if ((MyStream = SaveFileDialog1.OpenFile()) != null)
                     {
-                        myStream.Close();
+                        MyStream.Close();
                     }
-                    workbook.SaveAs(saveFileDialog1.FileName);
+                    Workbook.SaveAs(SaveFileDialog1.FileName);
                     MessageBox.Show("Отчёт успешно сформирован");
                 }
                 return true;
@@ -38,27 +38,27 @@ namespace Coins_Database.Actions
             }
         }
 
-        public static void RatingReport(XLWorkbook workbook, string listname, List<Rating> dataList)
+        public static void RatingReport(XLWorkbook Workbook, string Listname, List<Rating> DataList)
         {
-            var wsDetailedData = workbook.AddWorksheet(listname);
-            wsDetailedData.ColumnWidth = 33;
-            wsDetailedData.Cell(1, 1).InsertTable(dataList);
-            wsDetailedData.Cell(1, 1).Value = "№";
-            wsDetailedData.Cell(1, 2).Value = "Учитель";
-            wsDetailedData.Cell(1, 3).Value = "Рейтинг";
-            wsDetailedData.ColumnWidth = 33;
+            var WsDetailedData = Workbook.AddWorksheet(Listname);
+            WsDetailedData.ColumnWidth = 33;
+            WsDetailedData.Cell(1, 1).InsertTable(DataList);
+            WsDetailedData.Cell(1, 1).Value = "№";
+            WsDetailedData.Cell(1, 2).Value = "Учитель";
+            WsDetailedData.Cell(1, 3).Value = "Рейтинг";
+            WsDetailedData.ColumnWidth = 33;
         }
 
-        public static void EventsReport(XLWorkbook workbook, string listname, List<Events> dataList)
+        public static void EventsReport(XLWorkbook Workbook, string Listname, List<Events> DataList)
         {
-            var wsDetailedData = workbook.AddWorksheet(listname);
-            wsDetailedData.ColumnWidth = 33;
-            wsDetailedData.Cell(1, 1).InsertTable(dataList);
-            wsDetailedData.Cell(1, 1).Value = "Мероприятие";
-            wsDetailedData.Cell(1, 2).Value = "Тип мероприятия";
-            wsDetailedData.Cell(1, 3).Value = "Место проведения";
-            wsDetailedData.Cell(1, 4).Value = "Дата проведения";
-            wsDetailedData.ColumnWidth = 33;
+            var WsDetailedData = Workbook.AddWorksheet(Listname);
+            WsDetailedData.ColumnWidth = 33;
+            WsDetailedData.Cell(1, 1).InsertTable(DataList);
+            WsDetailedData.Cell(1, 1).Value = "Мероприятие";
+            WsDetailedData.Cell(1, 2).Value = "Тип мероприятия";
+            WsDetailedData.Cell(1, 3).Value = "Место проведения";
+            WsDetailedData.Cell(1, 4).Value = "Дата проведения";
+            WsDetailedData.ColumnWidth = 33;
         }
     }
 }

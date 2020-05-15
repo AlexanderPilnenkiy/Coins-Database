@@ -11,26 +11,26 @@ namespace Coins_Database.ViewModels
 {
     class LastImageIdViewModel
     {
-        public int LastImageID(string login, string password)
+        public int LastImageID(string Login, string Password)
         {
-            int items = new int();
-            using (var connection =
-                new NpgsqlConnection(Configuration.LoadSettings(login, password)))
+            int Items = new int();
+            using (var Connection =
+                new NpgsqlConnection(Configuration.LoadSettings(Login, Password)))
             {
-                connection.Open();
-                using (var command = new NpgsqlCommand(Queries.GetLastImage, connection))
+                Connection.Open();
+                using (var Command = new NpgsqlCommand(Queries.GetLastImage, Connection))
                 {
-                    int lstCount = Configuration.SDataSet(command, connection).Tables["LIST"].Rows.Count;
+                    int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
                     int i = 0;
-                    while (lstCount > i)
+                    while (LstCount > i)
                     {
-                        items = Convert.ToInt32(Configuration.SDataSet(command, connection).Tables["LIST"].Rows[i]["max"]);
+                        Items = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["max"]);
                         i++;
                     }
                 }
-                connection.Close();
+                Connection.Close();
             }
-            return items;
+            return Items;
         }
     }
 }

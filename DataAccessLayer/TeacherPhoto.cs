@@ -4,11 +4,11 @@ namespace Coins_Database.DataAccessLayer
 {
     public class TeacherPhoto
     {
-        public BitmapImage portrait { get; set; }
+        public BitmapImage Portrait { get; set; }
 
-        public TeacherPhoto(BitmapImage img)
+        public TeacherPhoto(BitmapImage Img)
         {
-            portrait = img;
+            Portrait = Img;
         }
     }
 }
