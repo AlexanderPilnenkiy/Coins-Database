@@ -12,29 +12,23 @@ namespace Coins_Database.ViewModels
 {
     class AccountListViewModel
     {
-        public List<Account> LoadAccounts(string Login, string Password, string Query)
+        public List<Account> LoadAccounts(NpgsqlConnection Connection, string Query)
         {
             List<Account> Items = new List<Account>();
-            using (var Connection =
-                 new NpgsqlConnection(Configuration.LoadSettings(Login, Password)))
+            using (var Command = new NpgsqlCommand(Query, Connection))
             {
-                Connection.Open();
-                using (var Command = new NpgsqlCommand(Query, Connection))
+                int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
+                int i = 0;
+                while (LstCount > i)
                 {
-                    int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
-                    int i = 0;
-                    while (LstCount > i)
+                    Items.Add(new Account()
                     {
-                        Items.Add(new Account()
-                        {
-                            ID = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["id_teacher"]),
-                            Name = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
-                            Login = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["Login"].ToString()
-                        });
-                        i++;
-                    }
+                        ID = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["id_teacher"]),
+                        Name = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
+                        Login = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["Login"].ToString()
+                    });
+                    i++;
                 }
-                Connection.Close();
             }
             return Items;
         }

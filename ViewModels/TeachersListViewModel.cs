@@ -9,29 +9,23 @@ namespace Coins_Database.ViewModels
 {
     class TeachersListViewModel : ViewModelBase
     {
-        public List<TeachersList> LoadTeachersList(string Login, string Password, string Query)
+        public List<TeachersList> LoadTeachersList(NpgsqlConnection Connection, string Query)
         {
             List<TeachersList> Items = new List<TeachersList>();
-            using (var Connection =
-                new NpgsqlConnection(Configuration.LoadSettings(Login, Password)))
+            using (var Command = new NpgsqlCommand(Query, Connection))
             {
-                Connection.Open();
-                using (var Command = new NpgsqlCommand(Query, Connection))
+                int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
+                int i = 0;
+                while (LstCount > i)
                 {
-                    int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
-                    int i = 0;
-                    while (LstCount > i)
+                    Items.Add(new TeachersList()
                     {
-                        Items.Add(new TeachersList()
-                        {
-                            ID = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["id_teacher"]),
-                            FIO = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
-                            Speciality = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["speciality"].ToString()
-                        });
-                        i++;
-                    }
+                        ID = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["id_teacher"]),
+                        FIO = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
+                        Speciality = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["speciality"].ToString()
+                    });
+                    i++;
                 }
-                Connection.Close();
             }
             return Items;
         }

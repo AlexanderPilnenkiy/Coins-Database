@@ -7,33 +7,28 @@ namespace Coins_Database.ViewModels
 {
     class TeacherPhotoViewModel
     {
-        public BitmapFrame LoadTeacherPhoto(string login, string password, string query)
+        public BitmapFrame LoadTeacherPhoto(NpgsqlConnection Connection, string Query)
         {
-            using (var connection =
-                new NpgsqlConnection(Configuration.LoadSettings(login, password)))
+            using (var Command = new NpgsqlCommand(Query, Connection))
             {
-                using (var command = new NpgsqlCommand(query, connection))
+                byte[] ProductImageByte = null;
+                var Rdr = Command.ExecuteReader();
+                if (Rdr.Read())
                 {
-                    byte[] productImageByte = null;
-                    connection.Open();
-                    var rdr = command.ExecuteReader();
-                    if (rdr.Read())
+                    ProductImageByte = (byte[])Rdr[0];
+                }
+                Rdr.Close();
+                if (ProductImageByte != null)
+                {
+                    using (MemoryStream productImageStream = new MemoryStream(ProductImageByte))
                     {
-                        productImageByte = (byte[])rdr[0];
+                        var Bitmap = BitmapFrame.Create(productImageStream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
+                        return Bitmap;
                     }
-                    rdr.Close();
-                    if (productImageByte != null)
-                    {
-                        using (MemoryStream productImageStream = new MemoryStream(productImageByte))
-                        {
-                            var bitmap = BitmapFrame.Create(productImageStream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.OnLoad);
-                            return bitmap;
-                        }
-                    }
-                    else
-                    {
-                        return null;
-                    }
+                }
+                else
+                {
+                    return null;
                 }
             }
         }

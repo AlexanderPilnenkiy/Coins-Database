@@ -12,30 +12,24 @@ namespace Coins_Database.ViewModels
 {
     class SortedEventsViewModel
     {
-        public List<Events> LoadSortedEvents(string Login, string Password, string Query)
+        public List<Events> LoadSortedEvents(NpgsqlConnection Connection, string Query)
         {
             List<Events> Items = new List<Events>();
-            using (var Connection =
-                new NpgsqlConnection(Configuration.LoadSettings(Login, Password)))
+            using (var Command = new NpgsqlCommand(Query, Connection))
             {
-                Connection.Open();
-                using (var Command = new NpgsqlCommand(Query, Connection))
+                int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
+                int i = 0;
+                while (LstCount > i)
                 {
-                    int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
-                    int i = 0;
-                    while (LstCount > i)
+                    Items.Add(new Events()
                     {
-                        Items.Add(new Events()
-                        {
-                            Caption = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["event_name"].ToString(),
-                            Type = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["event_type"].ToString(),
-                            Place = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["event_place"].ToString(),
-                            Date = Convert.ToDateTime(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["date"]).ToShortDateString()
-                        });
-                        i++;
-                    }
+                        Caption = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["event_name"].ToString(),
+                        Type = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["event_type"].ToString(),
+                        Place = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["event_place"].ToString(),
+                        Date = Convert.ToDateTime(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["date"]).ToShortDateString()
+                    });
+                    i++;
                 }
-                Connection.Close();
             }
             return Items;
         }

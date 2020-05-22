@@ -13,31 +13,25 @@ namespace Coins_Database.ViewModels
 {
     class AdminMessageListViewModel : ViewModelBase
     {
-        public List<AdminMessageList> LoadMAList(string Login, string Password, string Query)
+        public List<AdminMessageList> LoadMAList(NpgsqlConnection Connection, string Query)
         {
             List<AdminMessageList> Items = new List<AdminMessageList>();
-            using (var Connection =
-                new NpgsqlConnection(Configuration.LoadSettings(Login, Password)))
+            using (var Command = new NpgsqlCommand(Query, Connection))
             {
-                Connection.Open();
-                using (var Command = new NpgsqlCommand(Query, Connection))
+                int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
+                int i = 0;
+                while (LstCount > i)
                 {
-                    int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
-                    int i = 0;
-                    while (LstCount > i)
+                    Items.Add(new AdminMessageList()
                     {
-                        Items.Add(new AdminMessageList()
-                        {
-                            ID = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["id_message"]),
-                            Teacher = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
-                            Event = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["event_name"].ToString(),
-                            Date = Convert.ToDateTime(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["date"]).ToShortDateString(),
-                            Status = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["status"].ToString()
-                        });
-                        i++;
-                    }
+                        ID = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["id_message"]),
+                        Teacher = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
+                        Event = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["event_name"].ToString(),
+                        Date = Convert.ToDateTime(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["date"]).ToShortDateString(),
+                        Status = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["status"].ToString()
+                    });
+                    i++;
                 }
-                Connection.Close();
             }
             return Items;
         }

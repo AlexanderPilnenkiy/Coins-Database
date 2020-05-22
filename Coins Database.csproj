@@ -276,6 +276,7 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Actions\Configuration.cs" />
+    <Compile Include="Actions\Connection.cs" />
     <Compile Include="Actions\Excel.cs" />
     <Compile Include="Actions\Queries.cs" />
     <Compile Include="Actions\Session.cs" />
@@ -284,6 +285,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\AddCoinTypes.cs" />
+    <Compile Include="Controls\CreateMainMenu.cs" />
     <Compile Include="DataAccessLayer\AboutEvent.cs" />
     <Compile Include="DataAccessLayer\Account.cs" />
     <Compile Include="DataAccessLayer\AdminMessageList.cs" />
@@ -295,7 +298,8 @@
     <Compile Include="DataAccessLayer\TeacherCard.cs" />
     <Compile Include="DataAccessLayer\TeacherPhoto.cs" />
     <Compile Include="DataAccessLayer\TeachersList.cs" />
-    <Compile Include="Operations\Operations.cs" />
+    <Compile Include="Operations\DetermineCoinType.cs" />
+    <Compile Include="Operations\QueriesManager.cs" />
     <Compile Include="ViewModels\AboutEventViewModel.cs" />
     <Compile Include="ViewModels\AccountListViewModel.cs" />
     <Compile Include="ViewModels\AdminMessageListViewModel.cs" />

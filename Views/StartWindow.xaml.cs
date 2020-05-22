@@ -16,6 +16,7 @@ namespace Coins_Database
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Connection.Disconnect();
             Application.Current.Shutdown();
         }
 
@@ -23,6 +24,7 @@ namespace Coins_Database
         {
             string Login = textBoxLogin.Text;
             string Password = passwordUserPassword.Password;
+            Connection.Connect(Login, Password);
             IsEnabled = false;
             LoadingWindow LoadingWindow = new LoadingWindow
             {
@@ -44,7 +46,6 @@ namespace Coins_Database
                     }));
                    
                 }
-                Configuration.Disconnect();
             });
             ConnectThread.Start();
             LoadingWindow.Hide();

@@ -213,7 +213,8 @@
                 </Grid>
             </StackPanel>
         </Grid>
-        <Grid x:Name="gridEvents" Visibility="Hidden" Margin="0,94,-0.2,-0.2" Grid.RowSpan="2">
+        <Grid x:Name="gridEvents" Visibility="Hidden" Margin="0,94,-0.2,-0.2"
+              Grid.RowSpan="2">
             <ListView x:Name="listViewEvents"
             Margin="10,66,241,10" SelectionChanged="listViewEvents_SelectionChanged">
                 <ListView.View>
@@ -268,7 +269,7 @@
             <Button x:Name="buttonChangeEvent" Content="Изменить"
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="43" Background="#FF5D11A0"
-                    BorderBrush="#FF260940" Visibility="Visible" Margin="561,448,126,7" Width="110" Click="ChangeEvent_Click"/>
+                    BorderBrush="#FF260940" Visibility="Hidden" Margin="561,448,126,7" Width="110" Click="ChangeEvent_Click"/>
             <Button x:Name="buttonDeleteEvent" Content="Удалить" 
                     FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0" 
                     FontSize="15" IsEnabled="true" Height="43" Background="#FF5D11A0" 
@@ -805,10 +806,9 @@
                         BorderBrush="{x:Null}" Foreground="#FF5D11A0" Click="Button_Click_15" RenderTransformOrigin="0.437,0.319" >
                 <materialDesign:PackIcon Kind="CloseCircleOutline" Width="24" Height="24"/>
             </Button>
-
         </Grid>
         <Grid x:Name="gridTeachersCoins" Margin="0,94,-0.2,-0.6"
-              Visibility="Visible" Grid.RowSpan="2">
+              Visibility="Hidden" Grid.RowSpan="2">
             <ListView x:Name="lViewCoinsList" ScrollViewer.VerticalScrollBarVisibility="Visible"
           ScrollViewer.CanContentScroll="True" 
              SelectionChanged="lViewCoinsList_SelectionChanged" Margin="10,10,355,10">

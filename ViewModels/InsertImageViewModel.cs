@@ -11,10 +11,8 @@ namespace Coins_Database.ViewModels
 {
     class InsertImageViewModel
     {
-        public void InsertImage(string Login, string Password, string Filepath)
+        public void InsertImage(NpgsqlConnection Connection, string Filepath)
         {
-            var Connection =
-               new NpgsqlConnection(Configuration.LoadSettings(Login, Password));
             FileStream PGFileStream = new FileStream(Filepath, FileMode.Open, FileAccess.Read);
 
             BinaryReader PGReader = new BinaryReader(new BufferedStream(PGFileStream));
