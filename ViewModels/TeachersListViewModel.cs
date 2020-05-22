@@ -7,22 +7,22 @@ using System.Collections.Generic;
 
 namespace Coins_Database.ViewModels
 {
-    class TeachersListViewModel : ViewModelBase
+    class TeachersListViewModel : Connection
     {
-        public List<TeachersList> LoadTeachersList(NpgsqlConnection Connection, string Query)
+        public List<TeachersList> LoadTeachersList(string Query)
         {
             List<TeachersList> Items = new List<TeachersList>();
-            using (var Command = new NpgsqlCommand(Query, Connection))
+            using (var Command = new NpgsqlCommand(Query, Established))
             {
-                int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
+                int LstCount = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows.Count;
                 int i = 0;
                 while (LstCount > i)
                 {
                     Items.Add(new TeachersList()
                     {
-                        ID = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["id_teacher"]),
-                        FIO = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
-                        Speciality = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["speciality"].ToString()
+                        ID = Convert.ToInt32(Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["id_teacher"]),
+                        FIO = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
+                        Speciality = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["speciality"].ToString()
                     });
                     i++;
                 }

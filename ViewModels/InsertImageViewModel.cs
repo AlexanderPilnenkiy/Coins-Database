@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Coins_Database.ViewModels
 {
-    class InsertImageViewModel
+    class InsertImageViewModel : Connection
     {
-        public void InsertImage(NpgsqlConnection Connection, string Filepath)
+        public void InsertImage(string Filepath)
         {
             FileStream PGFileStream = new FileStream(Filepath, FileMode.Open, FileAccess.Read);
 
@@ -20,15 +20,15 @@ namespace Coins_Database.ViewModels
             var ImgByteA = PGReader.ReadBytes(Convert.ToInt32(PGFileStream.Length));
 
             string Sql = "insert into images (image) VALUES(@Image)";
-            using (var Command = new NpgsqlCommand(Sql, Connection))
+            using (var Command = new NpgsqlCommand(Sql, Established))
             {
                 NpgsqlParameter Parameter = Command.CreateParameter();
                 Parameter.ParameterName = "@Image";
                 Parameter.NpgsqlDbType = NpgsqlTypes.NpgsqlDbType.Bytea;
                 Parameter.Value = ImgByteA;
                 Command.Parameters.Add(Parameter);
-                Connection.Close();
-                Connection.Open();
+                Established.Close();
+                Established.Open();
                 Command.ExecuteNonQuery();
             }
         }

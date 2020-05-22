@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace Coins_Database.ViewModels
 {
-    class LastImageIdViewModel
+    class LastImageIdViewModel : Connection
     {
-        public int LastImageID(NpgsqlConnection Connection)
+        public int LastImageID()
         {
             int Items = new int();
-            using (var Command = new NpgsqlCommand(Queries.GetLastImage, Connection))
+            using (var Command = new NpgsqlCommand(Queries.GetLastImage, Established))
             {
-                int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
+                int LstCount = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows.Count;
                 int i = 0;
                 while (LstCount > i)
                 {
-                    Items = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["max"]);
+                    Items = Convert.ToInt32(Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["max"]);
                     i++;
                 }
             }

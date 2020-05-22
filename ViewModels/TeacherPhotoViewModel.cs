@@ -5,11 +5,11 @@ using System.Windows.Media.Imaging;
 
 namespace Coins_Database.ViewModels
 {
-    class TeacherPhotoViewModel
+    class TeacherPhotoViewModel : Connection
     {
-        public BitmapFrame LoadTeacherPhoto(NpgsqlConnection Connection, string Query)
+        public BitmapFrame LoadTeacherPhoto(string Query)
         {
-            using (var Command = new NpgsqlCommand(Query, Connection))
+            using (var Command = new NpgsqlCommand(Query, Established))
             {
                 byte[] ProductImageByte = null;
                 var Rdr = Command.ExecuteReader();

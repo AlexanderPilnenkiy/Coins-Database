@@ -3,12 +3,12 @@ using Npgsql;
 
 namespace Coins_Database.Operations
 {
-    class QueriesManager
+    class QueriesManager : Connection
     {
-        public static void Execute(NpgsqlConnection Connection, string Query)
+        public static void Execute(string Query)
         {
             using (var command =
-                new NpgsqlCommand(Query, Connection))
+                new NpgsqlCommand(Query, Established))
             {
                 command.ExecuteNonQuery();
             }

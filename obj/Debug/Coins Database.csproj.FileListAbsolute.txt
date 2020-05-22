@@ -196,3 +196,5 @@ C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Coins Database.appl
 C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Coins Database.csproj.CopyComplete
 C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Coins Database.exe
 C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Coins Database.pdb
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\DocumentFormat.OpenXml.xml

@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 
 namespace Coins_Database.ViewModels
 {
-    class GetIdViewModel
+    class GetIdViewModel : Connection
     {
-        public int LoadID(NpgsqlConnection Connection, string Query, string Col)
+        public int LoadID(string Query, string Col)
         {
             int Items = new int();
-            using (var Command = new NpgsqlCommand(Query, Connection))
+            using (var Command = new NpgsqlCommand(Query, Established))
             {
-                int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
+                int LstCount = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows.Count;
                 int i = 0;
                 while (LstCount > i)
                 {
-                    Items = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i][Col]);
+                    Items = Convert.ToInt32(Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i][Col]);
                     i++;
                 }
             }

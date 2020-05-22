@@ -14,22 +14,22 @@ using Coins_Database.Views;
 
 namespace Coins_Database.ViewModels
 {
-    public class RatingViewModel : ViewModelBase
+    class RatingViewModel : Connection
     {
-        public List<Rating> LoadRating(NpgsqlConnection Connection, string Query)
+        public List<Rating> LoadRating(string Query)
         {
             List<Rating> Items = new List<Rating>();
-                using (var Command = new NpgsqlCommand(Query, Connection))
+                using (var Command = new NpgsqlCommand(Query, Established))
                 {
-                    int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
+                    int LstCount = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows.Count;
                     int i = 0;
                 while (LstCount > i)
                 {
                     Items.Add(new Rating()
                     {
-                        ID = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["id_teacher"]),
-                        FIO = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
-                        Coin = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["count"])
+                        ID = Convert.ToInt32(Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["id_teacher"]),
+                        FIO = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
+                        Coin = Convert.ToInt32(Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["count"])
                     });
                     i++;
                 }

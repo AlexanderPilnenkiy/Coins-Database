@@ -11,23 +11,23 @@ using System.Threading.Tasks;
 
 namespace Coins_Database.ViewModels
 {
-    class EventsViewModel : ViewModelBase
+    class EventsViewModel : Connection
     {
-        public List<Events> LoadEvents(NpgsqlConnection Connection, string Query)
+        public List<Events> LoadEvents(string Query)
         {
             List<Events> Items = new List<Events>();
-            using (var Command = new NpgsqlCommand(Query, Connection))
+            using (var Command = new NpgsqlCommand(Query, Established))
             {
-                int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
+                int LstCount = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows.Count;
                 int i = 0;
                 while (LstCount > i)
                 {
                     Items.Add(new Events()
                     {
-                        Caption = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["event_name"].ToString(),
-                        Type = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["event_type"].ToString(),
-                        Place = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["event_place"].ToString(),
-                        Date = Convert.ToDateTime(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["date"]).ToShortDateString()
+                        Caption = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["event_name"].ToString(),
+                        Type = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["event_type"].ToString(),
+                        Place = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["event_place"].ToString(),
+                        Date = Convert.ToDateTime(Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["date"]).ToShortDateString()
                     });
                     i++;
                 }

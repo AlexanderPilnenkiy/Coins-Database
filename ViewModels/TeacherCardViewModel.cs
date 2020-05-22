@@ -6,11 +6,11 @@ using System.Collections.ObjectModel;
 
 namespace Coins_Database.ViewModels
 {
-    public class TeacherCardViewModel : ViewModelBase
+    class TeacherCardViewModel : Connection
     {
-        public ObservableCollection<TeacherCard> LoadTeacherCard(NpgsqlConnection Connection, string Query)
+        public ObservableCollection<TeacherCard> LoadTeacherCard(string Query)
         {
-                using (var Command = new NpgsqlCommand(Query, Connection))
+                using (var Command = new NpgsqlCommand(Query, Established))
                 {
                 using (var Reader = Command.ExecuteReader())
                 {

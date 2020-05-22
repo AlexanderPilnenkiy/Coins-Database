@@ -11,20 +11,20 @@ using System.Threading.Tasks;
 
 namespace Coins_Database.ViewModels
 {
-    class AboutEventViewModell : ViewModelBase
+    class AboutEventViewModell : Connection
     {
-        public List<AboutEvent> LoadEvents(NpgsqlConnection Connection, string Query)
+        public List<AboutEvent> LoadEvents(string Query)
         {
             List<AboutEvent> Items = new List<AboutEvent>();
-            using (var Command = new NpgsqlCommand(Query, Connection))
+            using (var Command = new NpgsqlCommand(Query, Established))
             {
-                int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
+                int LstCount = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows.Count;
                 int i = 0;
                 while (LstCount > i)
                 {
                     Items.Add(new AboutEvent()
                     {
-                        Description = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["about_event"].ToString()
+                        Description = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["about_event"].ToString()
                     });
                     i++;
                 }

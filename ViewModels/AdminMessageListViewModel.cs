@@ -11,24 +11,24 @@ using System.Threading.Tasks;
 
 namespace Coins_Database.ViewModels
 {
-    class AdminMessageListViewModel : ViewModelBase
+    class AdminMessageListViewModel : Connection
     {
-        public List<AdminMessageList> LoadMAList(NpgsqlConnection Connection, string Query)
+        public List<AdminMessageList> LoadMAList(string Query)
         {
             List<AdminMessageList> Items = new List<AdminMessageList>();
-            using (var Command = new NpgsqlCommand(Query, Connection))
+            using (var Command = new NpgsqlCommand(Query, Established))
             {
-                int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
+                int LstCount = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows.Count;
                 int i = 0;
                 while (LstCount > i)
                 {
                     Items.Add(new AdminMessageList()
                     {
-                        ID = Convert.ToInt32(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["id_message"]),
-                        Teacher = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
-                        Event = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["event_name"].ToString(),
-                        Date = Convert.ToDateTime(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["date"]).ToShortDateString(),
-                        Status = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["status"].ToString()
+                        ID = Convert.ToInt32(Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["id_message"]),
+                        Teacher = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["teacher_name"].ToString(),
+                        Event = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["event_name"].ToString(),
+                        Date = Convert.ToDateTime(Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["date"]).ToShortDateString(),
+                        Status = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["status"].ToString()
                     });
                     i++;
                 }

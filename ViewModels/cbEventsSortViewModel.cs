@@ -11,18 +11,18 @@ using System.Threading.Tasks;
 
 namespace Coins_Database.ViewModels
 {
-    class cbEventsSortViewModel : ViewModelBase
+    class cbEventsSortViewModel : Connection
     {
-        public List<string> LoadTypes(NpgsqlConnection Connection, string Query, string Col)
+        public List<string> LoadTypes(string Query, string Col)
         {
             List<string> Item = new List<string>();
-            using (var Command = new NpgsqlCommand(Query, Connection))
+            using (var Command = new NpgsqlCommand(Query, Established))
             {
-                int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
+                int LstCount = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows.Count;
                 int i = 0;
                 while (LstCount > i)
                 {
-                    Item.Add(Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i][Col].ToString());
+                    Item.Add(Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i][Col].ToString());
                     i++;
                 }
             }

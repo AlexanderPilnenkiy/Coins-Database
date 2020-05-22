@@ -43,13 +43,15 @@ namespace Coins_Database.Views
         public MainWindow(string Login, string Password)
         {
             InitializeComponent();
+            sLogin = Login;
+            sPassword = Password;
             CreateMainMenu.CreateRadioButtons(stackPanelMainMenu, this);
             _iYear = DateTime.Now.Year;
             _iSemestr = GetSemestr();
             CurrentUser.Text = Login;
             if (Session.Access == Session.ACCESS.Superadmin)
             {
-                listViewRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingTotal(_iYear, _iSemestr));
+                listViewRating.ItemsSource = RWM.LoadRating(Queries.GetRatingTotal(_iYear, _iSemestr));
                 cbItemTotalRating.IsSelected = true;
                 gridRating.Visibility = Visibility.Visible;
             }
@@ -57,8 +59,8 @@ namespace Coins_Database.Views
             {
                 WindowHeader.Children.Remove(Settings);
                 WindowHeader.Children.Remove(Export);
-                lViewCoinsList.ItemsSource = CLVM.LoadCoinsList(Connection.Established, Queries.GetViewCoinsList(sLogin, _iYear, _iSemestr));
-                gridCoinsImages.DataContext = CCVM.LoadCoinsCount(Connection.Established, Queries.GetTCoinsCount(sLogin, _iYear, _iSemestr));
+                lViewCoinsList.ItemsSource = CLVM.LoadCoinsList(Queries.GetViewCoinsList(sLogin, _iYear, _iSemestr));
+                gridCoinsImages.DataContext = CCVM.LoadCoinsCount(Queries.GetTCoinsCount(sLogin, _iYear, _iSemestr));
                 gridTeachersCoins.Visibility = Visibility.Visible;
             }
         }
@@ -85,31 +87,31 @@ namespace Coins_Database.Views
         private void cbItemTotalRating_Selected(object sender, RoutedEventArgs e)
         {
             ChangeRate();
-            listViewRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingTotal(_iYear, _iSemestr));
+            listViewRating.ItemsSource = RWM.LoadRating(Queries.GetRatingTotal(_iYear, _iSemestr));
         }
 
         private void cbartcoins_Selected(object sender, RoutedEventArgs e)
         {
             ChangeRate();
-            listViewRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingTotal(_iYear, _iSemestr));
+            listViewRating.ItemsSource = RWM.LoadRating(Queries.GetRatingTotal(_iYear, _iSemestr));
         }
 
         private void cbIntellect_Selected(object sender, RoutedEventArgs e)
         {
             ChangeRate();
-            listViewRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingIntellect(_iYear, _iSemestr));
+            listViewRating.ItemsSource = RWM.LoadRating(Queries.GetRatingIntellect(_iYear, _iSemestr));
         }
 
         private void cbTalents_Selected(object sender, RoutedEventArgs e)
         {
             ChangeRate();
-            listViewRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingTalents(_iYear, _iSemestr));
+            listViewRating.ItemsSource = RWM.LoadRating(Queries.GetRatingTalents(_iYear, _iSemestr));
         }
 
         private void cbSocialActivity_Selected(object sender, RoutedEventArgs e)
         {
             ChangeRate();
-            listViewRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingSocActivity(_iYear, _iSemestr));
+            listViewRating.ItemsSource = RWM.LoadRating(Queries.GetRatingSocActivity(_iYear, _iSemestr));
         }
         #endregion
 
@@ -138,21 +140,21 @@ namespace Coins_Database.Views
                 AllRatingVisible();
                 Rating RR = (Rating)listViewRating.SelectedItems[0];
                 textBlockTeachersName.Text = RR.FIO;
-                textBlockTeachersSpeciality.DataContext = TCVM.LoadTeacherCard(Connection.Established, Queries.GetTeacherCard(RR.FIO));
-                textBlockTeachersInfo.DataContext = TCVM.LoadTeacherCard(Connection.Established, Queries.GetTeacherCard(RR.FIO));
-                imageTeachersPhoto.Source = TPVM.LoadTeacherPhoto(Connection.Established, Queries.GetTeacherPhoto(RR.FIO));
+                textBlockTeachersSpeciality.DataContext = TCVM.LoadTeacherCard(Queries.GetTeacherCard(RR.FIO));
+                textBlockTeachersInfo.DataContext = TCVM.LoadTeacherCard(Queries.GetTeacherCard(RR.FIO));
+                imageTeachersPhoto.Source = TPVM.LoadTeacherPhoto(Queries.GetTeacherPhoto(RR.FIO));
                 _idTeacher = RR.ID;
             }
         }
 
         private void SignIn_Click(object sender, RoutedEventArgs e)
         {
-            listViewCoinsList.ItemsSource = CLVM.LoadCoinsList(Connection.Established, Queries.GetCoinsList(textBlockTeachersName.Text, _iYear, _iSemestr));
+            listViewCoinsList.ItemsSource = CLVM.LoadCoinsList(Queries.GetCoinsList(textBlockTeachersName.Text, _iYear, _iSemestr));
             gridBackgroundZone.Visibility = Visibility.Visible;
             colorZoneNight.Visibility = Visibility.Visible;
             gridCoins.Visibility = Visibility.Visible;
             gridBackPanel.Visibility = Visibility.Visible;
-            gridCoinsImg.DataContext = CCVM.LoadCoinsCount(Connection.Established, Queries.GetCoinsCount(textBlockTeachersName.Text, _iYear, _iSemestr));
+            gridCoinsImg.DataContext = CCVM.LoadCoinsCount(Queries.GetCoinsCount(textBlockTeachersName.Text, _iYear, _iSemestr));
         }
 
         public void RatingRadioButton_Checked(object sender, RoutedEventArgs e)
@@ -178,16 +180,16 @@ namespace Coins_Database.Views
             gridMessages.Visibility = Visibility.Hidden;
             AllRatingHidden();
             gridTeachers.Visibility = Visibility.Hidden;
-            listViewEvents.ItemsSource = EVM.LoadEvents(Connection.Established, Queries.GetEventsList(_iYear, _iSemestr));
+            listViewEvents.ItemsSource = EVM.LoadEvents(Queries.GetEventsList(_iYear, _iSemestr));
             cbEventsType.Items.Clear();
             cbEventsType.Items.Add("Все");
-            foreach (string item in cESBTVM.LoadTypes(Connection.Established, Queries.GetCB_EventTypes, "event_type"))
+            foreach (string item in cESBTVM.LoadTypes(Queries.GetCB_EventTypes, "event_type"))
             {
                 cbEventsType.Items.Add(item);
             }
             cbEventsPlaces.Items.Clear();
             cbEventsPlaces.Items.Add("Все");
-            foreach (string item in cESBTVM.LoadTypes(Connection.Established, Queries.GetCB_EventPlaces, "event_place"))
+            foreach (string item in cESBTVM.LoadTypes(Queries.GetCB_EventPlaces, "event_place"))
             {
                 cbEventsPlaces.Items.Add(item);
             }
@@ -200,7 +202,7 @@ namespace Coins_Database.Views
             gridMessages.Visibility = Visibility.Hidden;
             AllRatingHidden();
             gridTeachers.Visibility = Visibility.Visible;
-            listViewTeachers.ItemsSource = TLVM.LoadTeachersList(Connection.Established, Queries.GetTeachersList);
+            listViewTeachers.ItemsSource = TLVM.LoadTeachersList(Queries.GetTeachersList);
         }
 
         public void ApplicationsRadioButton_Checked(object sender, RoutedEventArgs e)
@@ -212,7 +214,7 @@ namespace Coins_Database.Views
                 gridEvents.Visibility = Visibility.Hidden;
                 gridMessages.Visibility = Visibility.Visible;
                 AllRatingHidden();
-                listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(Connection.Established, Queries.GetAdminMessageList);
+                listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(Queries.GetAdminMessageList);
                 rbAllMessages.IsChecked = true;
             }
             catch { }
@@ -225,9 +227,9 @@ namespace Coins_Database.Views
             buttonGrantCoin.Visibility = Visibility.Visible;
             TeachersList TL = (TeachersList)listViewTeachers.SelectedItems[0];
             textBlockTeachersCardName.Text = TL.FIO;
-            textBlockTeachersCardSpeciality.DataContext = TCVM.LoadTeacherCard(Connection.Established, Queries.GetTeacherCard(TL.FIO));
-            textBlockTeachersCardInfo.DataContext = TCVM.LoadTeacherCard(Connection.Established, Queries.GetTeacherCard(TL.FIO));
-            imageTeachersCardPhoto.Source = TPVM.LoadTeacherPhoto(Connection.Established, Queries.GetTeacherPhoto(TL.FIO));
+            textBlockTeachersCardSpeciality.DataContext = TCVM.LoadTeacherCard(Queries.GetTeacherCard(TL.FIO));
+            textBlockTeachersCardInfo.DataContext = TCVM.LoadTeacherCard(Queries.GetTeacherCard(TL.FIO));
+            imageTeachersCardPhoto.Source = TPVM.LoadTeacherPhoto(Queries.GetTeacherPhoto(TL.FIO));
             _idTeacher = TL.ID;
         }
 
@@ -249,7 +251,7 @@ namespace Coins_Database.Views
                 buttonChangeEvent.Visibility = Visibility.Visible;
                 buttonParticipants.Visibility = Visibility.Visible;
                 Events EVE = (Events)listViewEvents.SelectedItems[0];
-                textBlockEventInfo.Text = AEVM.LoadEvents(Connection.Established, Queries.GetEventInfo(EVE.Caption))[0].Description;
+                textBlockEventInfo.Text = AEVM.LoadEvents(Queries.GetEventInfo(EVE.Caption))[0].Description;
             }
         }
 
@@ -285,7 +287,7 @@ namespace Coins_Database.Views
             {
                 Place = cbEventsPlaces.SelectedItem.ToString();
             }
-            listViewEvents.ItemsSource = SEVM.LoadSortedEvents(Connection.Established, Queries.GetSortedEvent(Type, Place));
+            listViewEvents.ItemsSource = SEVM.LoadSortedEvents(Queries.GetSortedEvent(Type, Place));
         }
 
         private void SearchEvents_Click(object sender, RoutedEventArgs e)
@@ -295,12 +297,12 @@ namespace Coins_Database.Views
 
         private void RadioButton_Checked_3(object sender, RoutedEventArgs e)
         {
-            listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(Connection.Established, Queries.GetAdminMessageListSort(""));
+            listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(Queries.GetAdminMessageListSort(""));
         }
 
         private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
         {
-            listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(Connection.Established, Queries.GetAdminMessageListSort("Не прочитано"));
+            listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(Queries.GetAdminMessageListSort("Не прочитано"));
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -315,7 +317,7 @@ namespace Coins_Database.Views
             {
                 CoinsList CoL = (CoinsList)listViewCoinsList.SelectedItems[0];
                 textBlockCoinsEvent.Text = CoL.Party;
-                textBlockCoinsDescription.Text = GCCVM.GetCoinComment(Connection.Established, CoL.IDCoin);
+                textBlockCoinsDescription.Text = GCCVM.GetCoinComment(CoL.IDCoin);
                 textBlockCoinsDate.Text = CoL.Date;
                 textBlockCoinsPlace.Text = CoL.Place;
             }
@@ -330,10 +332,10 @@ namespace Coins_Database.Views
 
                 if (Result == MessageBoxResult.Yes)
                 {
-                    QueriesManager.Execute(Connection.Established, Queries.DeleteCoin(CoL.IDCoin));
-                    listViewCoinsList.ItemsSource = CLVM.LoadCoinsList(Connection.Established, Queries.GetCoinsList(textBlockTeachersName.Text, _iYear, _iSemestr));
-                    listViewRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingTotal(_iYear, _iSemestr));
-                    gridCoinsImg.DataContext = CCVM.LoadCoinsCount(Connection.Established, Queries.GetCoinsCount(textBlockTeachersName.Text, _iYear, _iSemestr));
+                    QueriesManager.Execute(Queries.DeleteCoin(CoL.IDCoin));
+                    listViewCoinsList.ItemsSource = CLVM.LoadCoinsList(Queries.GetCoinsList(textBlockTeachersName.Text, _iYear, _iSemestr));
+                    listViewRating.ItemsSource = RWM.LoadRating(Queries.GetRatingTotal(_iYear, _iSemestr));
+                    gridCoinsImg.DataContext = CCVM.LoadCoinsCount(Queries.GetCoinsCount(textBlockTeachersName.Text, _iYear, _iSemestr));
                 }
             }
             else
@@ -355,7 +357,7 @@ namespace Coins_Database.Views
         private void addCoin_Click_1(object sender, RoutedEventArgs e)
         {
             stackPanelNewCoin.Visibility = Visibility.Visible;
-            foreach (string item in cESBTVM.LoadTypes(Connection.Established, Queries.GetCBCoinEvent(_iYear, _iSemestr), "event_name"))
+            foreach (string item in cESBTVM.LoadTypes(Queries.GetCBCoinEvent(_iYear, _iSemestr), "event_name"))
             {
                 cbEvents.Items.Add(item);
             }
@@ -370,8 +372,8 @@ namespace Coins_Database.Views
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    QueriesManager.Execute(Connection.Established, Queries.DeleteTeacher(_idTeacher));
-                    listViewTeachers.ItemsSource = TLVM.LoadTeachersList(Connection.Established, Queries.GetTeachersList);
+                    QueriesManager.Execute(Queries.DeleteTeacher(_idTeacher));
+                    listViewTeachers.ItemsSource = TLVM.LoadTeachersList(Queries.GetTeachersList);
                     imageTeachersCardPhoto.Source = null;
                     textBlockTeachersCardName.Text = "";
                     textBlockTeachersCardInfo.DataContext = null;
@@ -429,9 +431,9 @@ namespace Coins_Database.Views
                 {
                     if (_bIsNewTeacher == true)
                     {
-                        IIVM.InsertImage(Connection.Established, sFilePath);
-                        QueriesManager.Execute(Connection.Established, Queries.AddTeacher(textBoxTeachersFio.Text, textBoxTeachersSpeciality.Text,
-                            textBoxTeachersInfo.Text, LIIVM.LastImageID(Connection.Established)));
+                        IIVM.InsertImage(sFilePath);
+                        QueriesManager.Execute(Queries.AddTeacher(textBoxTeachersFio.Text, textBoxTeachersSpeciality.Text,
+                            textBoxTeachersInfo.Text, LIIVM.LastImageID()));
                         imageTeachersCardPhoto.Source = null;
                         textBlockTeachersCardName.Text = "";
                         textBlockTeachersCardInfo.DataContext = null;
@@ -439,16 +441,16 @@ namespace Coins_Database.Views
                     }
                     else
                     {
-                        IIVM.InsertImage(Connection.Established, sFilePath);
-                        QueriesManager.Execute(Connection.Established, Queries.UpdateTeacher(textBoxTeachersFio.Text, textBoxTeachersSpeciality.Text,
-                            textBoxTeachersInfo.Text, LIIVM.LastImageID(Connection.Established), _idTeacher));
+                        IIVM.InsertImage(sFilePath);
+                        QueriesManager.Execute(Queries.UpdateTeacher(textBoxTeachersFio.Text, textBoxTeachersSpeciality.Text,
+                            textBoxTeachersInfo.Text, LIIVM.LastImageID(), _idTeacher));
                         textBlockTeachersCardName.Text = textBoxTeachersFio.Text;
-                        textBlockTeachersCardSpeciality.DataContext = TCVM.LoadTeacherCard(Connection.Established, Queries.GetTeacherCard(textBoxTeachersFio.Text));
-                        textBlockTeachersCardInfo.DataContext = TCVM.LoadTeacherCard(Connection.Established, Queries.GetTeacherCard(textBoxTeachersFio.Text));
-                        imageTeachersCardPhoto.Source = TPVM.LoadTeacherPhoto(Connection.Established, Queries.GetTeacherPhoto(textBoxTeachersFio.Text));
+                        textBlockTeachersCardSpeciality.DataContext = TCVM.LoadTeacherCard(Queries.GetTeacherCard(textBoxTeachersFio.Text));
+                        textBlockTeachersCardInfo.DataContext = TCVM.LoadTeacherCard(Queries.GetTeacherCard(textBoxTeachersFio.Text));
+                        imageTeachersCardPhoto.Source = TPVM.LoadTeacherPhoto(Queries.GetTeacherPhoto(textBoxTeachersFio.Text));
 
                     }
-                    listViewTeachers.ItemsSource = TLVM.LoadTeachersList(Connection.Established, Queries.GetTeachersList);
+                    listViewTeachers.ItemsSource = TLVM.LoadTeachersList(Queries.GetTeachersList);
                     gridTeacherPage.Visibility = Visibility.Hidden;
                     colorZoneTeacherPage.Visibility = Visibility.Hidden;
                     stackPanelTeacherPanel.Visibility = Visibility.Hidden;
@@ -493,7 +495,7 @@ namespace Coins_Database.Views
             stackPanelEventPanel.Visibility = Visibility.Visible;
             cbEventType.Items.Clear();
             cbEventType.Items.Add("Все типы");
-            foreach (string Item in cESBTVM.LoadTypes(Connection.Established, Queries.GetCB_EventTypes, "event_type"))
+            foreach (string Item in cESBTVM.LoadTypes(Queries.GetCB_EventTypes, "event_type"))
             {
                 cbEventType.Items.Add(Item);
             }
@@ -514,8 +516,7 @@ namespace Coins_Database.Views
                 stackPanelEventPanel.Visibility = Visibility.Hidden;
                 gridEventParticipants.Visibility = Visibility.Visible;
                 Events EvE = (Events)listViewEvents.SelectedItems[0];
-                listViewParticipants.ItemsSource = TLVM.LoadTeachersList(Connection.Established,
-                    Queries.GetParticipants(GIVM.LoadID(Connection.Established, Queries.GetEventID(EvE.Caption), "id_event")));
+                listViewParticipants.ItemsSource = TLVM.LoadTeachersList(Queries.GetParticipants(GIVM.LoadID(Queries.GetEventID(EvE.Caption), "id_event")));
             }
             catch
             {
@@ -530,9 +531,8 @@ namespace Coins_Database.Views
             if (Result == MessageBoxResult.Yes)
             {
                 Events EvE = (Events)listViewEvents.SelectedItems[0];
-                QueriesManager.Execute(
-                    Connection.Established, Queries.DeleteEvent(GIVM.LoadID(Connection.Established, Queries.GetEventID(EvE.Caption), "id_event")));
-                listViewEvents.ItemsSource = EVM.LoadEvents(Connection.Established, Queries.GetEventsList(_iYear, _iSemestr));
+                QueriesManager.Execute(Queries.DeleteEvent(GIVM.LoadID(Queries.GetEventID(EvE.Caption), "id_event")));
+                listViewEvents.ItemsSource = EVM.LoadEvents(Queries.GetEventsList(_iYear, _iSemestr));
                 textBlockEventInfo.DataContext = null;
             }
             else
@@ -541,7 +541,7 @@ namespace Coins_Database.Views
             }
             cbEventsPlaces.Items.Clear();
             cbEventsPlaces.Items.Add("Все");
-            foreach (string Item in cESBTVM.LoadTypes(Connection.Established, Queries.GetCB_EventPlaces, "event_place"))
+            foreach (string Item in cESBTVM.LoadTypes(Queries.GetCB_EventPlaces, "event_place"))
             {
                 cbEventsPlaces.Items.Add(Item);
             }
@@ -552,7 +552,7 @@ namespace Coins_Database.Views
             cbEventType.Items.Clear();
             _bIsNewEvent = false;
             cbEventType.Items.Add("Все типы");
-            foreach (string Item in cESBTVM.LoadTypes(Connection.Established, Queries.GetCB_EventTypes, "event_type"))
+            foreach (string Item in cESBTVM.LoadTypes(Queries.GetCB_EventTypes, "event_type"))
             {
                 cbEventType.Items.Add(Item);
             }
@@ -570,7 +570,7 @@ namespace Coins_Database.Views
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(Connection.Established, Queries.GetAdminMessageListSort("Принято"));
+            listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(Queries.GetAdminMessageListSort("Принято"));
         }
 
         private void listViewAdminMessageBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -605,8 +605,8 @@ namespace Coins_Database.Views
             try
             {
                 AdminMessageList AML = (AdminMessageList)listViewAdminMessageBox.SelectedItems[0];
-                QueriesManager.Execute(Connection.Established, Queries.UpdateMessageStatus("Отклонено", AML.ID));
-                listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(Connection.Established, Queries.GetAdminMessageListSort(""));
+                QueriesManager.Execute(Queries.UpdateMessageStatus("Отклонено", AML.ID));
+                listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(Queries.GetAdminMessageListSort(""));
             }
             catch
             {
@@ -641,21 +641,21 @@ namespace Coins_Database.Views
             {
                 _idCoinType = DCT.CoinType(cbAddCoinType);
                 AdminMessageList AML = (AdminMessageList)listViewAdminMessageBox.SelectedItems[0];
-                _idEvent = GIVM.LoadID(Connection.Established, Queries.GetEventID(textBlockAcceptRequestEvent.Text), "id_event");
-                _idTeacher = GIVM.LoadID(Connection.Established, Queries.GetTeacherID(1, sTeacher), "id_teacher");
-                QueriesManager.Execute(Connection.Established, Queries.AddCoin(_idEvent, _idTeacher, _idCoinType, textBoxAcceptRequestComment.Text));
+                _idEvent = GIVM.LoadID(Queries.GetEventID(textBlockAcceptRequestEvent.Text), "id_event");
+                _idTeacher = GIVM.LoadID(Queries.GetTeacherID(1, sTeacher), "id_teacher");
+                QueriesManager.Execute(Queries.AddCoin(_idEvent, _idTeacher, _idCoinType, textBoxAcceptRequestComment.Text));
                 textBoxAcceptRequestComment.Text = "";
-                QueriesManager.Execute(Connection.Established, Queries.UpdateMessageStatus("Принято", AML.ID));
-                listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(Connection.Established, Queries.GetAdminMessageListSort(""));
+                QueriesManager.Execute(Queries.UpdateMessageStatus("Принято", AML.ID));
+                listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(Queries.GetAdminMessageListSort(""));
                 colorZoneTeacherPage.Visibility = Visibility.Hidden;
                 gridResponce.Visibility = Visibility.Hidden;
-                listViewRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingTotal(_iYear, _iSemestr));
+                listViewRating.ItemsSource = RWM.LoadRating(Queries.GetRatingTotal(_iYear, _iSemestr));
             }
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            listViewAccounts.ItemsSource = ALVM.LoadAccounts(Connection.Established, Queries.GetAccounts);
+            listViewAccounts.ItemsSource = ALVM.LoadAccounts(Queries.GetAccounts);
             gridSettings.Visibility = Visibility.Visible;
             stackPanelSettings.Visibility = Visibility.Visible;
             textBoxCurrentYear.Text = _iYear.ToString();
@@ -682,9 +682,9 @@ namespace Coins_Database.Views
                 }
                 else
                 {
-                    QueriesManager.Execute(Connection.Established, Queries.NewAccount(textBoxAccountLogin.Text, textBoxAccountPassword.Text, ACC.ID));
+                    QueriesManager.Execute(Queries.NewAccount(textBoxAccountLogin.Text, textBoxAccountPassword.Text, ACC.ID));
                     SnackbarOne.IsActive = true;
-                    listViewAccounts.ItemsSource = ALVM.LoadAccounts(Connection.Established, Queries.GetAccounts);
+                    listViewAccounts.ItemsSource = ALVM.LoadAccounts(Queries.GetAccounts);
                     textBoxAccountLogin.IsEnabled = false;
                     textBoxAccountPassword.IsEnabled = false;
                     buttonCreateAccount.IsEnabled = false;
@@ -721,8 +721,8 @@ namespace Coins_Database.Views
                     _iSemestr = 2;
                 }
                 cbItemTotalRating.IsSelected = true;
-                listViewRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingTotal(_iYear, _iSemestr));
-                listViewEvents.ItemsSource = EVM.LoadEvents(Connection.Established, Queries.GetEventsList(_iYear, _iSemestr));
+                listViewRating.ItemsSource = RWM.LoadRating(Queries.GetRatingTotal(_iYear, _iSemestr));
+                listViewEvents.ItemsSource = EVM.LoadEvents(Queries.GetEventsList(_iYear, _iSemestr));
             }
             catch
             {
@@ -772,9 +772,9 @@ namespace Coins_Database.Views
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    QueriesManager.Execute(Connection.Established, Queries.DeleteAccount(textBoxAccountLogin.Text, textBoxAccountLogin.Text));
+                    QueriesManager.Execute(Queries.DeleteAccount(textBoxAccountLogin.Text, textBoxAccountLogin.Text));
                     SnackbarOne.IsActive = true;
-                    listViewAccounts.ItemsSource = ALVM.LoadAccounts(Connection.Established, Queries.GetAccounts);
+                    listViewAccounts.ItemsSource = ALVM.LoadAccounts(Queries.GetAccounts);
                     textBoxAccountLogin.Text = "";
                     textBoxAccountPassword.Text = "";
                     textBoxAccountLogin.IsEnabled = true;
@@ -793,7 +793,7 @@ namespace Coins_Database.Views
             {
                 CoinsList CoL = (CoinsList)lViewCoinsList.SelectedItems[0];
                 textBlockCoinEvent.Text = CoL.Party;
-                textBlockCoinEventDescription.Text = GCCVM.GetCoinComment(Connection.Established, CoL.IDCoin);
+                textBlockCoinEventDescription.Text = GCCVM.GetCoinComment(CoL.IDCoin);
                 textBlockCoinEventDate.Text = CoL.Date;
                 textBlockCoinEventPlace.Text = CoL.Place;
             }
@@ -803,9 +803,9 @@ namespace Coins_Database.Views
         {
             if (cbRequestEvent.SelectedItem != null)
             {
-                QueriesManager.Execute(Connection.Established, Queries.AddMessage(GIVM.LoadID(Connection.Established, Queries.GetTeacherID(2, sLogin), "id_teacher"),
-                    GIVM.LoadID(Connection.Established, Queries.GetEventID(cbRequestEvent.SelectedItem.ToString()), "id_event"), DateTime.Now));
-                listViewTeacherMessageBox.ItemsSource = AMLVM.LoadMAList(Connection.Established, Queries.GetTeacherMessageList(sLogin, _iYear, _iSemestr));
+                QueriesManager.Execute(Queries.AddMessage(GIVM.LoadID(Queries.GetTeacherID(2, sLogin), "id_teacher"),
+                    GIVM.LoadID(Queries.GetEventID(cbRequestEvent.SelectedItem.ToString()), "id_event"), DateTime.Now));
+                listViewTeacherMessageBox.ItemsSource = AMLVM.LoadMAList(Queries.GetTeacherMessageList(sLogin, _iYear, _iSemestr));
                 Snackbar2.IsActive = true;
             }
             else
@@ -824,7 +824,7 @@ namespace Coins_Database.Views
             gridTotalRatingBackgroung.Visibility = Visibility.Visible;
             listViewTotalRating.ItemsSource = null;
             cbRatingTypes.Text = "Общий рейтинг";
-            listViewTotalRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingTotal(_iYear, _iSemestr));
+            listViewTotalRating.ItemsSource = RWM.LoadRating(Queries.GetRatingTotal(_iYear, _iSemestr));
         }
 
         private void Button_Click_14(object sender, RoutedEventArgs e)
@@ -852,21 +852,21 @@ namespace Coins_Database.Views
                     {
                         if (_bIsNewEvent == true)
                         {
-                            QueriesManager.Execute(Connection.Established, Queries.AddEvent(textBoxEventCaption.Text, textBoxEventPlace.Text, textBoxEventDescription.Text,
-                                GIVM.LoadID(Connection.Established, Queries.GetEventTypeID(cbEventType.SelectedItem.ToString()), "id"), datePickerCalendar.SelectedDate.Value));
+                            QueriesManager.Execute(Queries.AddEvent(textBoxEventCaption.Text, textBoxEventPlace.Text, textBoxEventDescription.Text,
+                                GIVM.LoadID(Queries.GetEventTypeID(cbEventType.SelectedItem.ToString()), "id"), datePickerCalendar.SelectedDate.Value));
                         }
                         else
                         {
                             Events EvE = (Events)listViewEvents.SelectedItems[0];
-                            QueriesManager.Execute(Connection.Established, Queries.UpdateEvent(textBoxEventCaption.Text, textBoxEventPlace.Text, textBoxEventDescription.Text,
-                                GIVM.LoadID(Connection.Established, Queries.GetEventTypeID(cbEventType.SelectedItem.ToString()), "id"), datePickerCalendar.SelectedDate.Value,
-                                GIVM.LoadID(Connection.Established, Queries.GetEventID(EvE.Caption), "id_event")));
+                            QueriesManager.Execute(Queries.UpdateEvent(textBoxEventCaption.Text, textBoxEventPlace.Text, textBoxEventDescription.Text,
+                                GIVM.LoadID(Queries.GetEventTypeID(cbEventType.SelectedItem.ToString()), "id"), datePickerCalendar.SelectedDate.Value,
+                                GIVM.LoadID(Queries.GetEventID(EvE.Caption), "id_event")));
                         }
                         gridNewEvent.Visibility = Visibility.Hidden;
                         textBoxEventCaption.Text = "";
                         textBoxEventPlace.Text = "";
                         cbEventType.SelectedItem = null;
-                        listViewEvents.ItemsSource = EVM.LoadEvents(Connection.Established, Queries.GetEventsList(_iYear, _iSemestr));
+                        listViewEvents.ItemsSource = EVM.LoadEvents(Queries.GetEventsList(_iYear, _iSemestr));
                         textBlockEventInfo.Text = textBoxEventDescription.Text;
                         textBoxEventDescription.Text = "";
                     }
@@ -891,11 +891,11 @@ namespace Coins_Database.Views
             else
             {
                 _idCoinType = DCT.CoinType(cbAddCoinType);
-                _idEvent = GIVM.LoadID(Connection.Established, Queries.GetEventID(cbEvents.Text), "id_event");
-                QueriesManager.Execute(Connection.Established, Queries.AddCoin(_idEvent, _idTeacher, _idCoinType, textBoxComment.Text));
-                listViewCoinsList.ItemsSource = CLVM.LoadCoinsList(Connection.Established, Queries.GetCoinsList(textBlockTeachersName.Text, _iYear, _iSemestr));
-                listViewRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingTotal(_iYear, _iSemestr));
-                gridCoinsImg.DataContext = CCVM.LoadCoinsCount(Connection.Established, Queries.GetCoinsCount(textBlockTeachersName.Text, _iYear, _iSemestr));
+                _idEvent = GIVM.LoadID(Queries.GetEventID(cbEvents.Text), "id_event");
+                QueriesManager.Execute(Queries.AddCoin(_idEvent, _idTeacher, _idCoinType, textBoxComment.Text));
+                listViewCoinsList.ItemsSource = CLVM.LoadCoinsList(Queries.GetCoinsList(textBlockTeachersName.Text, _iYear, _iSemestr));
+                listViewRating.ItemsSource = RWM.LoadRating(Queries.GetRatingTotal(_iYear, _iSemestr));
+                gridCoinsImg.DataContext = CCVM.LoadCoinsCount(Queries.GetCoinsCount(textBlockTeachersName.Text, _iYear, _iSemestr));
                 cbEvents.Items.Clear();
                 textBoxComment.Text = "";
                 stackPanelNewCoin.Visibility = Visibility.Hidden;
@@ -904,7 +904,7 @@ namespace Coins_Database.Views
 
         private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
         {
-            listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(Connection.Established, Queries.GetAdminMessageListSort("Отклонено"));
+            listViewAdminMessageBox.ItemsSource = AMLVM.LoadMAList(Queries.GetAdminMessageListSort("Отклонено"));
         }
 
         private void Button_Click_16(object sender, RoutedEventArgs e)
@@ -917,7 +917,7 @@ namespace Coins_Database.Views
             colorZoneNewNight.Visibility = Visibility.Visible;
             stackPanelNewCoinPanel.Visibility = Visibility.Visible;
             cbGrantCoinEvents.Items.Clear();
-            foreach (string item in cESBTVM.LoadTypes(Connection.Established, Queries.GetCBCoinEvent(_iYear, _iSemestr), "event_name"))
+            foreach (string item in cESBTVM.LoadTypes(Queries.GetCBCoinEvent(_iYear, _iSemestr), "event_name"))
             {
                 cbGrantCoinEvents.Items.Add(item);
             }
@@ -933,8 +933,8 @@ namespace Coins_Database.Views
             else
             {
                 _idCoinType = DCT.CoinType(cbAddCoinType);
-                _idEvent = GIVM.LoadID(Connection.Established, Queries.GetEventID(cbGrantCoinEvents.Text), "id_event");
-                QueriesManager.Execute(Connection.Established, Queries.AddCoin(_idEvent, _idTeacher, _idCoinType, textBoxCommentCoin.Text));
+                _idEvent = GIVM.LoadID(Queries.GetEventID(cbGrantCoinEvents.Text), "id_event");
+                QueriesManager.Execute(Queries.AddCoin(_idEvent, _idTeacher, _idCoinType, textBoxCommentCoin.Text));
                 cbGrantCoinEvents.Items.Clear();
                 textBoxCommentCoin.Text = "";
                 stackPanelNewCoinPanel.Visibility = Visibility.Hidden;
@@ -959,27 +959,27 @@ namespace Coins_Database.Views
             var Workbook = new XLWorkbook();
             if (cbElementExportEvents.IsChecked == true)
             {
-                Excel.EventsReport(Workbook, "Мероприятия", EVM.LoadEvents(Connection.Established, Queries.GetEventsList(_iYear, _iSemestr)));
+                Excel.EventsReport(Workbook, "Мероприятия", EVM.LoadEvents(Queries.GetEventsList(_iYear, _iSemestr)));
             }
             if (cbElementExportTotal.IsChecked == true)
             {
-                Excel.RatingReport(Workbook, "Общий рейтинг", RWM.LoadRating(Connection.Established, Queries.GetRatingTotal(_iYear, _iSemestr)));
+                Excel.RatingReport(Workbook, "Общий рейтинг", RWM.LoadRating(Queries.GetRatingTotal(_iYear, _iSemestr)));
             }
             if (cbElementExportTalents.IsChecked == true)
             {
-                Excel.RatingReport(Workbook, "Таланты", RWM.LoadRating(Connection.Established, Queries.GetRatingTalents(_iYear, _iSemestr)));
+                Excel.RatingReport(Workbook, "Таланты", RWM.LoadRating(Queries.GetRatingTalents(_iYear, _iSemestr)));
             }
             if (cbElementExportIntellect.IsChecked == true)
             {
-                Excel.RatingReport(Workbook, "Интеллект", RWM.LoadRating(Connection.Established, Queries.GetRatingIntellect(_iYear, _iSemestr)));
+                Excel.RatingReport(Workbook, "Интеллект", RWM.LoadRating(Queries.GetRatingIntellect(_iYear, _iSemestr)));
             }
             if (cbElementExportArtcoins.IsChecked == true)
             {
-                Excel.RatingReport(Workbook, "Арткоины", RWM.LoadRating(Connection.Established, Queries.GetRatingArtcoins(_iYear, _iSemestr)));
+                Excel.RatingReport(Workbook, "Арткоины", RWM.LoadRating(Queries.GetRatingArtcoins(_iYear, _iSemestr)));
             }
             if (cbElementExportSocialActivity.IsChecked == true)
             {
-                Excel.RatingReport(Workbook, "Соц. активность", RWM.LoadRating(Connection.Established, Queries.GetRatingSocActivity(_iYear, _iSemestr)));
+                Excel.RatingReport(Workbook, "Соц. активность", RWM.LoadRating(Queries.GetRatingSocActivity(_iYear, _iSemestr)));
             }
             if (Excel.SaveReport(Workbook) == true)
             {
@@ -991,31 +991,31 @@ namespace Coins_Database.Views
         private void TcbItemTotalRating_Selected(object sender, RoutedEventArgs e)
         {
             listViewTotalRating.ItemsSource = null;
-            listViewTotalRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingTotal(_iYear, _iSemestr));
+            listViewTotalRating.ItemsSource = RWM.LoadRating(Queries.GetRatingTotal(_iYear, _iSemestr));
         }
 
         private void Tcbartcoins_Selected(object sender, RoutedEventArgs e)
         {
             listViewTotalRating.ItemsSource = null;
-            listViewTotalRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingTotal(_iYear, _iSemestr));
+            listViewTotalRating.ItemsSource = RWM.LoadRating(Queries.GetRatingTotal(_iYear, _iSemestr));
         }
 
         private void TcbIntellect_Selected(object sender, RoutedEventArgs e)
         {
             listViewTotalRating.ItemsSource = null;
-            listViewTotalRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingIntellect(_iYear, _iSemestr));
+            listViewTotalRating.ItemsSource = RWM.LoadRating(Queries.GetRatingIntellect(_iYear, _iSemestr));
         }
 
         private void TcbTalents_Selected(object sender, RoutedEventArgs e)
         {
             listViewTotalRating.ItemsSource = null;
-            listViewTotalRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingTalents(_iYear, _iSemestr));
+            listViewTotalRating.ItemsSource = RWM.LoadRating(Queries.GetRatingTalents(_iYear, _iSemestr));
         }
 
         private void TcbSocialActivity_Selected(object sender, RoutedEventArgs e)
         {
             listViewTotalRating.ItemsSource = null;
-            listViewTotalRating.ItemsSource = RWM.LoadRating(Connection.Established, Queries.GetRatingSocActivity(_iYear, _iSemestr));
+            listViewTotalRating.ItemsSource = RWM.LoadRating(Queries.GetRatingSocActivity(_iYear, _iSemestr));
         }
         #endregion
 
@@ -1023,17 +1023,17 @@ namespace Coins_Database.Views
         {
             gridTeachersCoins.Visibility = Visibility.Visible;
             gridTeachersMessageBox.Visibility = Visibility.Hidden;
-            listViewCoinsList.ItemsSource = CLVM.LoadCoinsList(Connection.Established, Queries.GetViewCoinsList(sLogin, _iYear, _iSemestr));
+            listViewCoinsList.ItemsSource = CLVM.LoadCoinsList(Queries.GetViewCoinsList(sLogin, _iYear, _iSemestr));
         }
 
         public void TRequestsRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             gridTeachersCoins.Visibility = Visibility.Hidden;
             gridTeachersMessageBox.Visibility = Visibility.Visible;
-            listViewTeacherMessageBox.ItemsSource = AMLVM.LoadMAList(Connection.Established, Queries.GetTeacherMessageList(sLogin, _iYear, _iSemestr));
-            labelTeachersFio.DataContext = AMLVM.LoadMAList(Connection.Established, Queries.GetTeacherMessageList(sLogin, _iYear, _iSemestr));
+            listViewTeacherMessageBox.ItemsSource = AMLVM.LoadMAList(Queries.GetTeacherMessageList(sLogin, _iYear, _iSemestr));
+            labelTeachersFio.DataContext = AMLVM.LoadMAList(Queries.GetTeacherMessageList(sLogin, _iYear, _iSemestr));
             cbRequestEvent.Items.Clear();
-            foreach (string Item in cESBTVM.LoadTypes(Connection.Established, Queries.GetCBCoinEvent(_iYear, _iSemestr), "event_name"))
+            foreach (string Item in cESBTVM.LoadTypes(Queries.GetCBCoinEvent(_iYear, _iSemestr), "event_name"))
             {
                 cbRequestEvent.Items.Add(Item);
             }

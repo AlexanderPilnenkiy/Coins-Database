@@ -10,23 +10,23 @@ using System.Threading.Tasks;
 
 namespace Coins_Database.ViewModels
 {
-    class CoinsCountViewModel
+    class CoinsCountViewModel : Connection
     {
-        public List<CoinsCount> LoadCoinsCount(NpgsqlConnection Connection, string Query)
+        public List<CoinsCount> LoadCoinsCount(string Query)
         {
             List<CoinsCount> Items = new List<CoinsCount>();
-            using (var Command = new NpgsqlCommand(Query, Connection))
+            using (var Command = new NpgsqlCommand(Query, Established))
             {
-                int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
+                int LstCount = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows.Count;
                 int i = 0;
                 while (LstCount > i)
                 {
                     Items.Add(new CoinsCount()
                     {
-                        Artcoins = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["artcoin"].ToString(),
-                        SocActive = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["soc_activity"].ToString(),
-                        Talents = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["talent"].ToString(),
-                        Intellect = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["intellect"].ToString()
+                        Artcoins = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["artcoin"].ToString(),
+                        SocActive = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["soc_activity"].ToString(),
+                        Talents = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["talent"].ToString(),
+                        Intellect = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["intellect"].ToString()
                     });
                     i++;
                 }

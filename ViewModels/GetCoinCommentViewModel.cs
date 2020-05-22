@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace Coins_Database.ViewModels
 {
-    class GetCoinCommentViewModel
+    class GetCoinCommentViewModel : Connection
     {
-        public string GetCoinComment(NpgsqlConnection Connection, int IDCoin)
+        public string GetCoinComment(int IDCoin)
         {
             string Items = "";
-            using (var Command = new NpgsqlCommand(Queries.GetCoinComment(IDCoin), Connection))
+            using (var Command = new NpgsqlCommand(Queries.GetCoinComment(IDCoin), Established))
             {
-                int LstCount = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows.Count;
+                int LstCount = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows.Count;
                 int i = 0;
-                Items = Configuration.SDataSet(Command, Connection).Tables["LIST"].Rows[i]["comment"].ToString();
+                Items = Configuration.SDataSet(Command, Established).Tables["LIST"].Rows[i]["comment"].ToString();
             }
             return Items;
         }

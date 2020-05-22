@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Coins_Database.Actions
 {
-    class Connection
+    public class Connection
     {
         public static NpgsqlConnection Established = new NpgsqlConnection();
 
