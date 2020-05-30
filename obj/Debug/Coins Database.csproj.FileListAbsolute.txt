@@ -1,8 +1,7 @@
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\Coins Database.exe
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\Coins Database.exe.config
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\Coins Database.exe.manifest
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\Coins Database.application
-C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\Coins Database.exe
-C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\Coins Database.pdb
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\Microsoft.Win32.Primitives.dll
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\netstandard.dll
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\System.AppContext.dll
@@ -100,6 +99,7 @@ C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\System.Xml.XPath.dl
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\System.Xml.XPath.XDocument.dll
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\ClosedXML.dll
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\CommonServiceLocator.dll
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\DocumentFormat.OpenXml.dll
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\Dragablz.dll
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\ExcelNumberFormat.dll
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\GalaSoft.MvvmLight.dll
@@ -150,6 +150,7 @@ C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\System.Windows.Inte
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\WpfAnimatedGif.dll
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\ClosedXML.pdb
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\ClosedXML.xml
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\DocumentFormat.OpenXml.xml
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\Dragablz.pdb
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\Dragablz.xml
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\ExcelNumberFormat.xml
@@ -174,8 +175,9 @@ C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\System.Text.Json.xm
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\System.ValueTuple.xml
 C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\WpfAnimatedGif.xml
-C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Coins Database.csprojAssemblyReference.cache
 C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Coins Database.exe.config
+C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Views\ConnectionParametersWindow.baml
+C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Views\ConnectionParametersWindow.g.cs
 C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Views\LoadingWindow.g.cs
 C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Views\MainWindow.g.cs
 C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Views\StartWindow.g.cs
@@ -196,5 +198,5 @@ C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Coins Database.appl
 C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Coins Database.csproj.CopyComplete
 C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Coins Database.exe
 C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Coins Database.pdb
-C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\DocumentFormat.OpenXml.dll
-C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\DocumentFormat.OpenXml.xml
+C:\Users\Admin\Desktop\Диплом\Coins Database\bin\Debug\Coins Database.pdb
+C:\Users\Admin\Desktop\Диплом\Coins Database\obj\Debug\Coins Database.csprojAssemblyReference.cache

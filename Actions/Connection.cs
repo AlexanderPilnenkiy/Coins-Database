@@ -14,10 +14,18 @@ namespace Coins_Database.Actions
 
         public static NpgsqlConnection Connect(string Login, string Password)
         {
-            var NewConnection = new NpgsqlConnection(Configuration.LoadSettings(Login, Password));
-            NewConnection.Open();
-            Established = NewConnection;
-            return NewConnection;
+            try
+            {
+                var NewConnection = new NpgsqlConnection(Configuration.LoadSettings(Login, Password));
+                NewConnection.Open();
+                Established = NewConnection;
+                return NewConnection;
+            }
+            catch
+            {
+                MessageBox.Show("Неверные параметры подключения");
+                return null;
+            }
         }
 
         public static void Disconnect()

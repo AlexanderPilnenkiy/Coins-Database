@@ -6,21 +6,36 @@ namespace Coins_Database.Actions
 {
     class XML
     {
+        static string ConfigFile = "configs.xml";
+
         public static string CheckOrCreateXML()
         {
-            var ConfigFile = "configs.xml";
+            XDocument XDoc = new XDocument();
+            XElement EConnection = new XElement("connection");
             if (!File.Exists(ConfigFile))
             {
-                XDocument XDoc = new XDocument();
-                XElement EConnection = new XElement("connection");
                 XAttribute AServer = new XAttribute("server", "127.0.0.1");
                 XAttribute APort = new XAttribute("port", "5432");
-                EConnection.Add(AServer);
-                EConnection.Add(APort);
-                XDoc.Add(EConnection);
-                XDoc.Save(ConfigFile);
+                CreateFile(XDoc, EConnection, AServer, APort);
             }
             return ConfigFile;
+        }
+
+        public static void RewriteXML(string Port, string Ip)
+        {
+            XDocument XDoc = new XDocument();
+            XElement EConnection = new XElement("connection");
+            XAttribute AServer = new XAttribute("server", Ip);
+            XAttribute APort = new XAttribute("port", Port);
+            CreateFile(XDoc, EConnection, AServer, APort);
+        }
+
+        static void CreateFile(XDocument XDoc, XElement EConnection, XAttribute AServer, XAttribute APort)
+        {
+            EConnection.Add(AServer);
+            EConnection.Add(APort);
+            XDoc.Add(EConnection);
+            XDoc.Save(ConfigFile);
         }
 
         public static List<string> ReadXML(string Filename)

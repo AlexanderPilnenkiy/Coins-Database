@@ -18,6 +18,11 @@
             <Button  Margin="572,0,0,412" Click="Button_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Height="Auto" Width="Auto" Foreground="#FF260940" >
                 <materialDesign:PackIcon Kind="CloseCircleOutline" Width="35" Height="35"/>
             </Button>
+            <Button Cursor="Hand" Margin="520,0,53,412" Height="Auto" Width="Auto"  
+                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                Background="{x:Null}" BorderBrush="{x:Null}" x:Name="Help" Click="Help_Click">
+                <materialDesign:PackIcon Kind="SettingsOutline" Width="35" Height="35" RenderTransformOrigin="0.407,0.47" Foreground="#FF260940"/>
+            </Button>
             <Grid  Margin="0,224,12,12" Width="309" Height="224" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="37*"/>

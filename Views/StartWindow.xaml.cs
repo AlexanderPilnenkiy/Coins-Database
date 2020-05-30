@@ -57,5 +57,11 @@ namespace Coins_Database
             if (e.Key == Key.Enter && SignIn.IsEnabled)
                 SignIn_Click(SignIn, new RoutedEventArgs());
         }
+
+        private void Help_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionParametersWindow connectionParametersWindow = new ConnectionParametersWindow();
+            connectionParametersWindow.Show();
+        }
     }
 }

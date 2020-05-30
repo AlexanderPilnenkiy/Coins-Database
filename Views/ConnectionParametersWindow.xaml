@@ -1,0 +1,24 @@
+﻿<Window x:Class="Coins_Database.Views.ConnectionParametersWindow"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="ConnectionParametersWindow" WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize" 
+        Background="#5016002C" Opacity="0.99999"
+        Height="460" Width="620">
+    <Grid Background="#FFE4E4E4" Width="150" Height="160">
+        <TextBox x:Name="textBoxPort" materialDesign:HintAssist.Hint="Порт" Margin="9,20,10,100"/>
+        <TextBox x:Name="textBoxIp" materialDesign:HintAssist.Hint="IP сервера" Margin="10,65,9,55"/>
+        <Button Cursor="Hand" Margin="130,0,0,140" Width="20" Height="20" 
+                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                Background="{x:Null}" BorderBrush="{x:Null}" x:Name="Help" Click="Help_Click">
+            <materialDesign:PackIcon Kind="HelpCircle" Width="17" Height="17" RenderTransformOrigin="0.407,0.47" Foreground="#FF5D11A0"/>
+        </Button>
+        <Button x:Name="Accept" Margin="10,119,9,10" Content="Подтвердить"
+                FontFamily="Segoe UI" materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                FontSize="12" IsEnabled="true" Height="Auto" Background="#FF5D11A0" BorderBrush="#FF5D11A0" Click="Accept_Click"/>
+    </Grid>
+</Window>
