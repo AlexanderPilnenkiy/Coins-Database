@@ -7,14 +7,14 @@
     <framework targetVersion="4.6.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Coins Database.exe.manifest" size="107589">
+    <dependentAssembly dependencyType="install" codebase="Coins Database.exe.manifest" size="109871">
       <assemblyIdentity name="Coins Database.exe" version="1.1.2.4" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>VLMQ+QDhzJryuibQV82655sBs1qmcaERNCWyaUIblTg=</dsig:DigestValue>
+        <dsig:DigestValue>A4ldbxu/59d7rsKOfbXfReDF+IGsfk/8+KfSBNbojr8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

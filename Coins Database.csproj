@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\NUnit3TestAdapter.3.16.1\build\net35\NUnit3TestAdapter.props" Condition="Exists('packages\NUnit3TestAdapter.3.16.1\build\net35\NUnit3TestAdapter.props')" />
+  <Import Project="packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('packages\NUnit.3.12.0\build\NUnit.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -202,6 +204,9 @@
     <Reference Include="Npgsql, Version=4.1.3.1, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>packages\Npgsql.4.1.3.1\lib\net461\Npgsql.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework, Version=3.12.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
@@ -263,73 +268,85 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\ConnectionParametersWindow.xaml">
+    <Page Include="Source\Views\ConnectionParametersWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LoadingWindow.xaml">
+    <Page Include="Source\Views\LoadingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="Source\Views\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\StartWindow.xaml">
+    <Page Include="Source\Views\StartWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Actions\Configuration.cs" />
-    <Compile Include="Actions\Connection.cs" />
-    <Compile Include="Actions\Excel.cs" />
-    <Compile Include="Actions\Queries.cs" />
-    <Compile Include="Actions\Session.cs" />
-    <Compile Include="Actions\XML.cs" />
+    <Compile Include="Source\Actions\Configuration.cs" />
+    <Compile Include="Source\Actions\Connection.cs" />
+    <Compile Include="Source\Actions\Excel.cs" />
+    <Compile Include="Source\Actions\Queries.cs" />
+    <Compile Include="Source\Actions\Session.cs" />
+    <Compile Include="Source\Actions\XML.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controls\AddCoinTypes.cs" />
-    <Compile Include="Controls\CreateMainMenu.cs" />
-    <Compile Include="DataAccessLayer\AboutEvent.cs" />
-    <Compile Include="DataAccessLayer\Account.cs" />
-    <Compile Include="DataAccessLayer\AdminMessageList.cs" />
-    <Compile Include="DataAccessLayer\cbEventsSort.cs" />
-    <Compile Include="DataAccessLayer\CoinsCount.cs" />
-    <Compile Include="DataAccessLayer\CoinsList.cs" />
-    <Compile Include="DataAccessLayer\Events.cs" />
-    <Compile Include="DataAccessLayer\Rating.cs" />
-    <Compile Include="DataAccessLayer\TeacherCard.cs" />
-    <Compile Include="DataAccessLayer\TeacherPhoto.cs" />
-    <Compile Include="DataAccessLayer\TeachersList.cs" />
-    <Compile Include="Operations\DetermineCoinType.cs" />
-    <Compile Include="Operations\QueriesManager.cs" />
-    <Compile Include="ViewModels\AboutEventViewModel.cs" />
-    <Compile Include="ViewModels\AccountListViewModel.cs" />
-    <Compile Include="ViewModels\AdminMessageListViewModel.cs" />
-    <Compile Include="ViewModels\cbEventsSortViewModel.cs" />
-    <Compile Include="ViewModels\CoinsCountViewModel.cs" />
-    <Compile Include="ViewModels\CoinsListViewModel.cs" />
-    <Compile Include="ViewModels\EventsViewModel.cs" />
-    <Compile Include="ViewModels\GetCoinCommentViewModel.cs" />
-    <Compile Include="ViewModels\GetIdViewModel.cs" />
-    <Compile Include="ViewModels\InsertImageViewModel.cs" />
-    <Compile Include="ViewModels\LastImageIdViewModel.cs" />
-    <Compile Include="ViewModels\RatingViewModel.cs" />
-    <Compile Include="ViewModels\SortedEventsViewModel.cs" />
-    <Compile Include="ViewModels\TeacherCardViewModel.cs" />
-    <Compile Include="ViewModels\TeacherPhotoViewModel.cs" />
-    <Compile Include="ViewModels\TeachersListViewModel.cs" />
-    <Compile Include="Views\ConnectionParametersWindow.xaml.cs">
+    <Compile Include="Source\Controls\AddCoinTypes.cs" />
+    <Compile Include="Source\Controls\CreateMainMenu.cs" />
+    <Compile Include="Source\DataAccessLayer\AboutEvent.cs" />
+    <Compile Include="Source\DataAccessLayer\Account.cs" />
+    <Compile Include="Source\DataAccessLayer\AdminMessageList.cs" />
+    <Compile Include="Source\DataAccessLayer\cbEventsSort.cs" />
+    <Compile Include="Source\DataAccessLayer\CoinsCount.cs" />
+    <Compile Include="Source\DataAccessLayer\CoinsList.cs" />
+    <Compile Include="Source\DataAccessLayer\Events.cs" />
+    <Compile Include="Source\DataAccessLayer\Rating.cs" />
+    <Compile Include="Source\DataAccessLayer\TeacherCard.cs" />
+    <Compile Include="Source\DataAccessLayer\TeacherPhoto.cs" />
+    <Compile Include="Source\DataAccessLayer\TeachersList.cs" />
+    <Compile Include="Source\Operations\DetermineCoinType.cs" />
+    <Compile Include="Source\Operations\QueriesManager.cs" />
+    <Compile Include="Tests\ConnectionTests\DatabaseTest.cs" />
+    <Compile Include="Tests\DataAccessTests\AboutEventTest.cs" />
+    <Compile Include="Tests\DataAccessTests\AccountDataTests.cs" />
+    <Compile Include="Tests\DataAccessTests\AdminMessageListTest.cs" />
+    <Compile Include="Tests\DataAccessTests\cbEventsSortTest.cs" />
+    <Compile Include="Tests\DataAccessTests\CoinsCountTest.cs" />
+    <Compile Include="Tests\DataAccessTests\CoinsListTest.cs" />
+    <Compile Include="Tests\DataAccessTests\EventsTest.cs" />
+    <Compile Include="Tests\DataAccessTests\RatingTest.cs" />
+    <Compile Include="Tests\DataAccessTests\TeachersListTest.cs" />
+    <Compile Include="Tests\InformationSystemTests\SemestrTest.cs" />
+    <Compile Include="Tests\OperationsTests\DetermineCoinTypeTest.cs" />
+    <Compile Include="Source\ViewModels\AboutEventViewModel.cs" />
+    <Compile Include="Source\ViewModels\AccountListViewModel.cs" />
+    <Compile Include="Source\ViewModels\AdminMessageListViewModel.cs" />
+    <Compile Include="Source\ViewModels\cbEventsSortViewModel.cs" />
+    <Compile Include="Source\ViewModels\CoinsCountViewModel.cs" />
+    <Compile Include="Source\ViewModels\CoinsListViewModel.cs" />
+    <Compile Include="Source\ViewModels\EventsViewModel.cs" />
+    <Compile Include="Source\ViewModels\GetCoinCommentViewModel.cs" />
+    <Compile Include="Source\ViewModels\GetIdViewModel.cs" />
+    <Compile Include="Source\ViewModels\InsertImageViewModel.cs" />
+    <Compile Include="Source\ViewModels\LastImageIdViewModel.cs" />
+    <Compile Include="Source\ViewModels\RatingViewModel.cs" />
+    <Compile Include="Source\ViewModels\SortedEventsViewModel.cs" />
+    <Compile Include="Source\ViewModels\TeacherCardViewModel.cs" />
+    <Compile Include="Source\ViewModels\TeacherPhotoViewModel.cs" />
+    <Compile Include="Source\ViewModels\TeachersListViewModel.cs" />
+    <Compile Include="Source\Views\ConnectionParametersWindow.xaml.cs">
       <DependentUpon>ConnectionParametersWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoadingWindow.xaml.cs">
+    <Compile Include="Source\Views\LoadingWindow.xaml.cs">
       <DependentUpon>LoadingWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainWindow.xaml.cs">
+    <Compile Include="Source\Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StartWindow.xaml.cs">
+    <Compile Include="Source\Views\StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -364,28 +381,28 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\school.jpg" />
+    <Resource Include="Resources\school.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\progressing.gif" />
+    <Resource Include="Resources\progressing.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Coins\intellect.png" />
+    <Resource Include="Resources\Coins\intellect.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Coins\social_activity.png" />
+    <Resource Include="Resources\Coins\social_activity.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Coins\talent.png" />
+    <Resource Include="Resources\Coins\talent.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Coins\artcoin.png" />
+    <Resource Include="Resources\Coins\artcoin.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\noimage.jpg" />
+    <Resource Include="Resources\noimage.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\coin.ico" />
+    <Resource Include="Resources\coin.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="coin.ico" />
@@ -402,6 +419,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -409,5 +427,7 @@
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets'))" />
+    <Error Condition="!Exists('packages\NUnit.3.12.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit.3.12.0\build\NUnit.props'))" />
+    <Error Condition="!Exists('packages\NUnit3TestAdapter.3.16.1\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit3TestAdapter.3.16.1\build\net35\NUnit3TestAdapter.props'))" />
   </Target>
 </Project>

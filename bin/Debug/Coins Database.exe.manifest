@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Coins Database.exe" size="1616352">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Coins Database.exe" size="1621472">
       <assemblyIdentity name="Coins Database" version="1.0.1.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>V3Nr6qXZniYGn5ZXzMg8YIyKf7IfR6DUewFzpHD6b1g=</dsig:DigestValue>
+        <dsig:DigestValue>qhFGsBhJTRCbCz9tTWGGVTN9rokmbEnCxqeWCj7IN6c=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -555,6 +555,18 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
         <dsig:DigestValue>nuPvR8gVr85o4dL12A6LOuz7vN+s//9+s8l/oF9kCxE=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="nunit.framework.dll" size="394240">
+      <assemblyIdentity name="nunit.framework" version="3.12.0.0" publicKeyToken="2638CD05610744EB" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>hpVhthozeIwa1Br8pH24+qxaPkqXRiGUMWJahpPfook=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -1822,6 +1834,42 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>ITu2fjrw716+IT0GROR5kOPEiSqzsfatBwGXK+Qp2Kc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="nunit.engine.api.dll" size="18944">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>mPedgRFRAvGfE0WqTb0ycge++PwM8znXlZY4eqvAsE8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="nunit.engine.dll" size="130560">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>jZRSZ0RuwB1thMZ8fDENCYNRlZZmDcudXxpj13UHC7k=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="NUnit3.TestAdapter.dll" size="358400">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>L7BkyNp/sh540s2/zVlD4jGY/V5B0A7xSRq+uW+zuy8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="NUnit3.TestAdapter.pdb" size="22820">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>nfL8yAbYgE63Vsaoa3XgSExo3mWWeh4AK4uM6v0hxxc=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
