@@ -21,15 +21,15 @@ namespace Coins_Database.Tests.OperationsTests
             determineCoinType = new DetermineCoinType();
         }
 
-        [TestCase(0, "Арткоин")]
-        [TestCase(1, "Талант")]
-        [TestCase(2, "Соц. активность")]
-        [TestCase(3, "Интеллект")]
-        [TestCase(-1, "Ошибка")]
-        [Test]
-        public void TestParameters(int Id, string Coin)
-        {
-            Assert.AreEqual(Id, determineCoinType.CoinType(Coin));
-        }
+        //[TestCase(0, "Арткоин")]
+        //[TestCase(1, "Талант")]
+        //[TestCase(2, "Соц. активность")]
+        //[TestCase(3, "Интеллект")]
+        //[TestCase(-1, "Ошибка")]
+        //[Test]
+        //public void TestParameters(int Id, string Coin)
+        //{
+        //    Assert.AreEqual(Id, determineCoinType.CoinType(Coin));
+        //}
     }
 }

@@ -1,4 +1,5 @@
-﻿using Npgsql;
+﻿using Coins_Database.Views;
+using Npgsql;
 using System;
 using System.Data;
 using System.Windows;

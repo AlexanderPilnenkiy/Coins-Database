@@ -65,6 +65,11 @@ namespace Coins_Database.Views
             }
         }
 
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
         public static int GetSemestr(int Month)
         {
             if (Month >= 9 && Month <= 12)
@@ -890,7 +895,7 @@ namespace Coins_Database.Views
             }
             else
             {
-                _idCoinType = DCT.CoinType(cbAddCoinType.Text);
+                _idCoinType = DCT.CoinType(cbTypeOfCoin.Text);
                 _idEvent = GIVM.LoadID(Queries.GetEventID(cbEvents.Text), "id_event");
                 QueriesManager.Execute(Queries.AddCoin(_idEvent, _idTeacher, _idCoinType, textBoxComment.Text));
                 listViewCoinsList.ItemsSource = CLVM.LoadCoinsList(Queries.GetCoinsList(textBlockTeachersName.Text, _iYear, _iSemestr));

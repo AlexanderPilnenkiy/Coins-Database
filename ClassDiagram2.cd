@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Coins_Database.App" Collapsed="true">
+    <Position X="39" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.StartWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="45.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAEAAAAAAAAAgAAAAQAAAAA=</HashCode>
+      <FileName>Source\Views\StartWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coins_Database.Properties.Resources" Collapsed="true">
+    <Position X="37.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Properties.Settings" Collapsed="true">
+    <Position X="37" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Actions.Configuration">
+    <Position X="38.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAIAAAAAAAIFAAAAABIAAAEAAACAEAAAAAAAAAAA=</HashCode>
+      <FileName>Source\Actions\Configuration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Actions.Connection">
+    <Position X="19" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAQAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\Actions\Connection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Actions.Excel">
+    <Position X="44" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAABAAAAAQAAAAAAA=</HashCode>
+      <FileName>Source\Actions\Excel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Actions.Queries" Collapsed="true">
+    <Position X="48" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUFAAACAYNIIAFhAKAAAAgKBsihAAAAAAQyCQQAgAA=</HashCode>
+      <FileName>Source\Actions\Queries.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Actions.Session">
+    <Position X="40.5" Y="10.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="Coins_Database.Actions.Session.ACCESS">
+        <TypeIdentifier>
+          <NewMemberFileName>Source\Actions\Session.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Source\Actions\Session.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Actions.XML">
+    <Position X="45.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAQAAAAAAAIAAgAAAAgAAAAAAAA=</HashCode>
+      <FileName>Source\Actions\XML.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Controls.AddCoinTypes" Collapsed="true">
+    <Position X="46" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\Controls\AddCoinTypes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Controls.CreateMainMenu" Collapsed="true">
+    <Position X="42.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Source\Controls\CreateMainMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.DataAccessLayer.AboutEvent">
+    <Position X="39" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\DataAccessLayer\AboutEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.DataAccessLayer.Account" Collapsed="true">
+    <Position X="42.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Source\DataAccessLayer\Account.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.DataAccessLayer.AdminMessageList" Collapsed="true">
+    <Position X="47.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAEAAAAgAAAAAAAAAAAAgAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Source\DataAccessLayer\AdminMessageList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.DataAccessLayer.cbEventsSort" Collapsed="true">
+    <Position X="40.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\DataAccessLayer\cbEventsSort.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.DataAccessLayer.CoinsCount" Collapsed="true">
+    <Position X="44.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAEAAAAAAAAAAAAAAAAAAACAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Source\DataAccessLayer\CoinsCount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.DataAccessLayer.CoinsList" Collapsed="true">
+    <Position X="47.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAgAAAAAAAAAAAAAAAEAAABAUAAAAAAIAA=</HashCode>
+      <FileName>Source\DataAccessLayer\CoinsList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.DataAccessLayer.Events" Collapsed="true">
+    <Position X="49.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABCUAAAAAAAAA=</HashCode>
+      <FileName>Source\DataAccessLayer\Events.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.DataAccessLayer.Rating" Collapsed="true">
+    <Position X="47.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAgAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\DataAccessLayer\Rating.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.DataAccessLayer.TeacherCard" Collapsed="true">
+    <Position X="47.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Source\DataAccessLayer\TeacherCard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.DataAccessLayer.TeacherPhoto" Collapsed="true">
+    <Position X="49.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Source\DataAccessLayer\TeacherPhoto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.DataAccessLayer.TeachersList" Collapsed="true">
+    <Position X="39" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Source\DataAccessLayer\TeachersList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Operations.DetermineCoinType">
+    <Position X="42.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\Operations\DetermineCoinType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Operations.QueriesManager">
+    <Position X="15.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\Operations\QueriesManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.AboutEventViewModell">
+    <Position X="15.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\ViewModels\AboutEventViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.AccountListViewModel">
+    <Position X="15.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\ViewModels\AccountListViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.AdminMessageListViewModel">
+    <Position X="16.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Source\ViewModels\AdminMessageListViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.cbEventsSortViewModel">
+    <Position X="19.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\ViewModels\cbEventsSortViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.CoinsCountViewModel">
+    <Position X="22.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\ViewModels\CoinsCountViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.CoinsListViewModel">
+    <Position X="19" Y="7" Width="1.5" />
+    <InheritanceLine Type="Coins_Database.Actions.Connection" FixedToPoint="true">
+      <Path>
+        <Point X="19.75" Y="5.997" />
+        <Point X="19.75" Y="7" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Source\ViewModels\CoinsListViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.EventsViewModel">
+    <Position X="22.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\ViewModels\EventsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.GetCoinCommentViewModel">
+    <Position X="15.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\ViewModels\GetCoinCommentViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.GetIdViewModel">
+    <Position X="17" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Source\ViewModels\GetIdViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.InsertImageViewModel">
+    <Position X="15.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\ViewModels\InsertImageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.LastImageIdViewModel">
+    <Position X="18.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\ViewModels\LastImageIdViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.RatingViewModel">
+    <Position X="21.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\ViewModels\RatingViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.SortedEventsViewModel">
+    <Position X="22.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\ViewModels\SortedEventsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.TeacherCardViewModel">
+    <Position X="21" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Source\ViewModels\TeacherCardViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.TeacherPhotoViewModel">
+    <Position X="22.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\ViewModels\TeacherPhotoViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.ViewModels.TeachersListViewModel">
+    <Position X="22.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Source\ViewModels\TeachersListViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Views.ConnectionParametersWindow" BaseTypeListCollapsed="true">
+    <Position X="40.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Source\Views\ConnectionParametersWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Coins_Database.Views.LoadingWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="42.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Source\Views\LoadingWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Coins_Database.Views.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="42.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KDACAWGxQBkNTpBNugBkuRuOEAkxVKDCiAiyCEQEIEI=</HashCode>
+      <FileName>Source\Views\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.939" />
+  </Class>
+  <Class Name="Coins_Database.Tests.ConnectionTest" Collapsed="true">
+    <Position X="42.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAABAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\ConnectionTests\DatabaseTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Tests.AccountDataTests" Collapsed="true">
+    <Position X="44.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAgAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\DataAccessTests\AccountDataTests.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Tests.DataAccessTests.AboutEventTest" Collapsed="true">
+    <Position X="40.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAgAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\DataAccessTests\AboutEventTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Tests.DataAccessTests.AdminMessageListTest" Collapsed="true">
+    <Position X="49.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAgAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\DataAccessTests\AdminMessageListTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Tests.DataAccessTests.cbEventsSortTest" Collapsed="true">
+    <Position X="42.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAgAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\DataAccessTests\cbEventsSortTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Tests.DataAccessTests.CoinsCountTest" Collapsed="true">
+    <Position X="46" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAgAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\DataAccessTests\CoinsCountTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Tests.DataAccessTests.CoinsListTest" Collapsed="true">
+    <Position X="49.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAgAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\DataAccessTests\CoinsListTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Tests.DataAccessTests.EventsTest" Collapsed="true">
+    <Position X="39" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAgAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\DataAccessTests\EventsTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Tests.DataAccessTests.RatingTest" Collapsed="true">
+    <Position X="49.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAgAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\DataAccessTests\RatingTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Tests.DataAccessTests.TeachersListTest" Collapsed="true">
+    <Position X="40.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAgAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\DataAccessTests\TeachersListTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Tests.InformationSystemTests.SemestrTest" Collapsed="true">
+    <Position X="40.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tests\InformationSystemTests\SemestrTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coins_Database.Tests.OperationsTests.DetermineCoinTypeTest" Collapsed="true">
+    <Position X="47.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAABAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Tests\OperationsTests\DetermineCoinTypeTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
